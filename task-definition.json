@@ -1,10 +1,11 @@
 {
   "family": "magento-task",
   "networkMode": "bridge",
+  "executionRoleArn": "arn:aws:iam::123456789012:role/ecsTaskExecutionRole",
   "containerDefinitions": [
     {
       "name": "magento-container",
-      "image": "magento/247-p3:latest",
+      "image": "123456789012.dkr.ecr.us-east-1.amazonaws.com/magento/247-p3:latest",
       "essential": true,
       "portMappings": [
         {
@@ -29,9 +30,7 @@
       }
     }
   ],
-  "requiresCompatibilities": [
-    "EC2"
-  ],
+  "requiresCompatibilities": ["EC2"],
   "cpu": "1024",
   "memory": "2048"
 }
