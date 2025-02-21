@@ -11,6 +11,7 @@ env:
   ECS_CLUSTER: magento-cluster  # Set your ECS cluster name
   ECS_SERVICE: magento-service  # Set your ECS service name
   CONTAINER_NAME: magento-container  # Set your container name
+  TASK_FAMILY: magento-task  # Task definition family name
 
 jobs:
   deploy:
@@ -39,21 +40,26 @@ jobs:
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-        echo "::set-output name=image_uri::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+        echo "IMAGE_URI=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_ENV
 
-    - name: Update ECS task definition
+    - name: Get latest ECS task definition
+      id: get-task-def
+      run: |
+        aws ecs describe-task-definition --task-definition ${{ env.TASK_FAMILY }} --query taskDefinition > task-definition.json
+
+    - name: Update ECS task definition with new image
       id: update-task-def
-      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-      with:
-        task-definition: task-definition.json  # Path to your task definition file
-        container-name: ${{ env.CONTAINER_NAME }}
-        image: ${{ steps.build-image.outputs.image_uri }}
+      run: |
+        jq --arg IMAGE_URI "$IMAGE_URI" '.containerDefinitions[0].image=$IMAGE_URI' task-definition.json > new-task-def.json
+        aws ecs register-task-definition --cli-input-json file://new-task-def.json > task-def-output.json
+        NEW_TASK_ARN=$(jq -r '.taskDefinition.taskDefinitionArn' task-def-output.json)
+        echo "TASK_DEFINITION_ARN=$NEW_TASK_ARN" >> $GITHUB_ENV
 
     - name: Deploy to ECS
       id: deploy-ecs
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
-        task-definition: ${{ steps.update-task-def.outputs.task-definition }}
+        task-definition: ${{ env.TASK_DEFINITION_ARN }}
         service: ${{ env.ECS_SERVICE }}
         cluster: ${{ env.ECS_CLUSTER }}
         wait-for-service-stability: true
