@@ -1,7 +1,7 @@
 {
   "family": "magento-task",
   "networkMode": "bridge",
-  "executionRoleArn": "arn:aws:iam::123456789012:role/ecsTaskExecutionRole",
+  "executionRoleArn": "arn:aws:iam::857279058880:role/ecsTaskExecutionRoleformagento",
   "containerDefinitions": [
     {
       "name": "magento-container",
