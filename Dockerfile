@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
     libzip-dev \
     unzip \
-    wget	
+    wget \
     && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
@@ -27,20 +27,14 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
     zip
 
 # Install Composer globally
-#RUN apt update && apt install curl && \
-#  curl -sS https://getcomposer.org/download/2.2.12/composer.phar \
-#  && chmod +x composer.phar && mv composer.phar /usr/local/bin/composer
-RUN wget https://getcomposer.org/download/2.7.0/composer.phar \
-    mv composer.phar /usr/local/bin/composer \	
-    chmod +x /usr/local/bin/composer	
-# Copy Symfony application files
-COPY ./ .
+RUN wget https://getcomposer.org/download/2.7.0/composer.phar && \
+    mv composer.phar /usr/local/bin/composer && \
+    chmod +x /usr/local/bin/composer
 
-# Install dependencies
-#RUN composer install --no-scripts --no-autoloader
+# Copy remaining Magento source code
+COPY . .
 
 # Expose port 9000 for PHP-FPM
 EXPOSE 9000
 
 CMD ["php-fpm"]
- 
