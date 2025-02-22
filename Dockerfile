@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     unzip \
     wget \
+    nginx \	
     && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
@@ -33,8 +34,8 @@ RUN wget https://getcomposer.org/download/2.7.0/composer.phar && \
 
 # Copy remaining Magento source code
 COPY . .
-
+COPY ./nginx.conf /etc/nginx/conf.d/app.conf
 # Expose port 9000 for PHP-FPM
-EXPOSE 9000
+EXPOSE 9000 80
 
-CMD ["php-fpm"]
+CMD ["php-fpm", "nginx"]
