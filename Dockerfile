@@ -16,7 +16,8 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     unzip \
     wget \
-    nginx \	
+    nginx \
+    supervisor \  # Install Supervisor
     && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
@@ -32,10 +33,23 @@ RUN wget https://getcomposer.org/download/2.7.0/composer.phar && \
     mv composer.phar /usr/local/bin/composer && \
     chmod +x /usr/local/bin/composer
 
-# Copy remaining Magento source code
+# Copy Magento source code
 COPY . .
-COPY ./nginx.conf /etc/nginx/conf.d/app.conf
-# Expose port 9000 for PHP-FPM
-EXPOSE 9000 80
 
-CMD ["php-fpm", "nginx"]
+# Copy Nginx configuration
+COPY ./nginx.conf /etc/nginx/conf.d/app.conf
+
+# Copy PHP-FPM configuration
+COPY ./www.conf /usr/local/etc/php-fpm.d/www.conf
+
+# Copy Supervisor configuration
+COPY ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+# Set permissions
+RUN chown -R www-data:www-data /var/www/html
+
+# Expose ports
+EXPOSE 80 9000
+
+# Start Supervisor
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
