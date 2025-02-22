@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y \
     unzip \
     wget \
     nginx \
-    supervisor \  # Install Supervisor
+    supervisor \  
     && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
@@ -39,8 +39,6 @@ COPY . .
 # Copy Nginx configuration
 COPY ./nginx.conf /etc/nginx/conf.d/app.conf
 
-# Copy PHP-FPM configuration
-COPY ./www.conf /usr/local/etc/php-fpm.d/www.conf
 
 # Copy Supervisor configuration
 COPY ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
