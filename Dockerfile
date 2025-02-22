@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y \
     unzip \
     wget \
     nginx \
-    supervisor \  
+    supervisor \
     && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
@@ -39,11 +39,17 @@ COPY . .
 # Copy Nginx configuration
 COPY ./nginx.conf /etc/nginx/conf.d/app.conf
 
+# Copy PHP-FPM configuration
+COPY ./www.conf /usr/local/etc/php-fpm.d/www.conf
 
 # Copy Supervisor configuration
 COPY ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-# Set permissions
+# Create log directories and set permissions
+RUN mkdir -p /var/log/supervisor /var/log/nginx /var/log/php-fpm && \
+    chown -R www-data:www-data /var/log/supervisor /var/log/nginx /var/log/php-fpm
+
+# Set permissions for Magento files
 RUN chown -R www-data:www-data /var/www/html
 
 # Expose ports
