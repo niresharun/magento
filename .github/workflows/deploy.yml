@@ -9,9 +9,9 @@ env:
   AWS_REGION: us-east-1  # Set your AWS region
   ECR_REPOSITORY: magento/247-p3  # Set your ECR repository name
   ECS_CLUSTER: magento-cluster  # Set your ECS cluster name
-  ECS_SERVICE: magento-service  # Set your ECS service name
+  ECS_SERVICE: magento-nginx-service1  # Set your ECS service name
   CONTAINER_NAME: magento-container  # Set your container name
-  ECS_TASK_DEFINITION: magento-ec2-task
+  ECS_TASK_DEFINITION: magento-task-new
 jobs: 
   deploy:
     runs-on: ubuntu-latest
@@ -60,7 +60,7 @@ jobs:
     - name: Deploy to ECS
       uses: imehedi/actions-awscli-v2@latest
       with:
-        args: ecs update-service --cluster magento-cluster --service magento-service --force-new-deployment
+        args: ecs update-service --cluster magento-cluster --service magento-nginx-service1 --force-new-deployment
       env:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
