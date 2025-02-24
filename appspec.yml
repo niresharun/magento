@@ -1,0 +1,10 @@
+version: 1.0
+resources:
+  - targetService:
+      type: AWS::ECS::Service
+      properties:
+        taskDefinition: "arn:aws:ecs:eu-central-1:<AWSACCOUNTID>:task-definition/simple-task"
+        loadBalancerInfo:
+          containerName: "magento-app"
+          containerPort: 80
+        platformVersion: "LATEST"
