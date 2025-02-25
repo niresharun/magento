@@ -1,7 +1,7 @@
 FROM ubuntu:latest AS base
 
 ENV DEBIAN_FRONTEND noninteractive
-
+WORKDIR /var/www/html
 # Install dependencies
 RUN apt update
 RUN apt install -y software-properties-common
@@ -78,8 +78,8 @@ RUN echo "\
     tail -s 1 /var/log/nginx/*.log -f\n\
     " > /start.sh
 
-COPY ./public /var/www/html/public
-WORKDIR /var/www/html
+COPY . .
+
 
 RUN chown -R www-data:www-data /var/www/html
 
