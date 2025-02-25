@@ -33,16 +33,16 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
-    # - name: Build, tag, and push Docker image to Amazon ECR
-    #   id: build-image
-    #   env:
-    #     ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-    #     # IMAGE_TAG: ${{ github.sha }}
-    #   run: |
-    #     docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
-    #     docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
-    #     echo "::set-output name=image_uri::$ECR_REGISTRY/$ECR_REPOSITORY:latest"
-    #     echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:latest" >> $GITHUB_OUTPUT
+    - name: Build, tag, and push Docker image to Amazon ECR
+      id: build-image
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        # IMAGE_TAG: ${{ github.sha }}
+      run: |
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+        echo "::set-output name=image_uri::$ECR_REGISTRY/$ECR_REPOSITORY:latest"
+        echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:latest" >> $GITHUB_OUTPUT
 
     # - name: Update ECS task definition
     #   id: update-task-def
@@ -91,56 +91,56 @@ jobs:
     #     service: ${{ env.ECS_SERVICE }}
     #     cluster: ${{ env.ECS_CLUSTER }}
     #     wait-for-service-stability: true  
-    - name: Build, tag, and push Docker image to Amazon ECR
-      id: build-image
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-      run: |
-        IMAGE_TAG=$(date +%Y%m%d%H%M%S)
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-        echo "image_uri=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_ENV
+    # - name: Build, tag, and push Docker image to Amazon ECR
+    #   id: build-image
+    #   env:
+    #     ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+    #   run: |
+    #     IMAGE_TAG=$(date +%Y%m%d%H%M%S)
+    #     docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+    #     docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+    #     echo "image_uri=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_ENV
 
-    - name: Update ECS task definition
-      id: update-task-def
-      uses: aws-actions/amazon-ecs-render-task-definition@v1
-      with:
-        task-definition: task-definition.json
-        container-name: ${{ env.CONTAINER_NAME }}
-        image: ${{ env.image_uri }}
+    # - name: Update ECS task definition
+    #   id: update-task-def
+    #   uses: aws-actions/amazon-ecs-render-task-definition@v1
+    #   with:
+    #     task-definition: task-definition.json
+    #     container-name: ${{ env.CONTAINER_NAME }}
+    #     image: ${{ env.image_uri }}
 
-    - name: Deploy via AWS CodeDeploy
-      uses: imehedi/actions-awscli-v2@latest
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ env.AWS_REGION }}
-        args: >
-          deploy create-deployment 
-          --application-name magento-app 
-          --deployment-group-name magento-deployment-group 
-          --revision {"revisionType":"AppSpecContent","appSpecContent":{"content":"{\"version\":\"0.0\",\"Resources\":[{\"TargetService\":{\"Type\":\"AWS::ECS::Service\",\"Properties\":{\"TaskDefinition\":\"${{ steps.update-task-def.outputs.task-definition-arn }}\",\"LoadBalancerInfo\":{\"ContainerName\":\"magento-container\",\"ContainerPort\":80}}}}]}"}}  
+    # - name: Deploy via AWS CodeDeploy
+    #   uses: imehedi/actions-awscli-v2@latest
+    #   with:
+    #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    #     aws-region: ${{ env.AWS_REGION }}
+    #     args: >
+    #       deploy create-deployment 
+    #       --application-name magento-app 
+    #       --deployment-group-name magento-deployment-group 
+    #       --revision {"revisionType":"AppSpecContent","appSpecContent":{"content":"{\"version\":\"0.0\",\"Resources\":[{\"TargetService\":{\"Type\":\"AWS::ECS::Service\",\"Properties\":{\"TaskDefinition\":\"${{ steps.update-task-def.outputs.task-definition-arn }}\",\"LoadBalancerInfo\":{\"ContainerName\":\"magento-container\",\"ContainerPort\":80}}}}]}"}}  
 
-  # code-deploy:
-  #     needs: build
-  #     runs-on: ubuntu-latest
-  #     steps:
-  #       - name: Check out the code
-  #         uses: actions/checkout@v4
-  #       - name: Configure AWS Credentials
-  #         uses: aws-actions/configure-aws-credentials@v4
-  #         with:
-  #           aws-access-key-id: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  #           aws-secret-access-key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  #           aws-region: us-east-1
-  #       - name: Zip and Upload Artifacts
-  #         run: |
-  #           zip -r appspec.zip appspec.yml
-  #           aws s3 cp appspec.zip s3://ziffitymagentoecspoc/appspec.zip
-  #       - name: Deploy with CodeDeploy
-  #         run: |
-  #           aws deploy create-deployment \
-  #             --application-name magento \
-  #             --deployment-group-name magentoapp \
-  #             --s3-location bucket=ziffitymagentoecspoc,key=appspec.zip,bundleType=zip
+  code-deploy:
+      needs: build
+      runs-on: ubuntu-latest
+      steps:
+        - name: Check out the code
+          uses: actions/checkout@v4
+        - name: Configure AWS Credentials
+          uses: aws-actions/configure-aws-credentials@v4
+          with:
+            aws-access-key-id: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            aws-secret-access-key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws-region: us-east-1
+        - name: Zip and Upload Artifacts
+          run: |
+            zip -r appspec.zip appspec.yml
+            aws s3 cp appspec.zip s3://ziffitymagentoecspoc/appspec.zip
+        - name: Deploy with CodeDeploy
+          run: |
+            aws deploy create-deployment \
+              --application-name magento \
+              --deployment-group-name magentoapp \
+              --s3-location bucket=ziffitymagentoecspoc,key=appspec.zip,bundleType=zip
           
