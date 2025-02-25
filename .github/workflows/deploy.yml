@@ -15,7 +15,7 @@ env:
   # CODEDEPLOY_APPLICATION: magento-app  # Set your CodeDeploy application name
   # CODEDEPLOY_DEPLOYMENT_GROUP: magento-dg  # Set your CodeDeploy deployment group name  
 jobs: 
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
