@@ -23,7 +23,7 @@ RUN apt install -y php8.2\
     php8.2-soap
 
 # Install php-fpm
-RUN apt install -y php8.2-fpm php8.2-cli
+RUN apt install -y php8.2-fpm php8.2-cli wget
 
 # # Install composer
 # RUN apt install -y curl
