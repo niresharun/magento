@@ -140,7 +140,7 @@ jobs:
         - name: Deploy with CodeDeploy
           run: |
             aws deploy create-deployment \
-              --application-name magento \
-              --deployment-group-name magentoapp \
+              --application-name magento-app \
+              --deployment-group-name magento-deployment-group \
               --s3-location bucket=ziffitymagentoecspoc,key=appspec.zip,bundleType=zip
           
