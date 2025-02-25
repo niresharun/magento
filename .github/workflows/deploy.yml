@@ -9,9 +9,11 @@ env:
   AWS_REGION: us-east-1  # Set your AWS region
   ECR_REPOSITORY: magento/247-p3  # Set your ECR repository name
   ECS_CLUSTER: magento-cluster  # Set your ECS cluster name
-  ECS_SERVICE: magento-nginx-service1  # Set your ECS service name
+  ECS_SERVICE: magento-service  # Set your ECS service name
   CONTAINER_NAME: magento-container  # Set your container name
-  ECS_TASK_DEFINITION: magento-task-new
+  ECS_TASK_DEFINITION: magento-task
+  # CODEDEPLOY_APPLICATION: magento-app  # Set your CodeDeploy application name
+  # CODEDEPLOY_DEPLOYMENT_GROUP: magento-dg  # Set your CodeDeploy deployment group name  
 jobs: 
   deploy:
     runs-on: ubuntu-latest
@@ -41,7 +43,39 @@ jobs:
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
         echo "::set-output name=image_uri::$ECR_REGISTRY/$ECR_REPOSITORY:latest"
         echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:latest" >> $GITHUB_OUTPUT
-      
+
+    # - name: Update ECS task definition
+    #   id: update-task-def
+    #   uses: aws-actions/amazon-ecs-render-task-definition@v1
+    #   with:
+    #     task-definition: task-definition.json  # Path to your task definition file
+    #     container-name: ${{ env.CONTAINER_NAME }}
+    #     image: ${{ steps.build-image.outputs.image }}
+  
+    # - name: Deploy to ECS
+    #   uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+    #   with:
+    #     task-definition: ${{ steps.update-task-def.outputs.task-definition }}
+    #     service: ${{ env.ECS_SERVICE }}
+    #     cluster: ${{ env.ECS_CLUSTER }}
+    #     wait-for-service-stability: true
+
+    # - name: Create CodeDeploy deployment
+    #   run: |
+    #     aws deploy create-deployment \
+    #       --application-name ${{ env.CODEDEPLOY_APPLICATION }} \
+    #       --deployment-group-name ${{ env.CODEDEPLOY_DEPLOYMENT_GROUP }} \
+    #       --revision '{
+    #         "revisionType": "AppSpecContent",
+    #         "appSpecContent": {
+    #           "content": "{\"version\":1,\"Resources\":[{\"TargetService\":{\"Type\":\"AWS::ECS::Service\",\"Properties\":{\"TaskDefinition\":\"${{ steps.update-task-def.outputs.task-definition-arn }}\",\"LoadBalancerInfo\":{\"ContainerName\":\"${{ env.CONTAINER_NAME }}\",\"ContainerPort\":80}}}}]}"
+    #         }
+    #       }'        
+
+
+
+
+
     # - name: Fill in the new image ID in the Amazon ECS task definition
     #   id: task-def
     #   uses: aws-actions/amazon-ecs-render-task-definition@v1
@@ -60,8 +94,31 @@ jobs:
     - name: Deploy to ECS
       uses: imehedi/actions-awscli-v2@latest
       with:
-        args: ecs update-service --cluster magento-cluster --service magento-nginx-service1 --force-new-deployment
+        args: ecs update-service --cluster magento-cluster --service magento-service --force-new-deployment
       env:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ env.AWS_REGION }}
+  # code-deploy:
+  #     needs: build
+  #     runs-on: ubuntu-latest
+  #     steps:
+  #       - name: Check out the code
+  #         uses: actions/checkout@v4
+  #       - name: Configure AWS Credentials
+  #         uses: aws-actions/configure-aws-credentials@v4
+  #         with:
+  #           aws-access-key-id: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #           aws-secret-access-key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #           aws-region: us-east-1
+  #       - name: Zip and Upload Artifacts
+  #         run: |
+  #           zip -r appspec.zip appspec.yml
+  #           aws s3 cp appspec.zip s3://ziffitymagentoecspoc/appspec.zip
+  #       - name: Deploy with CodeDeploy
+  #         run: |
+  #           aws deploy create-deployment \
+  #             --application-name magento \
+  #             --deployment-group-name magentoapp \
+  #             --s3-location bucket=ziffitymagentoecspoc,key=appspec.zip,bundleType=zip
+          
