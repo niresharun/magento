@@ -87,7 +87,7 @@ WORKDIR /var/www/html
 
 RUN chown -R www-data:www-data /var/www/html
 
-RUN cd /var/www/html/public && composer install
+#RUN cd /var/www/html/public && composer install
 
 EXPOSE 80
 
