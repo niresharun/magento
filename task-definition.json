@@ -1,0 +1,16 @@
+- name: Create task definition file
+  run: |
+    cat <<EOT > task-definition.json
+    {
+      "family": "magento-task",
+      "containerDefinitions": [
+        {
+          "name": "magento-container",
+          "image": "${{ env.image_uri }}",
+          "memory": 512,
+          "cpu": 256,
+          "essential": true
+        }
+      ]
+    }
+    EOT
