@@ -7,4 +7,4 @@ resources:
         loadBalancerInfo:
           containerName: "magento-container"
           containerPort: 80
-        platformVersion: "LATEST"
+        platformVersion: ""
