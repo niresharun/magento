@@ -5,6 +5,6 @@ resources:
       properties:
         taskDefinition: "arn:aws:ecs:us-east-1:857279058880:task-definition/magento-task"
         loadBalancerInfo:
-          containerName: "magento-app"
+          containerName: "magento-container"
           containerPort: 80
         platformVersion: "LATEST"
