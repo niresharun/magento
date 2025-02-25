@@ -25,12 +25,16 @@ RUN apt install -y php8.2\
 # Install php-fpm
 RUN apt install -y php8.2-fpm php8.2-cli
 
-# Install composer
-RUN apt install -y curl
-#RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN cd /tmp && curl https://getcomposer.org/download/2.7.1/composer.phar --output composer
-RUN cd /tmp && mv composer /usr/local/bin/
-RUN cd /usr/local/bin/ && chmod 777 composer
+# # Install composer
+# RUN apt install -y curl
+# #RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# RUN cd /tmp && curl https://getcomposer.org/download/2.7.1/composer.phar --output composer
+# RUN cd /tmp && mv composer /usr/local/bin/
+# RUN cd /usr/local/bin/ && chmod 777 composer
+
+RUN wget https://getcomposer.org/download/2.7.0/composer.phar && \
+    mv composer.phar /usr/local/bin/composer && \
+    chmod +x /usr/local/bin/composer
 
 # Install nodejs
 # RUN apt install -y ca-certificates gnupg
