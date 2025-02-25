@@ -33,16 +33,16 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
-    - name: Build, tag, and push Docker image to Amazon ECR
-      id: build-image
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        # IMAGE_TAG: ${{ github.sha }}
-      run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
-        echo "::set-output name=image_uri::$ECR_REGISTRY/$ECR_REPOSITORY:latest"
-        echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:latest" >> $GITHUB_OUTPUT
+    # - name: Build, tag, and push Docker image to Amazon ECR
+    #   id: build-image
+    #   env:
+    #     ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+    #     # IMAGE_TAG: ${{ github.sha }}
+    #   run: |
+    #     docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
+    #     docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+    #     echo "::set-output name=image_uri::$ECR_REGISTRY/$ECR_REPOSITORY:latest"
+    #     echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:latest" >> $GITHUB_OUTPUT
 
     # - name: Update ECS task definition
     #   id: update-task-def
@@ -91,14 +91,36 @@ jobs:
     #     service: ${{ env.ECS_SERVICE }}
     #     cluster: ${{ env.ECS_CLUSTER }}
     #     wait-for-service-stability: true  
-    - name: Deploy to ECS
+    - name: Build, tag, and push Docker image to Amazon ECR
+      id: build-image
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+      run: |
+        IMAGE_TAG=$(date +%Y%m%d%H%M%S)
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        echo "image_uri=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_ENV
+
+    - name: Update ECS task definition
+      id: update-task-def
+      uses: aws-actions/amazon-ecs-render-task-definition@v1
+      with:
+        task-definition: task-definition.json
+        container-name: ${{ env.CONTAINER_NAME }}
+        image: ${{ env.image_uri }}
+
+    - name: Deploy via AWS CodeDeploy
       uses: imehedi/actions-awscli-v2@latest
       with:
-        args: ecs update-service --cluster magento-cluster --service magento-service --force-new-deployment
-      env:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ env.AWS_REGION }}
+        args: >
+          deploy create-deployment 
+          --application-name magento-app 
+          --deployment-group-name magento-deployment-group 
+          --revision {"revisionType":"AppSpecContent","appSpecContent":{"content":"{\"version\":\"0.0\",\"Resources\":[{\"TargetService\":{\"Type\":\"AWS::ECS::Service\",\"Properties\":{\"TaskDefinition\":\"${{ steps.update-task-def.outputs.task-definition-arn }}\",\"LoadBalancerInfo\":{\"ContainerName\":\"magento-container\",\"ContainerPort\":80}}}}]}"}}  
+
   # code-deploy:
   #     needs: build
   #     runs-on: ubuntu-latest
