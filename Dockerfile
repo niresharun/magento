@@ -47,7 +47,7 @@ RUN echo "\
     server {\n\
         listen 80;\n\
         listen [::]:80;\n\
-        root /var/www/html/public;\n\
+        root /var/www/html;\n\
         add_header X-Frame-Options \"SAMEORIGIN\";\n\
         add_header X-Content-Type-Options \"nosniff\";\n\
         index index.php;\n\
@@ -83,7 +83,7 @@ COPY . .
 
 RUN chown -R www-data:www-data /var/www/html
 
-RUN cd /var/www/html/public && composer install
+RUN cd /var/www/html && composer install
 
 EXPOSE 80
 
