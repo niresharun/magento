@@ -1,31 +1,31 @@
-FROM ubuntu:latest AS base
-
-ENV DEBIAN_FRONTEND noninteractive
+# FROM ubuntu:latest AS base
+FROM 857279058880.dkr.ecr.us-east-1.amazonaws.com/magento/247-p3:latest
+# ENV DEBIAN_FRONTEND noninteractive
 
 # Install dependencies
-RUN apt update
-RUN apt install -y software-properties-common wget nginx
-RUN add-apt-repository -y ppa:ondrej/php
-RUN apt update
-RUN apt install -y php8.2\
-    php8.2-cli\
-    php8.2-common\
-    php8.2-fpm\
-    php8.2-mysql\
-    php8.2-zip\
-    php8.2-gd\
-    php8.2-mbstring\
-    php8.2-curl\
-    php8.2-xml\
-    php8.2-bcmath\
-    php8.2-pdo\
-    php8.2-intl\
-    php8.2-soap
-RUN apt install -y php8.2-fpm php8.2-cli
-# Install Composer
-RUN wget https://getcomposer.org/download/2.7.0/composer.phar && \
-    mv composer.phar /usr/local/bin/composer && \
-    chmod +x /usr/local/bin/composer
+# RUN apt update
+# RUN apt install -y software-properties-common wget nginx
+# RUN add-apt-repository -y ppa:ondrej/php
+# RUN apt update
+# RUN apt install -y php8.2\
+#     php8.2-cli\
+#     php8.2-common\
+#     php8.2-fpm\
+#     php8.2-mysql\
+#     php8.2-zip\
+#     php8.2-gd\
+#     php8.2-mbstring\
+#     php8.2-curl\
+#     php8.2-xml\
+#     php8.2-bcmath\
+#     php8.2-pdo\
+#     php8.2-intl\
+#     php8.2-soap
+# RUN apt install -y php8.2-fpm php8.2-cli
+# # Install Composer
+# RUN wget https://getcomposer.org/download/2.7.0/composer.phar && \
+#     mv composer.phar /usr/local/bin/composer && \
+#     chmod +x /usr/local/bin/composer
 
 # Configure Nginx
 RUN echo "\
@@ -65,6 +65,7 @@ RUN echo "\
     " > /start.sh
 
 # Copy application code
+RUN rm -rf /var/www/html/public/*
 COPY ./public /var/www/html/public
 WORKDIR /var/www/html
 

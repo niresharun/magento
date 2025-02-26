@@ -8,3 +8,8 @@ resources:
           containerName: "magento-container"
           containerPort: 80
         # platformVersion: "null"
+hooks:
+  AfterInstall:
+    - location: scripts/magento-setup.sh
+      timeout: 300
+      runas: root
