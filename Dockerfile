@@ -53,14 +53,25 @@ RUN echo "\
             deny all;\n\
         }\n\
     }\n" > /etc/nginx/sites-available/default
-# Copy the entrypoint script
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
-# Make the script executable
-RUN chmod +x /usr/local/bin/entrypoint.sh
 
-# Set the entrypoint
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+# Copy application code
+RUN rm -rf /var/www/html/public/*
+COPY ./public /var/www/html/public
+WORKDIR /var/www/html
+
+# Install Composer dependencies
+RUN cd /var/www/html/public && composer install --no-dev --optimize-autoloader
+
+
+#     # Copy the entrypoint script
+# COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+
+# # Make the script executable
+# RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# # Set the entrypoint
+# ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 # Create startup script
 RUN echo "\
     #!/bin/sh\n\
@@ -71,10 +82,6 @@ RUN echo "\
     tail -s 1 /var/log/nginx/*.log -f\n\
     " > /start.sh
 
-# Copy application code
-RUN rm -rf /var/www/html/public/*
-COPY ./public /var/www/html/public
-WORKDIR /var/www/html
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html && \
