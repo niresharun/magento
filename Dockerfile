@@ -53,7 +53,14 @@ RUN echo "\
             deny all;\n\
         }\n\
     }\n" > /etc/nginx/sites-available/default
+# Copy the entrypoint script
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
+# Make the script executable
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Set the entrypoint
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 # Create startup script
 RUN echo "\
     #!/bin/sh\n\
