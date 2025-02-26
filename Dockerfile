@@ -4,7 +4,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Install dependencies
 RUN apt update
-RUN apt install -y software-properties-common
+RUN apt install -y software-properties-common wget
 RUN add-apt-repository -y ppa:ondrej/php
 RUN apt update
 RUN apt install -y php8.2\
