@@ -4,7 +4,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Install dependencies
 RUN apt update
-RUN apt install -y software-properties-common wget
+RUN apt install -y software-properties-common wget nginx
 RUN add-apt-repository -y ppa:ondrej/php
 RUN apt update
 RUN apt install -y php8.2\
@@ -21,7 +21,7 @@ RUN apt install -y php8.2\
     php8.2-pdo\
     php8.2-intl\
     php8.2-soap
-
+RUN apt install -y php8.2-fpm php8.2-cli
 # Install Composer
 RUN wget https://getcomposer.org/download/2.7.0/composer.phar && \
     mv composer.phar /usr/local/bin/composer && \
