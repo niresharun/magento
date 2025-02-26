@@ -7,7 +7,7 @@ resources:
         loadBalancerInfo:
           containerName: "magento-container"
           containerPort: 80
-        # platformVersion: "null"
+        # platformVersion: "null"  # Remove or uncomment if needed
 hooks:
   AfterInstall:
     - location: scripts/magento-setup.sh
