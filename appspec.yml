@@ -7,8 +7,8 @@ resources:
         loadBalancerInfo:
           containerName: "magento-container"
           containerPort: 80
-hooks:
-  AfterInstall:
-    - location: scripts/magento-setup.sh
-      timeout: 300
-      runas: root
+# hooks:
+#   AfterInstall:
+#     - location: scripts/magento-setup.sh
+#       timeout: 300
+#       runas: root
