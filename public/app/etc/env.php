@@ -9,8 +9,8 @@ return [
     'db' => [
         'connection' => [
             'default' => [
-                'host' => 'magentodb.cf9xmat0mrs2.us-east-1.rds.amazonaws.com',
-                'dbname' => 'magentodb',
+                'host' => 'database-1.cf9xmat0mrs2.us-east-1.rds.amazonaws.com',
+                'dbname' => 'database-1',
                 'username' => 'admin',
                 'password' => 'Root12345',
                 'model' => 'mysql4',
