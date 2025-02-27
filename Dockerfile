@@ -64,6 +64,7 @@ WORKDIR /var/www/html
 RUN cd /var/www/html/public && composer install 
 RUN cd /var/www/html/public && composer update
 RUN cd /var/www/html/public && composer require laminas/laminas-mvc
+RUN cd /var/www/html/public && composer require laminas/laminas-di 
 #--no-dev --optimize-autoloader
 #     # Copy the entrypoint script
 # COPY entrypoint.sh /usr/local/bin/entrypoint.sh
