@@ -2,7 +2,7 @@ FROM ubuntu:latest AS base
 # FROM 857279058880.dkr.ecr.us-east-1.amazonaws.com/magento/247-p3:latest
 ENV DEBIAN_FRONTEND noninteractive
 
-Install dependencies
+#Install dependencies
 RUN apt update
 RUN apt install -y software-properties-common wget nginx
 RUN add-apt-repository -y ppa:ondrej/php
