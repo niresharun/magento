@@ -1,0 +1,14 @@
+version: 1.0
+resources:
+  - targetService:
+      type: AWS::ECS::Service
+      properties:
+        taskDefinition: "arn:aws:ecs:us-east-1:857279058880:task-definition/magento-task-new:3"
+        loadBalancerInfo:
+          containerName: "magento-container"
+          containerPort: 80
+# hooks:
+#   AfterInstall:
+#     - location: scripts/magento-setup.sh
+#       timeout: 300
+#       runas: root

@@ -1,0 +1,71 @@
+name: Deploy Magento to ECS (EC2)
+
+on:
+  push:
+    branches:
+      - master  # Trigger deployment on push to main branch
+
+env:
+  AWS_REGION: us-east-1  # Set your AWS region
+  ECR_REPOSITORY: magento/247-p3  # Set your ECR repository name
+  ECS_CLUSTER: magento-cluster  # Set your ECS cluster name
+  ECS_SERVICE: magento-service  # Set your ECS service name
+  CONTAINER_NAME: magento-container  # Set your container name
+  ECS_TASK_DEFINITION: magento-task
+  # CODEDEPLOY_APPLICATION: magento-app  # Set your CodeDeploy application name
+  # CODEDEPLOY_DEPLOYMENT_GROUP: magento-dg  # Set your CodeDeploy deployment group name  
+jobs: 
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Build, tag, and push Docker image to Amazon ECR
+      id: build-image
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        # IMAGE_TAG: ${{ github.sha }}
+      run: |
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+        echo "::set-output name=image_uri::$ECR_REGISTRY/$ECR_REPOSITORY:latest"
+        echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:latest" >> $GITHUB_OUTPUT
+
+  code-deploy:
+      needs: build
+      runs-on: ubuntu-latest
+      steps:
+        - name: Check out the code
+          uses: actions/checkout@v4
+        - name: Configure AWS Credentials
+          uses: aws-actions/configure-aws-credentials@v4
+          with:
+            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            aws-region: us-east-1
+        - name: Debug File Paths
+          run: ls -ltrh    
+        - name: Zip and Upload Artifacts
+          run: |
+            zip -r appspec.zip appspec.yml scripts/
+            aws s3 cp appspec.zip s3://ziffitymagentoecspoc/appspec.zip
+        - name: Deploy with CodeDeploy
+          run: |
+            aws deploy create-deployment \
+              --application-name magento-app \
+              --deployment-group-name magento-deployment-group \
+              --s3-location bucket=ziffitymagentoecspoc,key=appspec.zip,bundleType=zip
+          
