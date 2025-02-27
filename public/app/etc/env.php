@@ -1,22 +1,32 @@
 <?php
 return [
+    'remote_storage' => [
+        'driver' => 'file'
+    ],
     'backend' => [
         'frontName' => 'admin'
     ],
+    'config' => [
+        'async' => 0
+    ],
     'crypt' => [
-        'key' => 'your_encryption_key_here'
+        'key' => 'base64zYtrKh77P8K1llFhahY1V0Bm7jxtDCDbiaKet2TRDR8='
     ],
     'db' => [
+        'table_prefix' => '',
         'connection' => [
             'default' => [
                 'host' => 'database-1.cf9xmat0mrs2.us-east-1.rds.amazonaws.com',
-                'dbname' => 'database-1',
-                'username' => 'admin',
+                'dbname' => 'magentodb',
+                'username' => 'magento',
                 'password' => 'Root12345',
                 'model' => 'mysql4',
                 'engine' => 'innodb',
                 'initStatements' => 'SET NAMES utf8;',
-                'active' => '1'
+                'active' => '1',
+                'driver_options' => [
+                    1014 => false
+                ]
             ]
         ]
     ],
@@ -33,36 +43,18 @@ return [
     'cache' => [
         'frontend' => [
             'default' => [
-                'id_prefix' => '123_'
+                'id_prefix' => '189_'
             ],
             'page_cache' => [
-                'id_prefix' => '123_'
+                'id_prefix' => '189_'
             ]
-        ]
+        ],
+        'allow_parallel_generation' => false
     ],
     'lock' => [
-        'provider' => 'db',
-        'config' => [
-            'prefix' => ''
-        ]
+        'provider' => 'db'
     ],
-    'cache_types' => [
-        'config' => 1,
-        'layout' => 1,
-        'block_html' => 1,
-        'collections' => 1,
-        'reflection' => 1,
-        'db_ddl' => 1,
-        'compiled_config' => 1,
-        'eav' => 1,
-        'customer_notification' => 1,
-        'config_integration' => 1,
-        'config_integration_api' => 1,
-        'full_page' => 1,
-        'translate' => 1,
-        'config_webservice' => 1
-    ],
-    'install' => [
-        'date' => 'Tue, 10 Oct 2023 12:00:00 +0000'
+    'directories' => [
+        'document_root_is_pub' => true
     ]
 ];
