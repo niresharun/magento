@@ -62,7 +62,7 @@ WORKDIR /var/www/html
 
 # Install Composer dependencies
 RUN cd /var/www/html/public && composer install --no-dev --optimize-autoloader
-
+RUN cd /var/www/html/public && composer update
 
 #     # Copy the entrypoint script
 # COPY entrypoint.sh /usr/local/bin/entrypoint.sh
