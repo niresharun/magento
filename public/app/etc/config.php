@@ -245,7 +245,7 @@ return [
         'Magento_OfflinePayments' => 1,
         'Magento_SalesRule' => 1,
         'Magento_OfflineShipping' => 1,
-        'Magento_OpenSearch' => 1,
+        'Magento_OpenSearch' => 0,
         'Magento_OrderCancellation' => 1,
         'Magento_OrderCancellationGraphQl' => 1,
         'Magento_OrderCancellationUi' => 1,

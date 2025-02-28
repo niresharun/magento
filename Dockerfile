@@ -66,7 +66,7 @@ RUN cd /var/www/html/public && composer update
 RUN cd /var/www/html/public && composer require laminas/laminas-mvc
 RUN cd /var/www/html/public && composer require laminas/laminas-di
 RUN cd /var/www/html/public && composer require colinmollenhour/cache-backend-file
-
+RUN cd /var/www/html/public && composer require magento/module-customer-segment
 #--no-dev --optimize-autoloader
 #     # Copy the entrypoint script
 # COPY entrypoint.sh /usr/local/bin/entrypoint.sh

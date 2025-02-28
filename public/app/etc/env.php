@@ -16,7 +16,7 @@ return [
         'table_prefix' => '',
         'connection' => [
             'default' => [
-                'host' => 'database-1.cf9xmat0mrs2.us-east-1.rds.amazonaws.com',
+                'host' => 'magento.cf9xmat0mrs2.us-east-1.rds.amazonaws.com',
                 'dbname' => 'magentodb',
                 'username' => 'magento',
                 'password' => 'Root12345',
