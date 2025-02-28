@@ -1,0 +1,6 @@
+<!--@subject {{trans "%name Replied for your comment" name=$name}} @-->
+
+{{template config_path="design/email/header_template"}}
+{{trans "%name replied for your comment" name=$name}}
+{{block class='Magento\\Framework\\View\\Element\\Template' area='frontend' template='Ziffity_RequestQuote::track.phtml' items=$items}}
+{{template config_path="design/email/footer_template"}}

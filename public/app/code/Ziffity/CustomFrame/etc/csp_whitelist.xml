@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp:etc/csp_whitelist.xsd">
+    <policies>
+        <policy id="script-src">
+            <values>
+                <value id="google-fonts" type="host">https://ajax.googleapis.com/ajax/libs/webfont/1.5.10/webfont.js</value>
+            </values>
+            <values>
+                <value id="google-fonts-2" type="host">https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js</value>
+            </values>
+        </policy>
+    </policies>
+</csp_whitelist>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Ziffity_Shipping::shipping_configuration" title="Shipping Configuration" translate="title" module="Ziffity_Shipping"
+             sortOrder="30" parent="Magento_Sales::sales"  resource="Ziffity_Shipping::shipping_configuration"/>
+        <add id="Ziffity_Shipping::shipping_profiles" title="Shipping Profiles" translate="title" module="Ziffity_Shipping" sortOrder="30"
+             parent="Ziffity_Shipping::shipping_configuration" action="shipping/shipping_profile/grid" resource="Ziffity_Shipping::shipping_profiles"/>
+        <add id="Ziffity_Shipping::oversize_profile" title="Oversize Profiles" translate="title" module="Ziffity_Shipping" sortOrder="30"
+             parent="Ziffity_Shipping::shipping_configuration" action="shipping/oversize_profile/grid" resource="Ziffity_Shipping::oversize_profile"/>
+    </menu>
+</config>

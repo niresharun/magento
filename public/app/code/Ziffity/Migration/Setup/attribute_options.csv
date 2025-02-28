@@ -1,0 +1,57 @@
+﻿attribute_code,entity_type_code,option_values
+gender,customer,Male | Female | Not Specified
+resolution,rma_item,Exchange | Refund | Store Credit
+condition,rma_item,Unopened | Opened | Damaged
+reason,rma_item,Wrong Color | Wrong Size | Out of Service
+backingboard_type,catalog_product,"PVC | Coroplast | Styrene | None | Cardboard | Acid-Free Foam Board | Foam Board | 1/4"" Melamine | LED Lighted Edge-Lit Panel | Metal Slide In Frame"
+board_color,catalog_product,Black | Red | White | Grey | Blue | Brown | Burgundy | Green | Pink | Yellow
+dry_erase_board_material,catalog_product,Magnetic | Melamine (non-magnetic)
+fabric_color,catalog_product,Black | Blue | Brown | Green | Grey | Orange | Pink | Purple | Red | Tan | Teal | White | Yellow
+fabric_selections,catalog_product,Most Popular | On Sale
+fabric_style,catalog_product,  | Subtle Weave | Birch
+glass_type,catalog_product,"Non Glare .015 PETG | Premium Clear Acrylic | Break Resistant Acrylic .093 | Non Glare Acrylic .060 | Tempered Glass | Clear Acrylic .040 | None | Clear Acrylic .020 | UV Protective Acrylic .098 | Metal Slide In - Clear | Metal Slide In - Non Glare | Break Resistant Acrylic .060"
+laminate_colors,catalog_product,Black | Blue | Brown | Copper / Bronze | Golden | Green | Grey | Metallic | Orange | Pink | Purple | Red | Silver | Tan / Beige | White / Cream | Wood Type - Beech / Ash | Wood Type - Cherry | Wood Type - Mahogany | Wood Type - Maple | Wood Type - Oak | Wood Type - Specialty | Wood Type - Walnut | Yellow
+laminate_type,catalog_product,Wood Finish | Solid Colors | Metallic
+letter_board_material,catalog_product,Vinyl | Felt
+supplier,catalog_product,Alpina | Bangor Cork | Chemetal | Crescent / Berkshire | Decor | Designer | Don Mar | Framerica | LaminArt | Nevamar | Nielsen Bainbridge | Omega | Peterboro | Profiles Frameware | Studio | SwingFame | Tensator | True Textiles / Guilford | United Visual | WilsonArt | WL Concepts
+template_letter_set_colors,catalog_product,Black | Blue | Brown | Gold | Green | Orange | Pink | Purple | Red | Silver | White | Yellow
+template_letter_set_font,catalog_product,Helvetica | Roman
+template_letter_set_sizes,catalog_product,"1/2"" | 3/4"" | 1"" | 2"" | 3"""
+template_letter_set_type,catalog_product,Sprue Set | Boxed Set
+frame_type,catalog_product,Traditional Frame | Slide-In Frame | Snap Frame | Swing Frame
+template_backer_board_type,catalog_product,Chalk Board Backer | Cork Board Backer | Dry / Wet Erase Backer | Letter Board Backer | Magnetic Backer | Wood Backer
+template_featured_selections,catalog_product,Most Popular | On Sale | Clearance
+template_frame_colors,catalog_product,Black | Blue | Bronze (Brown) | Champagne | Charcoal | Cherry | Coffee Brown | Gold | Green | Honey Pecan | Mahogany | Natural Clear | Polished Gold | Polished Silver | Red | Satin Silver | Walnut | White | Wood Faux - Cherry | Wood Faux - Maple | Wood Faux - Oak
+template_frame_material,catalog_product,Metal | Wood
+template_frame_width,catalog_product,"7/8"" | 1"" | 1 3/16"" | 1 1/4"" | 1 3/8"" | 1 5/8"" | 1 3/4"" | 2 1/2"""
+template_interior_depths,catalog_product,1 inch | 2 inch | 3 inch | 4 inch | 5 inch | 6 inch | 7 inch | 8 inch | 9 inch | 10 inch
+template_letterboard_colors,catalog_product,Black | Blue | Brown | Burgundy | Green | Grey | Pink | White | Yellow
+template_letterboard_material,catalog_product,Felt | Vinyl
+template_locking,catalog_product,Locking Tool | Lock & Key | Not Lockable
+template_matboard_included,catalog_product,Yes - Mat | No - Mat
+template_menu_orientation,catalog_product,Menu - Portrait | Menu - Landscape
+template_menu_pages,catalog_product,1 Menu | 2 Menus | 3 Menus | 4 Menus
+template_mounted_graphics,catalog_product,No - Mounted | Yes - Mounted
+template_multiple_mat_openings,catalog_product,1 Opening | 2 Openings | 3 Openings | 4 Openings
+template_orientation,catalog_product,Portrait | Landscape | Square
+template_outdoor_application,catalog_product,Weather Resistant
+template_product_type,catalog_product,Wall Mount | Floor Stand
+template_sizes,catalog_product,16 x 20 | 11 x 17 | 12 x 18 | 11 x 14 | 8.5 x 11 | 8 x 10 | 5 x 7 | 4 x 6 | Create Your Size | 48 x 72 | 36 x 48 | 22 x 28 | 8.5 x 14 | 10 x 12 | 9 x 12 | 10 x 20 | 16 x 16 | 14 x 22 | 13 x 19 | 12 x 36 | 12 x 24 | 12 x 20 | 20 x 30 | 20 x 28 | 20 x 24 | 20 x 20 | 18 x 30 | 18 x 24 | 18 x 18 | 17 x 23 | 17 x 22 | 16 x 24 | 36 x 42 | 36 x 36 | 30 x 40 | 30 x 36 | 27 x 41 | 27 x 40 | 27 x 39 | 24 x 48 | 24 x 36 | 24 x 30 | 24 x 24 | 22 x 34 | 96 x 96 | 84 x 96 | 84 x 84 | 72 x 96 | 72 x 84 | 72 x 72 | 60 x 96 | 60 x 84 | 60 x 72 | 60 x 60 | 48 x 96 | 48 x 84 | 48 x 60 | 48 x 48 | 42 x 42 | 40 x 60 | 40 x 50 | 36 x 96 | 36 x 84 | 36 x 72 | 36 x 60 | 24 x 96 | 24 x 84 | 24 x 72 | 24 x 60 | 23 x 35 | 36 x 12 (Panoramic) | 24 x 8 (Panoramic) | 15 x 5 (Panoramic) | 30 x 30 | 10 x 13 | 14 x 14 | 12 x 16 | 8 x 8 | 5 x 5 | 30 x 96 | 30 x 84 | 30 x 72 | 30 x 60 | 30 x 48 | 18 x 96 | 18 x 84 | 18 x 72 | 18 x 60 | 18 x 48
+template_total_matboard,catalog_product,Single Mat | Double Mat | Triple Mat
+template_with_header,catalog_product,Yes | No
+template_with_labels,catalog_product,No - Labels | Yes - Labels
+template_with_lights,catalog_product,No - Lights | Yes - Lights
+template_with_shelves,catalog_product,Yes | No
+featured_selections,catalog_product,Most Popular | On Sale | Clearance
+frame_color,catalog_product,Black | Blue | Brown | Carbon Steel | Cream / Beige | Copper / Bronze | Green | Gold | Grey | Natural Clear | Orange | Pink | Purple | Red | Silver | White | Yellow
+frame_featured_selections,catalog_product,Most Popular | On Sale | Clearance
+frame_finish,catalog_product,Antiqued | Barnwood | Brushed | Distressed | Gloss | Metallic | Satin | Wood Faux | Wood Grain
+frame_material,catalog_product,Metal | Wood
+frame_rabbet_depth,catalog_product,Shallow | Medium | Deep | Extra Deep
+frame_shape,catalog_product,Flat Top | Round Top | Specialty
+frame_style,catalog_product,Antique | Contemporary | Ornate | Rustic | Simple | Traditional
+frame_tone,catalog_product,Light | Medium | Dark
+frame_width,catalog_product,Very Narrow | Narrow | Medium | Wide | Extra Wide
+mat_color,catalog_product,Black | Blue | Brown | Grey | Golden | Metallic | Silver | Red | Pink | Yellow | White | Green | Orange | Tan | Teal | Purple | GreenF | OrangeF
+mat_type,catalog_product,Acid Free - Archival | Linen | Paper - General Purpose | Printed Border | Suede
+nielsen_profile,catalog_product,Profile 15 | Profile 11 | Profile 12 | Profile 21 | Profile 22 | Profile 24 | Profile 26 | Profile 33 | Profile 34 | Profile 35 | Profile 37 | Profile 45 | Profile 58 | Profile 65 | Profile 75 | Profile 94 | Profile 95 | Profile 97 | Profile 99 | Profile 117 | Profile 126 | Profile 127 | Profile 225

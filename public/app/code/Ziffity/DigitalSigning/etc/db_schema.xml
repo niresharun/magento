@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="digital_signature">
+        <column xsi:type="int" name="id" identity="true" unsigned="true" nullable="false" comment="id"/>
+        <column xsi:type="varchar" name="parent_type" nullable="false" length="255" comment="ParentType"/>
+        <column xsi:type="int" name="parent_id" nullable="false" comment="ParentId"/>
+        <column xsi:type="blob" name="digital_signature" nullable="false" comment="DigitalSignature"/>
+        <column xsi:type="timestamp" name="created_at" default="CURRENT_TIMESTAMP" comment="CreatedAt"/>
+        <column name="updated_at" nullable="true" xsi:type="timestamp" default="CURRENT_TIMESTAMP" comment="UpdatedAt" on_update="true"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+    <table name="sales_order">
+        <column xsi:type="varchar" name="purchase_order" comment="Purchase Order"/>
+        <column xsi:type="varchar" name="order_notes" comment="Order Notes"/>
+    </table>
+</schema>

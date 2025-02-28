@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\EntityManager\Operation\ExtensionPool">
+        <arguments>
+            <argument name="extensionActions" xsi:type="array">
+                <item name="Magento\Catalog\Api\Data\ProductInterface" xsi:type="array">
+                    <item name="create" xsi:type="array">
+                        <item name="create_coproducts_options" xsi:type="string">Ziffity\CustomFrame\Model\Product\SaveHandler</item>
+                    </item>
+                    <item name="update" xsi:type="array">
+                        <item name="update_coproducts_options" xsi:type="string">Ziffity\CustomFrame\Model\Product\SaveHandler</item>
+                    </item>
+                    <!-- <item name="read" xsi:type="array">
+                        <item name="read_coproducts_options" xsi:type="string">Ziffity\CustomFrame\Model\Product\ReadHandler</item>
+                    </item> -->
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <preference for="Ziffity\CustomFrame\Api\ProductOptionRepositoryInterface" type="Ziffity\CustomFrame\Model\CustomFrame\OptionRepository" />
+    <preference for="Ziffity\CustomFrame\Api\ProductLinkManagementInterface" type="Ziffity\CustomFrame\Model\CustomFrame\LinkManagement" />
+    <virtualType name="Ziffity\CustomFrame\Pricing\Price\Pool" type="Magento\Framework\Pricing\Price\Pool">
+        <arguments>
+            <argument name="prices" xsi:type="array">
+                <item name="regular_price" xsi:type="string">Magento\Catalog\Pricing\Price\RegularPrice</item>
+                <item name="final_price" xsi:type="string">Magento\Catalog\Pricing\Price\FinalPrice</item>
+                <item name="tier_price" xsi:type="string">Magento\Catalog\Pricing\Price\TierPrice</item>
+                <item name="special_price" xsi:type="string">Magento\Catalog\Pricing\Price\SpecialPrice</item>
+                <item name="base_price" xsi:type="string">Ziffity\CustomFrame\Pricing\Price\BasePrice</item>
+                <item name="custom_option_price" xsi:type="string">Magento\Catalog\Pricing\Price\CustomOptionPrice</item>
+                <item name="configured_price" xsi:type="string">Magento\Catalog\Pricing\Price\ConfiguredPrice</item>
+                <item name="configured_regular_price" xsi:type="string">Magento\Catalog\Pricing\Price\ConfiguredRegularPrice</item>
+                <item name="msrp_price" xsi:type="string">Magento\Msrp\Pricing\Price\MsrpPrice</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Ziffity\CustomFrame\Pricing\Price\Collection" type="Magento\Framework\Pricing\Price\Collection">
+        <arguments>
+            <argument name="pool" xsi:type="object">Ziffity\CustomFrame\Pricing\Price\Pool</argument>
+        </arguments>
+    </virtualType>
+      <type name="Magento\Framework\Pricing\PriceInfo\Factory">
+        <arguments>
+            <argument name="types" xsi:type="array">
+                <item name="customframe" xsi:type="array">
+                    <item name="infoClass" xsi:type="string">Magento\Bundle\Pricing\PriceInfo</item>
+                    <item name="prices" xsi:type="string">Ziffity\CustomFrame\Pricing\Price\Collection</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="ziffity_customframe_post_listing_data_source" xsi:type="string">Ziffity\CustomFrame\Model\ResourceModel\QuantityClassification\Grid\Collection</item>
+            </argument>
+    </arguments>
+    </type>
+    <virtualType name="Ziffity\CustomFrame\Model\ResourceModel\QuantityClassification\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">product_quantity_classification</argument>
+            <argument name="resourceModel" xsi:type="string">Ziffity\CustomFrame\Model\ResourceModel\QuantityClassification</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Catalog\Model\Product\CatalogPrice">
+        <arguments>
+            <argument name="priceModelPool" xsi:type="array">
+                <item name="customframe" xsi:type="string">Magento\Bundle\Model\Product\CatalogPrice</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Ziffity\CustomFrame\Model\Product\Price">
+        <arguments>
+            <argument name="pricecomponents" xsi:type="array">
+                <item name="frame" xsi:type="object">Ziffity\ProductCustomizer\Model\Components\Pricing\Frame</item>
+                <item name="backing_board" xsi:type="object">Ziffity\ProductCustomizer\Model\Components\Pricing\Backingboard</item>
+                <item name="chalk_board" xsi:type="object">Ziffity\ProductCustomizer\Model\Components\Pricing\Chalkboards</item>
+                <item name="cork_board" xsi:type="object">Ziffity\ProductCustomizer\Model\Components\Pricing\Corkboards</item>
+                <item name="dryerase_board" xsi:type="object">Ziffity\ProductCustomizer\Model\Components\Pricing\Dryeraseboard</item>
+                <item name="fabric" xsi:type="object">Ziffity\ProductCustomizer\Model\Components\Pricing\Fabric</item>
+                <item name="glass" xsi:type="object">Ziffity\ProductCustomizer\Model\Components\Pricing\Glass</item>
+                <item name="laminate_finish" xsi:type="object">Ziffity\ProductCustomizer\Model\Components\Pricing\Laminate</item>
+                <item name="letter_board" xsi:type="object">Ziffity\ProductCustomizer\Model\Components\Pricing\Letterboard</item>
+                <item name="mat" xsi:type="object">Ziffity\ProductCustomizer\Model\Components\Pricing\Mat</item>
+                <item name="post_finish" xsi:type="object">Ziffity\ProductCustomizer\Model\Components\Pricing\Postfinish</item>
+                <item name="shelves" xsi:type="object">Ziffity\ProductCustomizer\Model\Components\Pricing\Shelves</item>
+                <item name="addons" xsi:type="object">Ziffity\ProductCustomizer\Model\Components\Pricing\Addons</item>
+                <item name="header" xsi:type="object">Ziffity\ProductCustomizer\Model\Components\Pricing\Header</item>
+                <item name="lables" xsi:type="object">Ziffity\ProductCustomizer\Model\Components\Pricing\Lables</item>
+                <item name="lighting" xsi:type="object">Ziffity\ProductCustomizer\Model\Components\Pricing\Lighting</item>
+            </argument>
+        </arguments>
+    </type>
+<!--    <preference for="Magento\Bundle\Pricing\Adjustment\Calculator" type="Ziffity\CustomFrame\Pricing\Adjustment\Calculator" />-->
+</config>

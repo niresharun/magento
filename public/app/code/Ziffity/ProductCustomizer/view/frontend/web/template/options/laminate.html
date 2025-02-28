@@ -1,0 +1,19 @@
+<!-- ko if: isActive() -->
+<h6>
+    <a data-bind="click: laminateDetails"><span translate="'What is Laminate ?'"></span></a>
+</h6>
+<div class="kind-buttons my-4">
+<!-- ko foreach:{data:laminates, as:'laminateType'} -->
+<button data-bind=" enable: !laminateType.isActive(),  click: function(d,e){ $parent.updateCurrentLaminateType(d,e)}">
+    <img data-bind="attr:{src:image,alt:laminateType.code}"  class="mb-3">
+    <div class="" data-bind="text: laminateType.code"></div>
+</button>
+
+<!-- /ko -->
+</div>
+<div>
+    <!-- ko foreach: {data:elems(), as:'elem'} -->
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <!-- /ko -->
+</div>
+<!-- /ko -->

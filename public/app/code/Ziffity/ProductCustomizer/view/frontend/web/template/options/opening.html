@@ -1,0 +1,39 @@
+<!--ko if:isActive-->
+<div data-bind="i18n: 'Maximum file size is 2Mb. Maximum image side size is 1900Px.'"></div><br>
+<h4 data-bind="i18n: 'Openings'"></h4>
+<div class="d-md-flex txt-xs mb-3">
+    <div class="mb-2 mb-md-3 mr-md-3">
+        <strong data-bind="i18n:'Graphic Size :'"></strong>
+        <span class="text-alt"><span data-bind='text:graphicWidth'></span>
+            <span data-bind="i18n:'Wide '"></span>x
+            <span data-bind='text:graphicHeight'></span>
+            <span data-bind="i18n:'High'"></span></span>
+    </div>
+    <div>
+        <strong data-bind="i18n:'Viewable Area :'"></strong>
+        <span class="text-alt"> <span data-bind='text:viewableWidth'></span>
+            <span data-bind="i18n:'Wide '"></span>x
+            <span data-bind='text:viewableHeight'></span>
+            <span data-bind="i18n:'High'"></span></span>
+    </div>
+</div>
+<div
+    data-bind="foreach: openingDataArray, mageInit: {'accordion':{'openedState': 'active', 'collapsible': true, 'multipleCollapsible': false}}">
+    <div data-role="collapsible">
+        <div data-role="title">
+            <h3 data-bind="text: openingName"></h3>
+        </div>
+        <div data-role="content">
+            <strong data-bind="i18n: 'Shape:'"></strong>
+            <label for="circle">Circle
+                <input type="radio" id="circle" data-bind="attr:{name: openingName},checked: shapeSelection"
+                    value="circle" />
+            </label>
+            <label for="rectangle">Rectangle
+                <input type="radio" id="rectangle" data-bind="attr:{name: openingName},checked: shapeSelection"
+                    value="rectangle" />
+            </label>
+        </div>
+    </div>
+</div>
+<!-- /ko -->

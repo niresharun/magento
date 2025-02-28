@@ -1,0 +1,36 @@
+<div class="text-right"><a href="javascript:void(0)" class="ml-1 dficon-x txt-strong txt-16" data-bind="click:filterButton"></a></div>
+<div class="box-inner">
+    <ol data-bind="foreach: { data: Object.keys($data.selectionFilters()) }">
+        <div class="mb-4">
+           <p class="bb pb-2"> <strong data-bind="text:$parent.findFrontendLabel($data)"></strong></p>
+            <!-- ko foreach: { data: $parent.selectionFilters()[$data], as: 'filterObject', noChildContext: true} -->
+                <li>
+                    <div class="field choice sm">
+                    <!-- ko if: filterObject.all_filter == false -->
+                    <span data-bind="text:filterObject.label"></span>
+                        <!-- TODO: Have to fix the count issue in UAT. -->
+<!--                    <span>(</span>-->
+<!--                    <span data-bind="text:filterObject.count"></span>-->
+<!--                    <span>)</span>-->
+                    <input type="checkbox"
+                           data-bind="attr:{id:filterObject.filter_param},
+                           checked: $parent.filterChecked,
+                           checkedValue:filterObject.filter_param" id=""/>
+                           <label  data-bind="attr:{for:filterObject.filter_param}"></label>
+                    <!-- /ko -->
+                    <!-- ko if: filterObject.all_filter == true -->
+                    <span data-bind="text:filterObject.label"></span>
+                    <input type="checkbox"
+                           data-bind="attr:{
+                            id:filterObject.filter_param,
+                           value:filterObject.filter_param},
+                           checked: $parent.allFilterChecked,
+                           click: $parent.removeCheckedFilter.bind($parent,filterObject.filter_param)" />
+                           <label data-bind="attr:{for:filterObject.filter_param}"></label>
+                    <!-- /ko -->
+                    </div>
+                </li>
+            <!-- /ko -->
+        </div>
+    </ol>
+</div>

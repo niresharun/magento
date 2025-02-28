@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">customer_saved_designs_listing.customer_saved_designs_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>customer_saved_designs_columns</spinner>
+        <deps>
+            <dep>customer_saved_designs_listing.customer_saved_designs_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="customer_saved_designs_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Ziffity_SavedDesigns::list_saved_designs</aclResource>
+        <dataProvider class="Ziffity\SavedDesigns\Ui\DataProvider\SavedDesignsDataProvider" name="customer_saved_designs_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <bookmark name="bookmarks"/>
+        <filters name="listing_filters"/>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="customer_saved_designs_columns">
+        <selectionsColumn name="ids" sortOrder="10">
+            <settings>
+                <indexField>entity_id</indexField>
+            </settings>
+        </selectionsColumn>
+        <column name="entity_id" sortOrder="20">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">ID</label>
+            </settings>
+        </column>
+        <column name="image_url" class="Ziffity\SavedDesigns\Ui\Component\Listing\SavedDesigns\Columns\ImageRender" component="Magento_Ui/js/grid/columns/thumbnail" sortOrder="30">
+            <settings>
+                <altField>title</altField>
+                <hasPreview>1</hasPreview>
+                <label translate="true">Image</label>
+                <sortable>false</sortable>
+            </settings>
+        </column>
+        <column name="title" sortOrder="40">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Label</label>
+            </settings>
+        </column>
+        <column name="sku" class="Ziffity\SavedDesigns\Ui\Component\Listing\SavedDesigns\Columns\LinkProduct" sortOrder="40">
+            <settings>
+                <addField>true</addField>
+                <filter>text</filter>
+                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+                <label translate="true">Sku</label>
+            </settings>
+        </column>
+        <actionsColumn name="actions" class="Ziffity\SavedDesigns\Ui\Component\Listing\SavedDesigns\Columns\Actions" component="Magento_Customer/js/grid/columns/actions">
+            <settings>
+                <indexField>entity_id</indexField>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>

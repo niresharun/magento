@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="admin">
+        <route id="customframe" frontName="customframe">
+            <module name="Ziffity_CustomFrame"/>
+        </route>
+        <route id="ziffity_customframe" frontName="quantity_classification">
+            <module name="Ziffity_CustomFrame"/>
+        </route>
+    </router>
+</config>

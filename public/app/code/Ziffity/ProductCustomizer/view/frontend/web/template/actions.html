@@ -1,0 +1,66 @@
+<div class="d-flex flex-bw-center">
+    <div>
+        <a class="fs frame-details" href="javascript:void(0);" data-bind="click:loadFrameDetails">
+        <span> Frame Details</span></a>
+    </div>
+    <!-- ko if:isMatEnabled -->
+    <div>
+        <a class="fs mat-details" href="javascript:void(0)" data-bind="click:loadMatDetails">
+            <span>Mat Details</span></a>
+    </div>
+    <!-- /ko -->
+    <!-- ko foreach: elems() -->
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <!-- /ko -->
+
+<!-- ko if:editmode -->
+
+<!--    If we enable this checkbox then the background shadow of the canvas to be displayed-->
+    <div class="toggle-hide text-center">
+        <div class="switch-hs">
+            <input type="checkbox" class="checkbox" data-bind="checked:toggleBoxShadow" title="Box Shadow"/>
+            <div class="knobs">
+                <span></span>
+            </div>
+            <div class="layer"></div>
+        </div>
+        <small>Shadow</small>
+    </div>
+
+<!-- ko if:backingBoardExist -->
+    <div data-block="dropdown" class="uploadImg-wrapper"
+         data-bind="css:{'disabled':!uploadAllowed()}, afterRender:renderDropdownDialog,
+         attr: { 'title': !uploadAllowed() ? 'You cannot use this feature if the product doesn not have the opening' : ''} ">
+        <label class="fs upload-photo action" data-trigger="trigger">
+            <span class="my-popover">Upload Photo</span>
+        </label>
+        <ul id="upload-content-wrappers" class="dropdown" style="display:none">
+            <div id="dropdown-dialog" data-block="block-uploadImg" data-role="dropdownDialog">
+                <!-- ko foreach: {data:graphics, as:'graphic'} -->
+                <div class="d-flex p-4">
+                    <button class="btn-sm text-nowrap">
+                        <label data-bind="attr: { for: 'upload_img_' + $index() }">Choose file</label>
+                    </button>
+                    <input type="file"  class="", accept=".jpg, .png, .gif" id="upload_img" style="display:none" title="Graphic Image Upload" data-bind="event: { change: $parent.handleFileSelect.bind($parent) }, attr: { id: 'upload_img_' + $index()}" />
+                    <small data-bind="text:(graphic.name() ? graphic.name : 'No File Choosen')" class="upload-file-name ml-2" style="line-height:1.2"></small>
+                    <a href="javascript:void(0)" class="ml-1 dficon-x text-danger" data-bind="click:$parent.resetUpload.bind($parent), visible:graphic.name, clickBubble: false"></a>
+                </div>
+                <!-- /ko -->
+            </div>
+        </ul>
+    </div>
+    <div class="toggle-hide text-center up-photo">
+        <div class="switch-hs">
+            <input type="checkbox" title="Graphic Image Show/Hide" class="checkbox" data-bind="attr: { 'disabled': !uploadAllowed() }, checked:toggleUploadImage, ">
+            <div class="knobs">
+                <span></span>
+            </div>
+            <div class="layer"></div>
+        </div>
+        <small>Image</small>
+    </div>
+    <!-- /ko -->
+    <!-- /ko -->
+</div>
+
+

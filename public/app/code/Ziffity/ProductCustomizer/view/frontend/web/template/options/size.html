@@ -1,0 +1,80 @@
+<!-- ko if: isActive() -->
+<div class="config-size">
+    <div class="txt-xs mb-4">
+        <strong>Select your Photograph size:</strong>
+    </div>
+    <div class="row">
+        <div class="col-6 mb-4">
+            <label data-bind="i18n:'Width'" class="txt-xs mr-md-3"></label>
+            <select name="width" data-bind="options: getWidthIntegers(), optionsText: 'label',
+    optionsValue: 'value',value:selectedWidthInteger, visible: !singleWidthInteger()">
+            </select>
+            <div name="width" data-bind="visible: singleWidthInteger()">&nbsp;
+                <span data-bind="text: selectedWidthInteger"></span>"
+            </div>
+        </div>
+        <div class="col-6  mb-4">
+            <label class="txt-xs mr-md-3">&nbsp;</label>
+            <select name="width_fractional" data-bind="options: getWidthFractional(),optionsText: 'label',
+    optionsValue: 'value',value:selectedWidthFractional, visible: !singleWidthFraction()">
+            </select>
+            <div name="width_fractional" data-bind=" visible: (singleWidthFraction() && selectedWidthFractional() > 0)">
+                <span data-bind="text: selectedWidthInteger"></span>"
+            </div>
+        </div>
+        <div class="col-6  mb-4">
+            <label data-bind="i18n:'Height'" class="txt-xs mr-md-3"></label>
+            <select name="height" data-bind="options: getHeightInteger(),optionsText: 'label',
+    optionsValue: 'value',value:selectedHeightInteger, visible: !singleHeightInteger()">
+            </select>
+            <div name="height" data-bind="visible: singleHeightInteger()">&nbsp;
+                <span data-bind="text: selectedHeightInteger"></span>"
+            </div>
+        </div>
+        <div class="col-6  mb-4">
+            <label class="txt-xs mr-md-3">&nbsp;</label>
+            <select name="height_fractional" data-bind="options: getHeightFractional(),optionsText: 'label',
+    optionsValue: 'value',value:selectedHeightFractional, visible: !singleHeightFraction()">
+            </select>
+            <div name="height_fractional" data-bind="visible: (singleHeightFraction() && selectedHeightFractional() > 0)">
+                <span data-bind="text: selectedHeightFractional"></span>"
+            </div>
+        </div>
+        <!-- ko ifnot:matSizeLock -->
+        <div class="rotate-frame" data-bind="visible:canRotate">
+            <label style="cursor: pointer" for="rotate-sizes">Rotate</label>
+        <input type="checkbox" style="cursor: pointer" id="rotate-sizes" data-bind='checked: rotateFrame' />
+        </div>
+        <!-- /ko -->
+    </div>
+
+    <!-- ko if: depthType !== 'none' && depthType !== null -->
+    <div class="row">
+        <div class="col-6 mb-4">
+                <!-- ko if: depthType == 'interior_depth' -->
+                    <label>Interior Depth: </label>
+            <!-- /ko -->
+            <!-- ko if: depthType == 'graphic_thickness' -->
+                <strong>Insert Thickness: </strong>
+            <!-- /ko -->
+            <select name="available_thickness" data-bind="options: getAvailableThickness(),optionsText: 'label',
+                optionsValue: 'value', value:sizeThickness, visible: !singleThickness()">
+            </select>
+            <div name="available_thickness" data-bind="visible:singleThickness()">
+                <span data-bind="text: sizeThickness"></span>"
+            </div>
+        </div>
+    </div>
+    <!-- /ko -->
+        <ul class="text-alt txt-xs list-pl pt-3">
+            <li class="mb-3">
+                <span>The maximum size cannot exceed <span class="text-body">47" x 96"</span></span>
+            </li>
+            <li>
+                <span>If you select a dimension greater than 48", the other dimension must be
+                    <span class="text-body">48" or less.</span></span>
+            </li>
+        </ul>
+
+</div>
+    <!-- /ko -->

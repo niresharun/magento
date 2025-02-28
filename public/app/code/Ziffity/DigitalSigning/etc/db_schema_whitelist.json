@@ -1,0 +1,21 @@
+{
+    "digital_signature": {
+        "column": {
+            "id": true,
+            "parent_type": true,
+            "parent_id": true,
+            "digital_signature": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "sales_order": {
+        "column": {
+            "purchase_order": true,
+            "order_notes": true
+        }
+    }
+}

@@ -1,0 +1,73 @@
+<!-- ko if:editmode -->
+<div class="text-nowrap">
+    <button data-bind="click: resetToDefault" class="action cusact-reset">Reset</button>
+    <button data-bind="click: prevStep, enable: ! currentStep().isFirstStep" class="action primary cusact-prev">Prev</button>
+    <button data-bind="click: nextStep, visible: !currentStep().isLastStep, disable:sizeRestricted" class="action primary cusact-nxt">Next</button>
+    <button data-bind="click: finishCustomization, visible: currentStep().isLastStep" class="action primary ">Finish</button>
+</div>
+<!-- /ko -->
+<!-- ko ifnot:editmode -->
+<div class="product-add-form">
+<form>
+    <div class="qty-quote-cart d-flex">
+        <div class="input-group stepper">
+
+            <button click="decreaseQty" class="input-group__button input-group__button--decrease">
+                <span class="input-group__icon input-group__icon--decrease">-</span>
+            </button>
+
+            <input data-bind="value: qty, valueUpdate: 'afterkeydown',
+             attr: {'data-validate': getDataValidator(), 'title': $t('Qty')}" type="number"
+                name="qty" id="qty" min="1" maxlength="12" class="input-group__input"  required/>
+
+            <button click="increaseQty" class="input-group__button input-group__button--increase">
+                <span class="input-group__icon input-group__icon--increase">+</span>
+            </button>
+
+        </div>
+        <div>
+            <!-- ko if:quoteAllowed -->
+                <!-- ko ifnot:srcType() == 'request_quote' -->
+                <button class="action pdp-req-quote" id="product-addtoquote" data-amquote-js="addto-button" data-bind="click:addToQuoteAction, disable:isAddToCartDisabled">Request Quote</button>
+                <!-- /ko -->
+                <!-- ko if:(srcType() == 'request_quote' && quoteScope() == null) -->
+                <button class="action pdp-req-quote" id="product-updatequote" data-amquote-js="addto-button" data-bind="click:updateQuoteAction, disable:isAddToCartDisabled">Update Quote</button>
+                <!-- /ko -->
+                <!-- ko if:(srcType() == 'request_quote' && quoteScope() == 'admin') -->
+                <button class="action pdp-req-quote" id="product-updatequote-admin" data-amquote-js="addto-button" data-bind="click:updateQuoteActionAdmin, disable:isAddToCartDisabled">Update Quote</button>
+                <!-- /ko -->
+            <!-- /ko -->
+        </div>
+        <div>
+            <!-- ko if:(srcType() == 'default' || srcType() == 'your_selections' || srcType() == 'request_quote' ) -->
+            <button title="Add to Cart"  data-bind="click:addToCartAction, disable:isAddToCartDisabled" class="action primary tocart" id="product-addtocart-button">
+                <span>Add to Cart</span>
+            </button>
+<!--            <div class="field required">-->
+<!--                <label class="label" for="options_1_text">-->
+<!--                    <span>sample</span>-->
+<!--                    <span class="price-notice">+-->
+<!--                            <span class="price-container tax weee">-->
+<!--                            <span data-price-amount="120" data-price-type="" class="price-wrapper ">$120.00</span>-->
+<!--                            </span>-->
+<!--                            </span> </label>-->
+<!--                <div class="control">-->
+<!--                    <input type="text" id="options_1_text" class="input-text product-custom-option" data-validate="{&quot;required&quot;:true,&quot;validate-no-utf8mb4-characters&quot;:true}" name="options[1]" data-selector="options[1]" value="" aria-required="true">-->
+<!--                </div>-->
+<!--            </div>-->
+            <!-- /ko -->
+            <!-- ko if:srcType() == 'checkout' -->
+            <button title="Update Cart"  data-bind="click:updateCartAction, disable:isAddToCartDisabled" class="action primary tocart" id="product-updateCart-button">
+                <span>Update Cart</span>
+            </button>
+            <!-- /ko -->
+            <!-- ko if:srcType() == 'saved_design' -->
+            <button title="Update Item"  data-bind="click:addToCartAction, disable:isAddToCartDisabled" class="action primary tocart" id="product-updateSavedDesign-button">
+                <span>Update Item</span>
+            </button>
+            <!-- /ko -->
+        </div>
+    </div>
+</form>
+</div>
+<!-- /ko -->

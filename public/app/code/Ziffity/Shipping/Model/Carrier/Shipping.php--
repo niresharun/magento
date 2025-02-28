@@ -1,0 +1,164 @@
+<?php
+
+namespace Ziffity\Shipping\Model\Carrier;
+
+use Magento\Quote\Model\Quote\Address\RateRequest;
+use Magento\Shipping\Model\Rate\Result;
+use Magento\Shipping\Model\Carrier\AbstractCarrier;
+use Magento\Shipping\Model\Carrier\CarrierInterface;
+use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Quote\Model\Quote\Address\RateResult\ErrorFactory;
+use Psr\Log\LoggerInterface;
+use Magento\Catalog\Api\ProductRepositoryInterface;
+use Magento\Shipping\Model\Rate\ResultFactory;
+use Magento\Quote\Model\Quote\Address\RateResult\MethodFactory;
+use Ziffity\Shipping\Model\Carrier\CalculateShippingProfilePrice;
+use Ziffity\Shipping\Model\Carrier\CalculateOversizeProfilePrice;
+use Magento\Framework\Pricing\Helper\Data;
+
+class Shipping extends AbstractCarrier implements CarrierInterface
+{
+    /**
+     * @var Data
+     */
+    private $pricing;
+
+    /**
+     * @var ProductRepositoryInterface
+     */
+    protected $productRepository;
+
+    /**
+     * @var string
+     */
+    protected $_code = 'ziffity';
+
+    /**
+     * @var ResultFactory
+     */
+    protected $rateResultFactory;
+
+    /**
+     * @var MethodFactory
+     */
+    protected $rateMethodFactory;
+
+    /**
+     * @var \Ziffity\Shipping\Model\Carrier\CalculateShippingProfilePrice
+     */
+    protected $shippingProfile;
+
+    /**
+     * @var \Ziffity\Shipping\Model\Carrier\CalculateOversizeProfilePrice
+     */
+    protected $oversizeProfile;
+
+    /**
+     * @param ScopeConfigInterface $scopeConfig
+     * @param ErrorFactory $rateErrorFactory
+     * @param LoggerInterface $logger
+     * @param ResultFactory $rateResultFactory
+     * @param MethodFactory $rateMethodFactory
+     * @param ProductRepositoryInterface $productRepository
+     * @param \Ziffity\Shipping\Model\Carrier\CalculateShippingProfilePrice $shippingProfile
+     * @param \Ziffity\Shipping\Model\Carrier\CalculateOversizeProfilePrice $oversizeProfile
+     * @param Data $pricing
+     * @param array $data
+     */
+    public function __construct(
+        ScopeConfigInterface $scopeConfig,
+        ErrorFactory $rateErrorFactory,
+        LoggerInterface $logger,
+        ResultFactory $rateResultFactory,
+        MethodFactory $rateMethodFactory,
+        ProductRepositoryInterface $productRepository,
+        CalculateShippingProfilePrice $shippingProfile,
+        CalculateOversizeProfilePrice $oversizeProfile,
+        Data $pricing,
+        array $data = []
+    ) {
+        $this->productRepository = $productRepository;
+        $this->rateResultFactory = $rateResultFactory;
+        $this->rateMethodFactory = $rateMethodFactory;
+        $this->shippingProfile = $shippingProfile;
+        $this->oversizeProfile = $oversizeProfile;
+        $this->pricing = $pricing;
+        parent::__construct($scopeConfig, $rateErrorFactory, $logger, $data);
+    }
+
+    /**
+     * @return array
+     */
+    public function getAllowedMethods()
+    {
+        return ['ziffity' => $this->getConfigData('name')];
+    }
+
+    /**
+     * @param RateRequest $request
+     * @return false|Result
+     */
+    public function collectRates(RateRequest $request)
+    {
+        if (!$this->getConfigFlag('active')) {
+            return false;
+        }
+
+        /** @var \Magento\Shipping\Model\Rate\Result $result */
+        $result = $this->rateResultFactory->create();
+        /** @var \Magento\Quote\Model\Quote\Address\RateResult\Method $method */
+        $method = $this->rateMethodFactory->create();
+        $method->setCarrier($this->_code);
+        $method->setCarrierTitle($this->getConfigData('title'));
+        $method->setMethod('ground');
+        $amount = 0;
+        foreach ($request->getAllItems() as $item){
+            $product = $item->getProduct();
+            if ($product->isVirtual() || $item->getParentItem()) {
+                continue;
+            }
+            $amount += $this->getGroundShippingProfilePrice($product, $item);
+        }
+        $oversized = $this->oversizeProfile->calculate($request->getAllItems(), $this->productRepository);
+        $oversized_message = ($oversized > 0)
+            ? " incl. " . $this->pricing->currencyByStore($oversized,null,true,false) . " oversized fee"
+            : "";
+//        $shippingPrice = $this->getFinalPriceWithHandlingFee($amount);
+//        $method->setMethodTitle($this->getConfigData('name') . $oversized_message);
+//        $method->setPrice($shippingPrice + $oversized);
+//        $method->setCost($amount);
+//        $result->append($method);
+        /** @var Mage_Shipping_Model_Rate_Result_Method $rate */
+//        $rate = Mage::getModel('shipping/rate_result_method');
+
+//        $rate->setCarrier($this->_code);
+//        $rate->setCarrierTitle($this->getConfigData('title'));
+//        $rate->setMethod('ground');
+        $method->setMethodTitle($this->getConfigData('ground_name') . $oversized_message);
+        $method->setPrice($amount + $oversized);
+        $method->setCost(0);
+
+        $result->append($method);
+        return $result;
+    }
+
+    /**
+     * @param ProductRepositoryInterface $product
+     * @param object|array $item
+     * @return float|int
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    protected function getGroundShippingProfilePrice($product, $item)
+    {
+        $price = $item->getPrice();
+        $productModel = $this->productRepository->getById($product->getId(),false);
+        $shippingProfileAttribute = $productModel->getCustomAttribute('shipping_profile');
+        if ($shippingProfileAttribute) {
+            $profileId = $productModel->getCustomAttribute('shipping_profile')->getValue();
+            $price = $item->getPrice();
+            $price = $this->shippingProfile->getPrice($price, $profileId);
+            $price = $price * $item->getQty();
+        }
+        return $price;
+    }
+}

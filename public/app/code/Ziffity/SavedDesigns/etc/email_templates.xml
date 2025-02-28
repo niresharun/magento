@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="saved_designs_share_to_friend" label="Share To Friend"
+              file="share_to_friend.html" type="html" module="Ziffity_SavedDesigns"
+              area="frontend"/>
+</config>

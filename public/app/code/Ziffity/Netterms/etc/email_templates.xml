@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="payment_us_netterms_email_template" label="Netterms (for non approved customer)" file="non_approved.html" type="html" module="Ziffity_Netterms" area="frontend"/>
+</config>

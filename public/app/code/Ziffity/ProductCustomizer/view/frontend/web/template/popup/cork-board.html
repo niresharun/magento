@@ -1,0 +1,51 @@
+<div id="corkboard-details" class="popup-content">
+    <div class="pc-img-holder pc-valign-center">
+        <img src="<%- response.thumb_img %>">
+    </div>
+    <div class="pc-content mb-4">
+        <div class="pc-desc">
+            <h5>Corkboard Description</h5>
+            <div>
+                <%= response.description %>
+            </div>
+        </div>
+        <div class="pc-id">
+            <strong>Corkboard ID: </strong>
+            <span><%- response.code %></span>
+        </div>
+        <div class="table-wrapper table-selected">
+            <table>
+                <thead>
+                <tr>
+                    <th>Features</th>
+                    <th class="bl">Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th>Corkboard</th>
+                    <td><%- response.name %></td>
+                </tr>
+                <% if(response.dry_erase_board_material !==null) { %>
+                <tr>
+                    <th>Corkboard Material</th>
+                    <td><%- response.dry_erase_board_material%></td>
+                </tr>
+                <% } %>
+                <% if(response.board_color !==null) { %>
+                <tr>
+                    <th>Corkoard Color</th>
+                    <td><%- response.board_color%></td>
+                </tr>
+                <% } %>
+                <% if(response.price !==null) { %>
+                <tr>
+                    <th>Corkboard Price</th>
+                    <td><%- response.price%></td>
+                </tr>
+                <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

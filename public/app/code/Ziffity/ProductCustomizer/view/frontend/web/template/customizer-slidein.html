@@ -1,0 +1,16 @@
+<!-- ko if:show -->
+    <div id="popup-customizer"  class="customizer-slidein" data-bind="css:{active:show}">
+         <div class="popup-overlay"></div>
+        <div class="customizer-main-popup" data-bind="class:position">
+            <div class="customizer-header">
+                <div class="slidein-header pb-3">
+                    <span data-bind="html:header"></span>
+                </div>
+            </div>
+            <span class="close-btn" data-bind="click:close, class:position"><i class="dficon-chevron-right"></i></span>
+            <div class="customizer-content">
+                <div data-bind="html:content"></div>
+            </div>
+        </div>
+    </div>
+<!-- /ko -->

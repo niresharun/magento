@@ -1,0 +1,18 @@
+<!--ko if:isActive -->
+<h5 class="mb-3">Header option</h5>
+<!-- ko if: isActive() -->
+<div class="kind-buttons mb-4">
+<!-- ko foreach:{data:headers, as:'headerType'} -->
+<button data-bind="text: headerType.code, css: { 'action primary': headerType.isActive() },
+click: function(d,e){ $parent.updateCurrentHeaderType(d,e)}" class="mr-2"></button>
+<!-- /ko -->
+</div>
+
+<div>
+    <!-- ko foreach: {data:elems(), as:'elem'} -->
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <!-- /ko -->
+</div>
+<!-- /ko -->
+<!-- /ko -->
+

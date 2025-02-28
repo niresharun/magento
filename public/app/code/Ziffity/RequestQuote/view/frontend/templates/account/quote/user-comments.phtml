@@ -1,0 +1,58 @@
+<?php
+/** @var \Ziffity\RequestQuote\Block\UserComments $block */
+
+$data = $block->getQuoteId();
+$state = $block->getStatusOfQuote();
+$collection = $block->getFullHistory();
+$viewModel = $block->getData('view_model');
+?>
+<?php
+#phpcs:disable
+?>
+<form id="comments_form" data-mage-init='{"validation":{}}' method="POST" action="<?php echo $block->getBaseUrl()."requestquote/index/comments/quote_id/$data"?>">
+<?php foreach ($state as $key): ?>
+        <?php if (!($key['status']== '2' || $key['status']== '4')):?>
+    <div class="textarea_comments">
+    <label for="comments_reused">Post Comments:</label><br>
+    <textarea style="width:400px;height:100px" data-validate="{'required':true}" class="resued" name="comments" id="comments_reused"></textarea>
+        <input name="form_key" type="hidden" value="<?php echo $block->getFormKey();?>">
+    </div>
+    <div>
+        <button id="submit_comments"><?= __('Submit Comments') ?></button>
+    </div>
+    <?php else: ?>
+        <?php if ($key['status']== '2'):?>
+          <span><strong>Your Quote Request Is Approved</strong></span>
+        <?php else:?>
+          <span><strong>Your Quote Request Is Canceled</strong></span>
+         <?php endif;?>
+    <?php endif;?>
+<?php endforeach; ?>
+</form>
+<br><br>
+<div>
+    <ul class="note" style="list-style:none;">
+        <?php foreach ($collection as $item): ?>
+            <?php if ($item['is_visible_on_frontend']==1):?>
+            <li class="note-item">
+            <div>
+                <span class="note-date">
+                        <?= /* @noEscape */ $block->formatDate($item['created_at'], \IntlDateFormatter::MEDIUM) ?>
+                    </span>
+                    <span class="note-time">
+                        <?= /* @noEscape */ $block->formatTime($item['created_at'], \IntlDateFormatter::MEDIUM) ?>
+                    </span>
+                <?php if ($status = $viewModel->getLabel($item['quote_status'])->getText()):?>
+                |
+                <span class="note-status"><strong><?= /* @noEscape */ $status ?></strong></span>
+                <?php endif;?>
+                |
+                <span class="note-user"><?= /* @noEscape */ $item['author'] ?></span>
+            </div>
+            <p><span class="note-comment"><?= /* @noEscape */ $item['comment'] ?></span>
+            </p>
+            </li>
+            <?php endif;?>
+        <?php endforeach; ?>
+    </ul>
+</div>

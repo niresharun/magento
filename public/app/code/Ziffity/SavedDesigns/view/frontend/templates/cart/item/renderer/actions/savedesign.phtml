@@ -1,0 +1,11 @@
+<?php
+/** @var $block Ziffity\SavedDesigns\Block\Cart\Item\Renderer\Actions\SaveDesign */
+$buttonTitle = __('Save Design');
+?>
+<?php if ($block->isAllowInCart() && $block->isProductVisibleInSiteVisibility()) : ?>
+    <a href="#"
+       data-post='<?= /* @noEscape */ $block->getSaveDesignParams() ?>'
+       class="use-ajax action dficon-heart "
+       title="<?= $buttonTitle ?>" >
+    </a>
+<?php endif ?>

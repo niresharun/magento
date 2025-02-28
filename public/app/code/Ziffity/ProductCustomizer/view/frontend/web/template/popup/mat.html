@@ -1,0 +1,57 @@
+<div id="mat-details" class="popup-content">
+    <div class="pc-cols">
+        <% _.each(response, function(res) { %>
+        <div class="d-flex" style="align-items: center;">
+            <div>
+                <h4>
+                <%- res.mat_code %>
+                </h4>
+            </div>
+            <div class="mb-4 image-container detail-image" style="background-image: url('<%- res.thumb_img %>'); margin-left: 40px">
+            </div>
+        </div>
+            <div class="table-wrapper table-selected">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Features</th>
+                    <th class="bl">Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th>Name</th>
+
+                    <td><%- res.name %></td>
+                </tr>
+                <% if(res.code !== null) { %>
+                <tr>
+                    <th>Mat ID</th>
+                    <td><%- res.code%></td>
+                </tr>
+                <% } %>
+                <% if(res.mat_type !== null) { %>
+                <tr>
+                    <th>Mat Type</th>
+                    <td><%- res.mat_type%></td>
+                </tr>
+                <% } %>
+                <% if(res.mat_color !== null) { %>
+                <tr>
+                    <th>Color</th>
+                    <td><%- res.mat_color%></td>
+                </tr>
+                <% } %>
+                <% if(res.price !== null) { %>
+                <tr>
+                    <th>Price</th>
+                    <td><%- res.price%></td>
+                </tr>
+                <% } %>
+                </tbody>
+            </table>
+            </div>
+            <% }); %>
+        </div>
+    </div>
+</div>

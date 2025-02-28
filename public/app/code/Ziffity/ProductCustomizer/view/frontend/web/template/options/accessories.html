@@ -1,0 +1,30 @@
+<!--ko if:isActive -->
+<div id=" product-options">
+    <!-- ko ifnot:productList().length -->
+    <span> No Matching Products </span>
+    <!-- /ko -->
+    <!-- ko if:productList().length -->
+    <div class="pcb-tab-content-heading-msg">
+        Choose your accessories below.
+    </div>
+    <div class="list-set">
+        <!-- ko foreach:{data:productList, as:'product'} -->
+        <div class="custom-list-style" data-bind="css:{active: $parent.productSelections.indexOf(product ) !== -1}">
+            <input type="checkbox" name="accessories" data-bind="attr:{text:product.name, id:product.id}, checked: $parent.productSelections, checkedValue:product" />
+            <label class="image" data-bind="attr:{for: product.id}">
+                <img data-bind="attr:{src:product.img_thumb, for:product.id}">
+            </label>
+            <label data-bind="attr:{for: product.id}" >
+
+                <div>
+                    <div class="fr-name mb-3" data-bind="text: product.name"></div>
+                    <div><small class="text-alt mb-3" data-bind="html: product.description"></small></div>
+                    <div class="price"><span data-bind="i18n:'Your Price: '"></span><span data-bind="text:$parent.convertPrice(product.price)"></span></div>
+                </div>
+            </label>
+        </div>
+        <!-- /ko -->
+    </div>
+    <!-- /ko -->
+</div>
+<!-- /ko -->

@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Add primary product section info product edit form for customframe products-->
+    <type name="Magento\Catalog\Controller\Adminhtml\Product\Initialization\Helper">
+        <plugin name="CustomFrame" type="Ziffity\CustomFrame\Controller\Adminhtml\Product\Initialization\Helper\Plugin\CustomFrame" sortOrder="60" />
+    </type>
+    <virtualType name="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="customframe" xsi:type="array">
+                    <item name="class" xsi:type="string">Ziffity\CustomFrame\Ui\DataProvider\Product\Form\Modifier\Composite</item>
+                    <item name="sortOrder" xsi:type="number">180</item>
+                </item>
+                <item name="co-products" xsi:type="array">
+                    <item name="class" xsi:type="string">Ziffity\CustomFrame\Ui\DataProvider\Product\Form\Modifier\CoProductsPanel</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Ziffity\CustomFrame\Ui\DataProvider\Product\Form\Modifier\Composite">
+            <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="bundleSku" xsi:type="string">Magento\Bundle\Ui\DataProvider\Product\Form\Modifier\BundleSku</item>
+                <item name="bundlePrice" xsi:type="string">Magento\Bundle\Ui\DataProvider\Product\Form\Modifier\BundlePrice</item>
+                <item name="bundleWeight" xsi:type="string">Magento\Bundle\Ui\DataProvider\Product\Form\Modifier\BundleWeight</item>
+                <item name="bundleQuantity" xsi:type="string">Magento\Bundle\Ui\DataProvider\Product\Form\Modifier\BundleQuantity</item>
+                <item name="bundleAdvancedPricing" xsi:type="string">Magento\Bundle\Ui\DataProvider\Product\Form\Modifier\BundleAdvancedPricing</item>
+                <item name="bundleCustomOptions" xsi:type="string">Magento\Bundle\Ui\DataProvider\Product\Form\Modifier\BundleCustomOptions</item>
+                <item name="bundlePanel" xsi:type="string">Ziffity\CustomFrame\Ui\DataProvider\Product\Form\Modifier\BundlePanel</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Catalog\Model\Product\Attribute\Backend\Price">
+        <plugin name="allow_price_value_null"
+                type="Ziffity\CustomFrame\Plugin\PriceBackend"
+                sortOrder="101"/>
+    </type>
+</config>

@@ -1,0 +1,15 @@
+<div class="pager" data-bind="visible: pageNumbers().length > 1">
+    <a href="#" class="previous" data-bind="click: goToFirstPage, visible: hasPrevious">
+        <svg viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12.5 17L8 12.5L12.5 8M16.5 17L12 12.5L16.5 8" stroke="#1d1d1f" stroke-width="1.2"></path> </g></svg>
+    </a>
+    <a href="#" class="previous" data-bind="click: previous, visible: hasPrevious"><i class="dficon-chevron-left"></i></a>
+    <!-- ko foreach: pageNumbers -->
+    <span data-bind="css: { current: $data === $parent.pageNumber() }">
+        <a href="#" data-bind="text: $data, click: $parent.goToPage.bind($parent)"></a>
+    </span>
+    <!-- /ko -->
+    <a href="#" class="next" data-bind="click: next, visible: hasNext"><i class="dficon-chevron-right"></i></a>
+    <a href="#" class="next" data-bind="click: goToLastPage, visible: hasNext">
+        <svg viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" transform="matrix(-1, 0, 0, 1, 0, 0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12.5 17L8 12.5L12.5 8M16.5 17L12 12.5L16.5 8" stroke="#1d1d1f" stroke-width="1.2"></path> </g></svg>
+    </a>
+</div>

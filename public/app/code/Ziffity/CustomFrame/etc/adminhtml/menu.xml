@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Ziffity_CustomFrame::custom_frame" title="Custom Frame" translate="title" module="Ziffity_CustomFrame" parent="Magento_Catalog::catalog" sortOrder="50" resource="Ziffity_CustomFrame::custom_frame"/>
+        <add id="Ziffity_CustomFrame::product_quantity_classification" title="Product Quantity Classification" module="Ziffity_CustomFrame" sortOrder="50" resource="Ziffity_CustomFrame::product_quantity_classification" parent="Ziffity_CustomFrame::custom_frame" action="ziffity_customframe/index/index"/>
+    </menu>
+</config>

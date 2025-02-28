@@ -1,0 +1,353 @@
+<?php
+/** @var \Ziffity\CustomFrame\Block\Adminhtml\Edit\Opening $block */
+?>
+<?php if ($block->loadWidget()): ?>
+<div id="opadmin" class="antool-wrapper entry-edit">
+    <?php echo $block->getFormHtml();?>
+    <div id="opadmin-switcher" class="antool-controls-main">
+        <h3>Openings type:</h3>
+        <div>
+            <input
+                v-model="type"
+                value="single"
+                @change="changeType('single')"
+                type="radio"
+                name="opadmin-type"
+                id="opadmin-type-single">
+            <label for="opadmin-type-single">Single</label>
+        </div>
+        <div>
+            <input
+                v-model="type"
+                value="multiple"
+                @change="changeType('multiple')"
+                type="radio"
+                name="opadmin-type"
+                id="opadmin-type-multiple">
+            <label for="opadmin-type-multiple">Multiple</label>
+        </div>
+    </div>
+    <div id="opadmin-controls">
+        <div id="opadmin-render" class="antool-render">
+            <canvas id="opadmin-canvas"></canvas>
+        </div>
+        <div class="antool-controls">
+            <div class="controls-mats" v-if="show_lock">
+                <div v-if="mats_sizes" class="opadmin-controls-main">
+                    <label for="openings-mat-size-lock"><strong>Lock sizes</strong></label>
+                    <input type="checkbox" v-model="lock_sizes" id="openings-mat-size-lock">
+                </div>
+            </div>
+            <div class="controls-mats">
+                <div v-if="mats_sizes" class="opadmin-controls-main">
+                    <h3>Matboard Top:</h3>
+                    <select
+                        v-model="mats_sizes_active.top.integer"
+                        name="openings-mat-size-top-integer" id="openings-mat-size-top-integer">
+                        <option
+                            v-for="size in mats_sizes.top.integer"
+                            v-bind="{selected: mats_sizes_active ? (size === mats_sizes_active.top.integer) : false}"
+                            value="{{size}}">
+                            {{size}}"
+                        </option>
+                    </select>
+                    <select
+                        v-model="mats_sizes_active.top.tenth"
+                        name="openings-mat-size-top-tenth" id="openings-mat-size-top-tenth">
+                        <option
+                            v-for="size in mats_sizes.top.tenth"
+                            v-bind="{selected: mats_sizes_active ? (size === mats_sizes_active.top.tenth) : false}"
+                            value="{{size}}">
+                            {{size}}"
+                        </option>
+                    </select>
+                </div>
+                <div v-if="mats_sizes && reveals_there" class="opadmin-controls-main">
+                    <h3>Matboard Reveal:</h3>
+                    <select
+                        v-model="mats_sizes_active.reveal"
+                        name="openings-mat-size-reveal" id="openings-mat-size-reveal">
+                        <option
+                            v-for="size in mats_sizes.reveal"
+                            v-bind="{selected: mats_sizes_active ? (size === mats_sizes_active.reveal) : false}"
+                            value="{{size}}">
+                            {{size}}"
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div v-show="!is_hidden" class="antool-controls-main">
+                <h3>Inner frame size:</h3>
+                <strong>{{inner_frame_width}}" Wide x {{inner_frame_height}}" High</strong>
+            </div>
+            <p v-if="false">
+                <a @click.prevent="exportList"
+                   href="#link">export openings</a>
+                <br>
+                <a @click.prevent="updateRender"
+                   href="#link">update render</a>
+            </p>
+            <div v-show="!is_hidden" class="antool-controls-main">
+                <a href="#link"
+                   @click.prevent="addOpening()">+ Add opening</a>
+            </div>
+            <div class="antool-controls-list"
+                 v-if="list.length">
+                <div class="antool-controls-item"
+                     v-for="(index, item) in reverseList(list)"
+                     track-by="$index"
+                     v-bind:class="{active: item.active}">
+                    <h3>{{item.name}}</h3>
+                    <div v-if="!is_hidden" class="controls-item-tool">
+                        <h4>Position:</h4>
+                        <div class="tool-row">
+                            <span class="label">top</span> = <span class="val">{{item.position.top_inch}}"</span>
+                            <div class="tool-row-buttons">
+                                <button title="Decrease"
+                                        type="button"
+                                        class="scalable add minus"
+                                        @click.prevent="decreasePosition(item, 'top')">
+                                    <span>
+                                        <span>
+                                            <span>
+                                                Up
+                                            </span>
+                                        </span>
+                                    </span>
+                                </button>
+                                <button title="Increase"
+                                        type="button"
+                                        class="scalable add"
+                                        @click.prevent="increasePosition(item, 'top')">
+                                    <span>
+                                        <span>
+                                            <span>
+                                                Down
+                                            </span>
+                                        </span>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="tool-row">
+                            <span class="label">left</span> = <span class="val">{{item.position.left_inch}}"</span>
+                            <div class="tool-row-buttons">
+                                <button title="Decrease"
+                                        type="button"
+                                        class="scalable add minus"
+                                        @click.prevent="decreasePosition(item, 'left')">
+                                    <span>
+                                        <span>
+                                            <span>
+                                                Left
+                                            </span>
+                                        </span>
+                                    </span>
+                                </button>
+                                <button title="Increase"
+                                        type="button"
+                                        class="scalable add"
+                                        @click.prevent="increasePosition(item, 'left')">
+                                    <span>
+                                        <span>
+                                            <span>
+                                                Right
+                                            </span>
+                                        </span>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-if="!is_hidden" class="controls-item-tool">
+                        <h4>Size:</h4>
+                        <div class="tool-row">
+                            <span class="label">width</span> = <span class="val">{{item.size.width_inch}}"</span>
+                            <div class="tool-row-buttons">
+                                <button title="Increase"
+                                        type="button"
+                                        class="scalable add"
+                                        @click.prevent="increaseSize(item, 'width')">
+                                    <span>
+                                        <span>
+                                            <span>
+                                                Increase
+                                            </span>
+                                        </span>
+                                    </span>
+                                </button>
+                                <button title="Decrease"
+                                        type="button"
+                                        class="scalable add minus"
+                                        @click.prevent="decreaseSize(item, 'width')">
+                                    <span>
+                                        <span>
+                                            <span>
+                                                Decrease
+                                            </span>
+                                        </span>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="tool-row">
+                            <span class="label">height</span> = <span class="val">{{item.size.height_inch}}"</span>
+                            <div class="tool-row-buttons">
+                                <button title="Increase"
+                                        type="button"
+                                        class="scalable add"
+                                        @click.prevent="increaseSize(item, 'height')">
+                                    <span>
+                                        <span>
+                                            <span>
+                                                Increase
+                                            </span>
+                                        </span>
+                                    </span>
+                                </button>
+                                <button title="Decrease"
+                                        type="button"
+                                        class="scalable add minus"
+                                        @click.prevent="decreaseSize(item, 'height')">
+                                    <span>
+                                        <span>
+                                            <span>
+                                                Decrease
+                                            </span>
+                                        </span>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="controls-item-tool">
+                        <input type="radio"
+                               id="op-shape-{{index}}-rect"
+                               name="op-shape-{{index}}"
+                               v-model="item.shape"
+                               value="rectangle"
+                               v-bind="{ checked: item.shape === 'rectangle' }"
+                               @change="changeShape(item, 'rectangle')">
+                        <label for="op-shape-{{index}}-rect">Rectangle</label>
+                        <br>
+                        <input type="radio"
+                               id="op-shape-{{index}}-circle"
+                               name="op-shape-{{index}}"
+                               v-model="item.shape"
+                               value="circle"
+                               v-bind="{ checked: item.shape === 'circle' }"
+                               @change="changeShape(item, 'circle')">
+                        <label for="op-shape-{{index}}-circle">Circle</label>
+                    </div>
+                    <div v-if="!item.img || (item.img && !item.img.url)" class="controls-item-tool">
+                        <input type="file"
+                               id="layer-openings-upload-{{index}}"
+                               @change="changeFile($event, list.length - index - 1)">
+                        <label class="form-button" for="layer-openings-upload-{{index}}">
+                            UPLOAD IMAGE
+                        </label>
+                    </div>
+                    <div v-if="item.img && item.img.url" class="controls-item-tool">
+                        <input @change="changeGrab(item)"
+                               v-model="item.img_controls"
+                               id="op-img-controls-{{index}}"
+                               name="op-img-controls-{{index}}"
+                               type="checkbox">
+                        <label for="op-img-controls-{{index}}">Grab image</label>
+                    </div>
+                    <div v-if="item.img && item.img.url" class="controls-item-tool">
+                        <h4>Image position:</h4>
+                        <div class="tool-row-buttons">
+                            <button title="Decrease"
+                                    type="button"
+                                    class="scalable add minus"
+                                    @click.prevent="decreasePositionImg(item, 'top')">
+                                    <span>
+                                        <span>
+                                            <span>
+                                                Up
+                                            </span>
+                                        </span>
+                                    </span>
+                            </button>
+                            <button title="Increase"
+                                    type="button"
+                                    class="scalable add"
+                                    @click.prevent="increasePositionImg(item, 'top')">
+                                    <span>
+                                        <span>
+                                            <span>
+                                                Down
+                                            </span>
+                                        </span>
+                                    </span>
+                            </button>
+                        </div>
+                        <div class="tool-row">
+                            <div class="tool-row-buttons">
+                                <button title="Decrease"
+                                        type="button"
+                                        class="scalable add minus"
+                                        @click.prevent="decreasePositionImg(item, 'left')">
+                                    <span>
+                                        <span>
+                                            <span>
+                                                Left
+                                            </span>
+                                        </span>
+                                    </span>
+                                </button>
+                                <button title="Increase"
+                                        type="button"
+                                        class="scalable add"
+                                        @click.prevent="increasePositionImg(item, 'left')">
+                                    <span>
+                                        <span>
+                                            <span>
+                                                Right
+                                            </span>
+                                        </span>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-if="item.img && item.img.url" class="controls-item-tool">
+                        <button title="Remove"
+                                type="button"
+                                class="scalable delete"
+                                @click.prevent="removeImage(item, list.length - index - 1)">
+                            <span>
+                                <span>
+                                    <span>
+                                        Remove image
+                                    </span>
+                                </span>
+                            </span>
+                        </button>
+                    </div>
+                    <input v-bind="{ value: item.img.url }"
+                           name="opening-image-url[]"
+                           type="hidden">
+                    <button v-if="!is_hidden"
+                            title="Remove"
+                            type="button"
+                            class="scalable delete"
+                            @click.prevent="removeOpening(item)">
+                        <span>
+                            <span>
+                                <span>
+                                    Remove opening
+                                </span>
+                            </span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    window.productJson = <?php echo $block->getProductJson(); ?>;
+</script>
+<?php endif;?>

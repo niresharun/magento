@@ -1,0 +1,58 @@
+<!-- ko if: showPopup() -->
+<div id="modal-content">
+    <div class="product-sendtofriend-image mb-4  text-center">
+        <img data-bind="attr:{src:popupImage}" alt="product to friend" />
+    </div>
+    <div class="form-class field-sm" data-bind="visible:showForm">
+        <form action="" method="post" id="product-sendtofriend-form" data-mage-init='{"validation":{}}'>
+            <div class="row">
+                <div class="field sender required col-md mb-4">
+                    <input name="name_customer" data-bind="value:senderName" title="" id="senderName" type="text"
+                        class="input-text field" placeholder="Your Name" data-validate="{required:true}" />
+                </div>
+                <div class="field email required col-md mb-4">
+                    <input name="email_customer" data-bind="value:senderEmail" title="Your Email" id="sender-email"
+                        type="text" class="input-text" placeholder="Your Email"
+                        data-validate="{required:true, 'validate-email':true}" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="field name required col-md mb-4">
+                    <input name="name_other" type="text" title="Recipient Name" class="input-text"
+                        placeholder="Recipient Name" data-bind="value:nameOther" id="recipients-name0"
+                        data-validate="{required:true}" />
+                </div>
+                <div class="field email required col-md mb-4">
+                    <input name="email_other" title="Recipient Email" id="recipients-email0" type="email"
+                        class="input-text" placeholder="Recipient Email" data-bind="value:emailOther"
+                        data-validate="{required:true, 'validate-email':true}" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="product-sendtofriend-step2 hidden" data-bind="visible:showPreview">
+        <div class="product-sendtofriend-preview">
+            <p class="preview-to">Dear <strong data-bind="text:nameOther" id="preview-recipient"></strong>,</p>
+            <div class="preview-body">
+                <p>We thought that you would like to know that <span id="preview-sender"
+                        data-bind="text:senderName"></span> has been eyeing:</p>
+            </div>
+            <div class="preview-body">
+                <p>Consider this a little "hint".</p>
+            </div>
+            <div class="preview-signature">
+                Love,<br />
+                <strong>DisplayFrames</strong>
+            </div>
+        </div>
+        <div class="actions d-flex mt-5 justify-content-end">
+            <div class="mr-3">
+                <button data-bind="click:sendEmail" class="button action-primary button--send">Send</button>
+            </div>
+            <div>
+                <button data-bind="click:goBack" class="button button--blank action-secondary button--back">Back</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /ko -->

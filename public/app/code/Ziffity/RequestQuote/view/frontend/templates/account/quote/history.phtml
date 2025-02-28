@@ -1,0 +1,85 @@
+<?php
+$quotes = $block->getQuotes();
+?>
+<div class="block block-dashboard-orders">
+<div class="block-title"><strong><?= $block->escapeHtml(__('My Quotes')) ?></strong></div>
+<?= $block->getChildHtml('info') ?>
+<?php if ($quotes && $quotes->getSize()): ?>
+    <div class="block-content">
+    <div class="table-wrapper quotes-history">
+        <div id="archive-modal">
+            <button type="button" id="archive-confirm">Yes</button>
+            <button type="button" id="archive-cancel">No</button>
+        </div>
+        <table class="data table table-quote-items history" id="my-quotes-table">
+            <caption class="table-caption"><?= $escaper->escapeHtml(__('Quotes')) ?></caption>
+            <thead>
+            <tr>
+                <th scope="col" class="col id"><?= $escaper->escapeHtml(__('Quote #')) ?></th>
+                <th scope="col" class="col date"><?= $escaper->escapeHtml(__('Date')) ?></th>
+                <th scope="col" class="col total"><?= $escaper->escapeHtml(__('Quote Name')) ?></th>
+                <th scope="col" class="col status"><?= $escaper->escapeHtml(__('Status')) ?></th>
+                <?php if ($block->isExpiryColumnShow()): ?>
+                <th scope="col" class="col expired"><?= $escaper->escapeHtml(__('Expiry Date')) ?></th>
+                <?php endif; ?>
+                <th scope="col" class="col actions"><?= $escaper->escapeHtml(__('Action')) ?></th>
+                <th scope="col" class="col actions"><?= $escaper->escapeHtml(__('Archive Action')) ?></th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($quotes as $quote): ?>
+                <tr>
+                    <td data-th="<?= $escaper->escapeHtml(__('Quote #')) ?>" class="col id"><?= $escaper->escapeHtml($quote->getIncrementId()) ?></td>
+                    <td data-th="<?= $escaper->escapeHtml(__('Date')) ?>" class="col date"><?= $escaper->escapeHtml($block->formatDate($quote->getCreatedAt())) ?></td>
+                    <td style="overflow-wrap: break-word;" data-th="<?= $escaper->escapeHtml(__('Quote Name')) ?>" class="col total"><?= /* @noEscape */ $quote->getData('quote_name') ?></td>
+                    <?php if ($quote->getStatusLabel()== 'Pending'): ?>
+                    <td data-th="<?= $escaper->escapeHtml(__('Status')) ?>" class="text-alt"><?= $escaper->escapeHtml($quote->getStatusLabel())?></td>
+                    <?php elseif ($quote->getStatusLabel() == "Approved") : ?>
+                    <td data-th="<?= $escaper->escapeHtml(__('Status')) ?>" class="text-success"><?= $escaper->escapeHtml($quote->getStatusLabel())?></td>
+                    <?php elseif(($quote->getStatusLabel()== 'Complete') || ($quote->getStatusLabel()== 'Canceled')): ?>
+                    <td data-th="<?= $escaper->escapeHtml(__('Status')) ?>" class="text-danger"><?= $escaper->escapeHtml($quote->getStatusLabel())?></td>
+                    <?php elseif(($quote->getStatusLabel()== 'Expired') || ($quote->getStatusLabel()== 'Created from admin')): ?>
+                    <td data-th="<?= $escaper->escapeHtml(__('Status')) ?>" class="text-dark"><?= $escaper->escapeHtml($quote->getStatusLabel())?></td>
+                    <?php endif; ?>
+                    <?php if ($block->isExpiryColumnShow()): ?>
+                    <td data-th="<?= $escaper->escapeHtml(__('Expiry Date')) ?>" class="col expired"><?= $escaper->escapeHtml($block->getExpiredDate($quote)) ?></td>
+                    <?php endif; ?>
+                    <td data-th="<?= $escaper->escapeHtml(__('Actions')) ?>" class="col actions">
+                        <a href="<?= $escaper->escapeUrl($block->getViewUrl($quote)) ?>" class="action view txt-link" title="<?= $escaper->escapeHtml(__('View')) ?>">
+                        <?= $escaper->escapeHtml(__('View')) ?>
+                        </a>
+                    <?php if ($block->isMoveShowed($quote)): ?>
+                        <a href="#" data-post='<?= /* @noEscape  */$block->getPostData($block->getMoveUrl($quote)) ?>'
+                           class="action quote" title="<?= $escaper->escapeHtml(__('Move to Cart')) ?>">
+                           <i class="dficon-shopping-bag txt-16"></i>
+                        </a>
+                    <?php endif; ?>
+                    </td>
+                    <td data-th="<?= $escaper->escapeHtml(__('Archive')) ?>" class="col actions">
+                    	<a href="#" class="archive-quote txt-link" >
+                            <input type="hidden" name="quote_id" value='<?= $block->getPostData($block->getUrl('requestquote/archive/index').'?quoteid='.$quote->getId()) ?>'>
+                    		<span><?= $escaper->escapeHtml(__('Archive')) ?></span>
+                    	</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    </div>
+    <?php if ($block->getPagerHtml()): ?>
+        <div class="quote-products-toolbar toolbar bottom"><?= $block->getPagerHtml() ?></div>
+    <?php endif ?>
+
+    <script type="text/x-magento-init">
+    {
+        "*": {
+            "Ziffity_RequestQuote/js/archive-action": {}
+        }
+    }
+
+</script>
+<?php else: ?>
+    <div class="box-content">  <div class="message info empty"><span><?= $escaper->escapeHtml(__('You have placed no quotes.')) ?></span></div></div>
+<?php endif ?>
+</div>

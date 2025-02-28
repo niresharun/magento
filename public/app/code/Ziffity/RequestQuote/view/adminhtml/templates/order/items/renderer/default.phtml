@@ -1,0 +1,33 @@
+<?php
+/**
+ */ /** @var \Amasty\RequestQuote\Block\Adminhtml\Quote\View\Items\Renderer\DefaultRenderer $block */ ?>
+<?php $item = $block->getItem() ?>
+<span>test</span>
+<?php $block->setPriceDataObject($item) ?>
+<tr data-amquote-js="quote-item">
+    <?php $i = 0;
+    $columns = $block->getColumns();
+    $lastItemNumber = count($columns) ?>
+    <?php foreach ($columns as $columnName => $columnClass):?>
+        <?php $i++; ?>
+        <td class="<?= /* @noEscape */ $columnClass ?><?= /* @noEscape */ ($i === $lastItemNumber ? ' last' : '') ?>"><?= /* @noEscape */ $block->getColumnHtml($item, $columnName) ?></td>
+    <?php endforeach; ?>
+</tr>
+<?php if ($itemQuestion = $block->getItemQuestion($item)): ?>
+    <tr class="row-notes-error">
+        <td colspan="2">
+            <strong><?= $escaper->escapeHtml(__('Customer Note:')) ?></strong>
+            <div class="customer-note">
+                <?= /** @noEscape */ nl2br($escaper->escapeHtml($itemQuestion)) ?>
+            </div>
+        </td>
+        <td colspan="10">
+            <?php if ($answer = $block->getItemAnswer($item)): ?>
+                <strong><?= $escaper->escapeHtml(__('Administrator Note:')) ?></strong>
+                <div class="customer-note">
+                    <?= /** @noEscape */ nl2br($escaper->escapeHtml($answer)) ?>
+                </div>
+            <?php endif; ?>
+        </td>
+    </tr>
+<?php endif; ?>

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="quote_reminder" instance="Ziffity\AbandonedQuote\Cron\QuoteEmail" method="execute">
+            <config_path>amasty_request_quote/quote_abandoned/scheduled_cron</config_path>
+        </job>
+    </group>
+</config>

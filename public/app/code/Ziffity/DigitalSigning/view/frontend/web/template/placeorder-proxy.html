@@ -1,0 +1,10 @@
+<div data-bind="visible: isButtonVisible()">
+    <!-- ko foreach: elems() -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    <!-- /ko -->
+    <br><div class="actions-toolbar-trigger p-5" id="place-order-trigger-wrapper">
+        <button type="submit" class="button action primary w-100" id="place-order-trigger" value="Place Order" afterRender="linkPlaceOrder" data-bind="visible:enablePlaceOrder">
+            <span>Place Order</span><br>
+        </button>
+    </div>
+</div>

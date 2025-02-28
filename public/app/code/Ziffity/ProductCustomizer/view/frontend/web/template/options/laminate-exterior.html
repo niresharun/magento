@@ -1,0 +1,41 @@
+<!--ko if:isActive-->
+<!-- ko if: productLoaded -->
+<!--This Div is for the filter selections as in layered navigation for the child items in the frame options-->
+<div id="toggle" class="featured-selections" style="display: none">
+    <div data-bind="with: $data">
+        <div data-bind="template: 'Ziffity_ProductCustomizer/selectionsFilter'"></div>
+    </div>
+</div>
+<!--This div is used for the search field to filter the items based on the product name-->
+<div data-bind="with: $data">
+    <div data-bind="template: 'Ziffity_ProductCustomizer/searchField'"  class="customizer-search"></div>
+</div>
+<!-- ko ifnot:laminateExteriorProducts().length -->
+<span> No Matching Products </span>
+<!-- /ko -->
+<!-- ko if:laminateExteriorProducts().length -->
+<div class="frame-sets">
+    <!-- ko foreach:{data:laminateExteriorProducts, as:'product'} -->
+        <div class="frame-style">
+            <a href="javascript:void(0)" class="fmore-info" data-bind="click:$parent.showDetails.bind($data), clickBubble: false" style="text-decoration: none">i</a>
+            <input type="radio" name="laminate_exterior"
+                   data-bind="attr:{id:product.id}, checked:$parent.productSelection, checkedValue: product,"/>
+            <div class="image">
+                <img data-bind="attr:{src:product.img_thumb}">
+            </div>
+            <div>
+                <div class="frame-name mb-3" data-bind="text: product.name"></div>
+                <div class="price">
+                    <span data-bind="text: $parent.convertPrice(product.price)"></span>
+                </div>
+            </div>
+        </div>
+    <!-- /ko -->
+</div>
+<!--This Div is used for showing the pagination that works with the search and selections filter-->
+<div data-bind="with: $data">
+    <div data-bind="template: 'Ziffity_ProductCustomizer/pager'"></div>
+</div>
+<!-- /ko -->
+<!-- /ko -->
+<!-- /ko -->

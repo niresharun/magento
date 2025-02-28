@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="amasty_request_quote">
+            <group id="quote_abandoned" translate="label" type="text" sortOrder="55" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Abandoned Quote Email Remainder</label>
+                <field id="status" translate="label" type="select" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable 'Abandoned Quote'</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="quote_lifetime" translate="label" type="select" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Send Emails To Subscribers Only</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="email_template" translate="label" sortOrder="105" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Configuration</label>
+                    <frontend_model>Ziffity\AbandonedQuote\Block\Adminhtml\Form\Field\Email</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                </field>
+                <field id="scheduled_cron" translate="label" sortOrder="205" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Cron Schedule</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

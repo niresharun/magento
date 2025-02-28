@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="shipping_profile" resource="default" comment="Shipping Profile">
+        <column xsi:type="datetime" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Shipping Profile created at"/>
+        <column xsi:type="datetime" name="modified_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Shipping Profile updated at"/>
+        <column xsi:type="int" name="profile_id" identity="true" unsigned="true" comment="Profile Id" />
+        <column xsi:type="varchar" name="profile_name" length="255" nullable="false" comment="Profile Name" />
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="profile_id" />
+        </constraint>
+    </table>
+    <table name="shipping_profile_charge" resource="default" comment="Shipping Profile Charge">
+        <column xsi:type="int" name="charge_id" identity="true" unsigned="true" comment="Charge Id" />
+        <column xsi:type="int" name="profile_id" unsigned="true" comment="Profile Id" />
+        <column xsi:type="decimal" precision="12" scale="4" name="product_cost_min" comment="Order Subtotal Min" />
+        <column xsi:type="decimal" precision="12" scale="4" name="product_cost_max" comment="Order Subtotal Max" />
+        <column xsi:type="int" name="shipping_charge_type" comment="Shipping Charge Type" default="1"/>
+        <column xsi:type="decimal" precision="12" scale="4" name="shipping_charge" comment="Shipping Charge"  default="0.00"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="charge_id" />
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="SHIPPING_PROFILE_PROFILE_ID_SHIPPING_PROFILE_CHARGE_PROFILE_ID"
+                    table="shipping_profile_charge" column="profile_id"
+                    referenceTable="shipping_profile"
+                    referenceColumn="profile_id"
+                    onDelete="CASCADE"/>
+    </table>
+
+    <table name="oversize_profile" resource="default" comment="Oversize Profile">
+        <column xsi:type="datetime" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Oversize Profile created at"/>
+        <column xsi:type="datetime" name="modified_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Oversize Profile updated at"/>
+        <column xsi:type="int" name="profile_id" identity="true" unsigned="true" comment="Profile Id" />
+        <column xsi:type="varchar" name="profile_name" length="255" nullable="false" comment="Profile Name" />
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="profile_id" />
+        </constraint>
+    </table>
+    <table name="oversize_profile_charge" resource="default" comment="Oversize Profile Charge">
+        <column xsi:type="int" name="charge_id" identity="true" unsigned="true" comment="Charge Id" />
+        <column xsi:type="int" name="profile_id" unsigned="true" comment="Profile Id" />
+        <column xsi:type="decimal" precision="12" scale="4" name="united_inch_min" comment="United Inch Max" />
+        <column xsi:type="decimal" precision="12" scale="4" name="united_inch_max" comment="United Inch Min" />
+        <column xsi:type="int" name="shipping_charge_type" comment="Shipping Charge Type"  default="1"/>
+        <column xsi:type="decimal" precision="12" scale="4" name="shipping_charge" comment="Shipping Charge" default="0.00"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="charge_id" />
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="OVERSIZE_PROFILE_PROFILE_ID_OVERSIZE_PROFILE_CHARGE_PROFILE_ID"
+                    table="oversize_profile_charge" column="profile_id"
+                    referenceTable="oversize_profile"
+                    referenceColumn="profile_id"
+                    onDelete="CASCADE"/>
+    </table>
+</schema>

@@ -1,0 +1,191 @@
+<?php
+
+/** @var \Magento\Contact\Block\ContactForm $block */
+
+$googleMapBlock = $this->getlayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('contactus_googlemaps');
+$viewModel = $block->getViewModel();
+$contactViewModel = $block->getData('contact_view_model');
+?>
+
+<div class="contact-holder container-sm d-md-flex gap-3">
+    <div class="maps-block">
+
+        <?php $html = $googleMapBlock->toHtml(); ?>
+        <?php if (isset($html) && !empty($html)) : ?>
+            <?php echo $html; ?>
+        <?php endif; ?>
+    </div>
+    <div class="p-4 p-xl-5 bg-secondary col-md-6">
+        <form class="form contact"
+              action="<?= $block->escapeUrl($block->getFormAction()) ?>"
+              id="contact-form"
+              method="post"
+              data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+              data-mage-init='{"validation":{}}'>
+            <fieldset class="fieldset">
+                <legend class="legend"><span><?= $block->escapeHtml(__('Write Us')) ?></span></legend><br />
+                <div class="field note no-label">
+                    <?= $block->escapeHtml(__('Jot us a note and we’ll get back to you as quickly as possible.')) ?>
+                </div>
+                <div class="field firstname required">
+                    <label class="label" for="firstname"><span><?= $block->escapeHtml(__('First Name')) ?></span></label>
+                    <div class="control">
+                        <input name="firstname"
+                               id="firstname"
+                               title="<?= $block->escapeHtmlAttr(__('First Name')) ?>"
+                               value="<?= $block->escapeHtmlAttr($contactViewModel->getFirstName()) ?>"
+                               class="input-text"
+                               type="text"
+                               data-validate="{required:true}"/>
+                    </div>
+                </div>
+                <div class="field lastname required">
+                    <label class="label" for="lastname"><span><?= $block->escapeHtml(__('Last Name')) ?></span></label>
+                    <div class="control">
+                        <input name="lastname"
+                               id="lastname"
+                               title="<?= $block->escapeHtmlAttr(__('Last Name')) ?>"
+                               value="<?= $block->escapeHtmlAttr($contactViewModel->getLastName()) ?>"
+                               class="input-text"
+                               type="text"
+                               data-validate="{required:true}"/>
+                    </div>
+                </div>
+                <div class="field telephone">
+                    <label class="label" for="telephone"><span><?= $block->escapeHtml(__('Phone')) ?></span></label>
+                    <div class="control">
+                        <input name="telephone"
+                               id="telephone"
+                               title="<?= $block->escapeHtmlAttr(__('Phone')) ?>"
+                               value="<?= $block->escapeHtmlAttr($viewModel->getUserTelephone()) ?>"
+                               class="input-text"
+                               type="tel" />
+                    </div>
+                </div>
+                <div class="field email required">
+                    <label class="label" for="email"><span><?= $block->escapeHtml(__('Email')) ?></span></label>
+                    <div class="control">
+                        <input name="email"
+                               id="email"
+                               title="<?= $block->escapeHtmlAttr(__('Email')) ?>"
+                               value="<?= $block->escapeHtmlAttr($viewModel->getUserEmail()) ?>"
+                               class="input-text"
+                               type="email"
+                               data-validate="{required:true, 'validate-email':true}"
+                               data-mage-init='{"mage/trim-input":{}}'
+                        />
+                    </div>
+                </div>
+                <div class="field business-name required">
+                    <label class="label" for="lastname"><span><?= $block->escapeHtml(__('Business Name')) ?></span></label>
+                    <div class="control">
+                        <input name="business-name"
+                               id="business-name"
+                               title="<?= $block->escapeHtmlAttr(__('Business Name')) ?>"
+                               value="<?= $block->escapeHtmlAttr($contactViewModel->getBusinessName()) ?>"
+                               class="input-text"
+                               type="text"
+                               data-validate="{required:true}"/>
+                    </div>
+                </div>
+                <div class="field inquiry required" id="inquiry-fieldset">
+                   <!-- <label class="label" for="inquiry"><span><?= $block->escapeHtml(__('Inquiry')) ?></span></label>
+                        if this label is required, make it as first option in the select field-->
+                    <select name="inquiry" id="js-inquiry-get-options">
+
+                        <?php $inquiryList = $block->getInquiryList();
+                        foreach ($block->getInquiryList() as $inquire): ?>
+                            <option
+                                value="<?php echo $inquire['value']; ?>"><?php echo $inquire['label']; ?></option>
+
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <ul id="js-inquire-options" class="form-list form-inquire-options  list-unstyled">
+                </ul>
+                <div class="field comment required">
+                    <label class="label" for="comment">
+                        <span><?= $block->escapeHtml(__('Comments')) ?></span>
+                    </label>
+                    <div class="control">
+                <textarea name="comment"
+                          id="comment"
+                          title="<?= $block->escapeHtmlAttr(__('Comments')) ?>"
+                          class="input-text"
+                          cols="5"
+                          rows="3"
+                          data-validate="{required:true}"
+                ><?= $block->escapeHtml($viewModel->getUserComment()) ?></textarea>
+                    </div>
+                </div>
+                <?= $block->getChildHtml('form.additional.info') ?>
+            </fieldset>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <input type="hidden" name="hideit" id="hideit" value="" />
+                    <button type="submit" title="<?= $block->escapeHtmlAttr(__('Submit')) ?>" class="action submit primary">
+                        <span><?= $block->escapeHtml(__('Submit')) ?></span>
+                    </button>
+                </div>
+            </div>
+        </form>
+        <script type="text/x-magento-init">
+            {
+                "*": {
+                    "Magento_Customer/js/block-submit-on-send": {
+                        "formId": "contact-form"
+                    }
+                }
+            }
+        </script>
+        <script>
+            require([
+                'jquery'
+            ], function ($) {
+                $(document).ready(function () {
+                    $(window).on('load',function () {
+                        var selector = $('#js-inquiry-get-options');
+                        var url = window.BASE_URL + 'contact';
+                        var inquireId = selector.val();
+                        var data = $(this).serialize();
+                        data += '&inquiry=' + inquireId;
+                        data += '&isAjax=1';
+                    $.ajax({
+                            url: url,
+                            dataType: 'json',
+                            type: 'Get',
+                            data: data,
+                            success: function (data) {
+                                if (data.message == 'SUCCESS') {
+                                    $('#js-inquire-options').html(data.content);
+                                } else {
+                                    $('#js-inquire-options').html(data.content_error);
+                                }
+                            }
+                        });
+                    });
+                $('#js-inquiry-get-options').on('change', function (e) {
+                        e.preventDefault();
+                        var url = window.BASE_URL + 'contact';
+                        var data = $(this).serialize();
+                        data += '&isAjax=1';
+                    $.ajax({
+                            url: url,
+                            dataType: 'json',
+                            type: 'Get',
+                            data: data,
+                            success: function (data) {
+                                if (data.message === 'SUCCESS') {
+                                    $('#js-inquire-options').html(data.content);
+                                } else {
+                                    $('#js-inquire-options').html(data.content_error);
+                                }
+                            }
+                        });
+                    });
+                });
+            });
+        </script>
+    </div>
+</div>
+

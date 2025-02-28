@@ -1,0 +1,71 @@
+<!-- ko if: isActive() -->
+<div class="text-alt mb-3">Since all SwingFrame's are built-to-order, you can choose the options below.</div>
+<div class="list-set">
+    <div class="list-style">
+        <div class="image"> <img data-bind="attr:{src: plungeImg}" /></div>
+
+
+        <div>
+            <div class="fr-name mb-3">
+                Plunge Lock
+                <a class="txt-link" href="javascript:void(0)" data-bind="click: plungeDetails">Details</a>
+            </div>
+            <div class="field choice mb-2">
+                <input name="pluge_lock" id="pluge_lock" type="radio"
+                    data-bind="checked: plungeLock,checkedValue: 'include'" />
+                <label for="pluge_lock">Include Plunge Lock (+$35.00)</label>
+            </div>
+            <div class="field choice">
+                <input name="pluge_lock" id="no_pluge_lock" type="radio"
+                    data-bind="checked: plungeLock, checkedValue: 'no'" />
+                <label for="no_pluge_lock">No Plunge Lock</label>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="list-style  flex-column">
+        <h6 class="fr-name mb-3">
+            Hinge Position
+            <a class="txt-link" href="javascript:void(0)" data-bind="click: hingeDetails"><small>Details</small></a>
+        </h6>
+        <div class="d-flex mb-4 bb pb-3">
+            <div class="image"> <img data-bind="attr:{src: rightHingeImg}" /> </div>
+
+            <div>
+
+
+
+                <div class="field choice">
+                    <input name="hinge_postion" id="hinge_right" type="radio"
+                        data-bind="checked: hingePosition, checkedValue: 'right'" />
+                    <label for="hinge_right">Right Hinge</label>
+                </div>
+                <div class="text-alt txt-xs"><strong class="text-body">Detail:</strong>Front frame swings open from left
+                    to
+                    right
+                </div>
+            </div>
+
+        </div>
+
+        <div class="d-flex">
+            <div class="image"> <img data-bind="attr:{src: leftHingeImg}" /></div>
+            <div>
+                <div class="field choice">
+                    <input name="hinge_postion" id="hinge_left" type="radio"
+                        data-bind="checked: hingePosition, checkedValue: 'left'" />
+                    <label for="hinge_left">Left Hinge</label>
+                </div>
+                <div class="text-alt txt-xs"><strong class="text-body">Detail:</strong> Front frame swings open from
+                    right to left
+                    |
+                    Standard Location</div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+<!-- /ko -->

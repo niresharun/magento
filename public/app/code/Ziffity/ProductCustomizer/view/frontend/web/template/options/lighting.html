@@ -1,0 +1,106 @@
+<!-- ko if: isActive() -->
+<div>
+    <div>
+        <p>Depending on where you mount your Display Case (near bright windows, below overhead lighting,
+            or simply in a low lit dark area), will determine the type of LED lighting you will require.&nbsp;
+            Once the LED strip lighting you select is installed, you will achieve an ideal solution for showcasing
+            and highlighting your displayed items/objects.
+        </p>
+    </div>
+    <div class="list-set">
+        <div class="list-style">
+            <div>
+                <h4>Lighting Type</h4>
+                <a href="javascript:void(0)" class="txt-link" data-bind="click: lightingTypeDetails">Details</a>
+            </div>
+            <img data-bind="attr:{src: ledStripImg}" />
+            <div>
+                <h4>LED</h4>
+                <p>UL Approved Strip Lighting is provided in a cool white light, with a 50,000 Hour lifespan.</p>
+            </div>
+        </div>
+        <div class="list-style">
+            <div>
+                <h4>Lighting Position</h4>
+                <a href="javascript:void(0)" class="txt-link" data-bind="click: lightingPositionDetails">Details</a>
+            </div>
+            <div>
+                <img data-bind="attr:{src: ledTopImg}" />
+                <div>
+                    <p>
+                        <input type="radio" name="lighting_position" id="radio-1-1" value="top" data-bind="checked: lightingPosition">
+                        <label for="radio-1-1">Interior Top Lit</label>
+                        <a href="javascript:void(0)" class="font-gold txt-link" data-bind="click: InteriorTopDetails">Details</a>
+                    </p>
+                </div>
+                <div>
+                    <p>
+                        <strong>Total LED Strip Wattage: </strong><span data-bind="text: topLightWatt"></span><span> Watts</span>
+                    </p>
+                    <p>
+                        <strong>Power Supply Provided: </strong><span data-bind="text: topLightPs"></span><span> Watts Max</span>
+                    </p>
+                    <p>
+                        <strong>Price: </strong><span data-bind="text:topLedPrice">$76.37</span>
+                    </p>
+                </div>
+            </div>
+            <div>
+                <img data-bind="attr:{src: ledPerimeterImg}" />
+                <div>
+                    <p>
+                        <input type="radio" name="lighting_position" id="radio-1-2" value="perimeter" data-bind="checked: lightingPosition">
+                        <label for="radio-1-1">Interior Perimeter Lit</label>
+                        <a href="javascript:void(0)" class="font-gold txt-link" data-bind="click: InteriorPerimeterDetails">Details</a>
+                    </p>
+                </div>
+                <div>
+                    <p>
+                        <strong>Total LED Strip Wattage: </strong> <span data-bind="text: perimeterLightWatt"></span><span> Watts</span>
+                    </p>
+                    <p>
+                        <strong>Power Supply Provided: </strong><span data-bind="text: perimeterLightPs"></span><span> Watts Max</span>
+                    </p>
+                    <p>
+                        <strong>Price: </strong><span data-bind="text:perimeterLedPrice">$76.37</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="list-style">
+            <div>
+                <h4>Power Connection</h4>
+                <a href="javascript:void(0)" class="txt-link" data-bind="click: powerConnectionDetails">Details</a>
+            </div>
+            <div>
+                <p>
+                    <input type="radio" name="power-connection" id="radio-connection-1" value="plug" data-bind="checked:powerConnection">
+                    <label>Plug</label>
+                    <span>(+<span data-bind="text:powerConnectionPlugPrice"></span>)</span>
+                </p>
+                <p>
+                    <input type="radio" name="power-connection" id="radio-connection-2" value="hardwired" data-bind="checked:powerConnection">
+                    <label>Hardwired</label>
+                    <span>(+<span data-bind="text:powerConnectionHardwiredPrice"></span>)</span>
+                </p>
+            </div>
+        </div>
+        <div class="list-style">
+            <div>
+                <h4>Cord Color</h4>
+                <a href="javascript:void(0)" class="txt-link" data-bind="click: cordColorDetails">Details</a>
+            </div>
+            <div>
+                <p>
+                    <input type="radio" name="cord-color" id="radio-cord-color-1" value="black" data-bind="checked:cordColor">
+                    <label>Black</label>
+                </p>
+                <p>
+                    <input type="radio" name="cord-color" id="radio-cord-color-2" value="white" data-bind="checked:cordColor">
+                    <label>White</label>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /ko -->

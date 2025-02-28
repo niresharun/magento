@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="ziffity" translate="label" sortOrder="400">
+            <label>Ziffity</label>
+        </tab>
+        <section id="swatch" translate="label" type="text" sortOrder="300" showInDefault="1" showInWebsite="0" showInStore="1">
+            <class>separator-top</class>
+            <label>Product Frames</label>
+            <tab>ziffity</tab>
+            <resource>Ziffity_ProductStamp::config</resource>
+            <group id="image_serializer" translate="label" type="text" sortOrder="140" showInDefault="1" showInWebsite="0" showInStore="1">
+                <label>Product Frames Configuration</label>
+                <field id="module_status" translate="label" type="select" showInDefault="1" showInWebsite="0" showInStore="1" sortOrder="10">
+                    <label>Design Listing Status</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="image" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Frame Option Configuration</label>
+                    <frontend_model>Ziffity\ProductStamp\Block\Adminhtml\System\Config\ImageFields</frontend_model>
+                    <backend_model>Ziffity\ProductStamp\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                    <upload_dir>pub/media/ProductStamp/image_serializer</upload_dir>
+                    <depends>
+                       <field id="swatch/image_serializer/module_status">1</field>
+                   </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

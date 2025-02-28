@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="ziffity" translate="label" sortOrder="200">
+            <label>Ziffity</label>
+        </tab>
+        <section id="saved_design" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Saved Designs</label>
+            <tab>ziffity</tab>
+            <resource>Ziffity_SavedDesigns::stores_settings</resource>
+            <group id="general" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Save Design Configuration</label>
+                <field id="module_status" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Design Listing Status</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="max_save_limit" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Maximum Designs per Customer</label>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                </field>
+                <field id="design_imagepath" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Save design Image Path</label>                    
+                </field>                
+                <field id="design_pageination" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Pagination for saved designs</label>                    
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponentFactory">
+        <arguments>
+            <argument name="componentChildFactories" xsi:type="array">
+                <item name="Ziffity\Coproduct\Ui\Component\HtmlContent" xsi:type="object">Magento\Framework\View\Element\UiComponent\Factory\HtmlContentFactory\Proxy</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Ziffity\Coproduct\Model\Rule\Condition\Combine">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="form_name" xsi:type="string">product_form</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Ziffity\Coproduct\Model\Rule\Condition\CatalogProduct">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="form_name" xsi:type="string">product_form</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Ziffity\Coproduct\Model\Rule\Condition\Product">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="form_name" xsi:type="string">product_form</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Ziffity\Coproduct\Model\Rule\Condition\AssociatedProduct">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="form_name" xsi:type="string">product_form</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

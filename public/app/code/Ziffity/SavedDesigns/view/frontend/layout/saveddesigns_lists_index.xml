@@ -1,0 +1,20 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <head>
+      <title>Saved Designs</title>
+    </head>
+    <body>
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Saved Designs</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Ziffity\SavedDesigns\Block\SavedDesigns" name="saveddesign" template="Ziffity_SavedDesigns::saveddesignlist.phtml" cacheable="false">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Ziffity\SavedDesigns\ViewModel\ProcessSaveDesigns</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

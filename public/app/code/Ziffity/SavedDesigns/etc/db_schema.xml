@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+        <table name="ziffity_saved_designs" resource="default" engine="innodb" comment="Customizer Saved Design Item">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="ID"/>
+        <column xsi:type="int" name="customer_id" unsigned="true" nullable="true" identity="false" comment="Customer ID"/>
+        <column xsi:type="int" name="product_id" unsigned="true" nullable="true" identity="false" comment="Product ID"/>
+        <column xsi:type="smallint" name="store_id" unsigned="true" nullable="true" identity="false" comment="Store ID"/>
+        <column xsi:type="varchar" name="title" nullable="false" length="255" comment="title"/>
+        <column xsi:type="varchar" name="image_url" nullable="false" length="255" comment="Image"/>
+        <column xsi:type="varchar" name="share_code" nullable="true" length="255" comment="Share Code"/>
+        <column xsi:type="text" name="product_options" nullable="true" comment="Product Options"/>
+        <column xsi:type="text" name="additional_data" nullable="true" comment="Additional Data"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" on_update="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" on_update="true" default="CURRENT_TIMESTAMP" comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="ZIFFITY_SAVED_DESIGNS_CUSTOMER_ID_CUSTOMER_ENTITY_ENTITY_ID" table="ziffity_saved_designs"
+                    column="customer_id" referenceTable="customer_entity" referenceColumn="entity_id"
+                    onDelete="SET NULL"/>
+        <constraint xsi:type="foreign" referenceId="ZIFFITY_SAVED_DESIGNS_STORE_ID_STORE_STORE_ID" table="ziffity_saved_designs"
+                    column="store_id" referenceTable="store" referenceColumn="store_id" onDelete="SET NULL"/>
+        <constraint xsi:type="foreign" referenceId="ZIFFITY_SAVED_DESIGNS_PRODUCT_ID_CAT_PRD_ENTT_ENTT_ID"
+                    table="ziffity_saved_designs" column="product_id" referenceTable="catalog_product_entity"
+                    referenceColumn="entity_id" onDelete="SET NULL"/>
+    </table>
+</schema>

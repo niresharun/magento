@@ -1,0 +1,50 @@
+
+<!--ko ifnot:editmode -->
+<div class="customizer-your-selections">
+    <div class="d-flex mb-4">
+    <button data-bind="click: enableCustomization" class="action primary trigger-customizer">Customize your Frame</button>
+    <!-- ko if: srcType() === 'default' && canReset() -->
+        <button data-bind="click: resetToDefault" id="reset-default" class="action p-2 reset-custom ml-2" title="Reset"><i class="dficon-rotate-cw"></i></button>
+    <!-- /ko -->
+    </div>
+    <div class="table-wrapper table-selected">
+    <table  class="table">
+        <thead>
+            <tr>
+                <!-- ko if: srcType() === 'default' && !canReset() -->
+                <th colspan="2" class="selection-title"><b>Default Selection</b></th>
+                <!-- /ko -->
+                <!-- ko if: srcType() !== 'default' || canReset() -->
+                <th colspan="2" class="selection-title"><b>Your Selection</b></th>
+                <!-- /ko -->
+            </tr>
+        </thead>
+        <tbody>
+            <!-- ko foreach:{data:selections, as:'selection'} -->
+                <tr>
+                    <!-- ko if: $parent.isValueArray(selection.value)-->
+                    <th><span data-bind="text: selection.label"></span></th>
+                        <td>
+                        <!-- ko foreach:{data:selection.value, as:'sel'}-->
+                            <div>
+                                <span data-bind="text:sel.label"></span>:
+                                <span data-bind="html:sel.value"></span>
+                            </div>
+                        <!-- /ko -->
+                        </td>
+                    <!-- /ko -->
+                    <!-- ko ifnot: $parent.isValueArray(selection.value) -->
+                        <th><span data-bind="text: selection.value.label"></span></th>
+                        <td><span data-bind="html: selection.value.value"></span></td>
+                    <!-- /ko -->
+                </tr>
+            <!-- /ko -->
+        </tbody>
+    </table>
+</div>
+</div>
+<div>
+<a href="#pdpNav" class="scroll-down d-none d-lg-block" data-bind="afterRender:initScrollDown"><i class="dficon-arrow-down"></i></a>
+</div>
+<!-- /ko -->
+

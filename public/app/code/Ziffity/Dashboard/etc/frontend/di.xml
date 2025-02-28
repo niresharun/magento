@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+  <preference for="Magento\Framework\View\Element\Html\Link\Current" type="Ziffity\Dashboard\Block\Current" />
+  <preference for="Magento\Sales\Block\Order\Item\Renderer\DefaultRenderer" type="Ziffity\Dashboard\Block\Item\Renderer"/>
+    <preference for="Rootways\Megamenu\Block\Topmenu" type="Ziffity\Dashboard\Block\Topmenu" />
+</config>

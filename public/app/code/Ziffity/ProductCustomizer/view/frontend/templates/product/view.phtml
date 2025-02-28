@@ -1,0 +1,28 @@
+<?php
+
+/** @var \Ziffity\ProductCustomizer\Block\Product\View $block */
+$helper = $this->helper('Ziffity\ProductCustomizer\Helper\Data');
+//$progressBarData = $helper->getOptionGroupItems();
+
+?>
+
+<div id="customizer" data-bind="scope:'customizer'" class="customframe-container">
+
+<!-- ko template: getTemplate() --><!-- /ko -->
+<script type="text/x-magento-init">
+    {
+        "#customizer": {
+            "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout() ?>
+        }
+    }
+</script>
+    <?php $serializedCheckoutConfig = /* @noEscape */ $block->getSerializedCustomizerConfig();
+    $scriptString = <<<script
+        window.customizerConfig = {$serializedCheckoutConfig};
+        // Create aliases for customer.js model from customer module
+        window.isCustomerLoggedIn = window.customizerConfig.isCustomerLoggedIn;
+        window.customerData = window.customizerConfig.customerData;
+script;
+    ?>
+<?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>
+</div>

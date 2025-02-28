@@ -1,0 +1,61 @@
+<!--@subject {{var subject|raw }}@-->
+{{template config_path="design/email/header_template"}}
+
+<div style="background-color:transparent;">
+    <div class="block-grid" style="Margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;">
+        <div style="border-collapse: collapse;display: table;width: 100%;background-color:transparent;">
+            <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="background-color:transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width: 600px;"><tr class="layout-full-width" style="background-color:transparent;"><![endif]-->
+            <!--[if (mso)|(IE)]><td align="center" width="600" style=" width:600px; padding-right: 0px; padding-left: 0px; padding-top:5px; padding-bottom:5px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><![endif]-->
+            <div class="col num12" style="min-width: 320px;max-width: 600px;display: table-cell;vertical-align: top;">
+                <div style="background-color: transparent; width: 100% !important;">
+                    <!--[if (!mso)&(!IE)]><!-->
+                    <div style="border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent; padding-top:5px; padding-bottom:5px; padding-right: 0px; padding-left: 0px;">
+                        <!--<![endif]-->
+                        <div class="">
+                            <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 15px; padding-bottom: 0px;"><![endif]-->
+                            <div style="line-height:120%;color:#555555;font-family:Verdana, Geneva, sans-serif; padding-right: 10px; padding-left: 10px; padding-top: 15px; padding-bottom: 0px;">
+                                <div style="line-height:14px;font-family:'Prata', TimesNewRoman, 'Times New Roman', Times, Beskerville, Georgia, serif;font-size:12px;color:#555555;text-align:left;">
+                                    <p style="margin: 0;line-height: 14px;text-align: center;font-size: 12px"><font color="#000C7C"><span style="font-size: 38px; line-height: 45px;">{{var name}},</span></font></p>
+                                </div>
+                            </div><!--[if mso]></td></tr></table><![endif]-->
+                        </div>
+                        <div class="">
+                            <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 50px; padding-left: 50px; padding-top: 5px; padding-bottom: 25px;"><![endif]-->
+                            <div style="line-height:150%;color:#656671;font-family:Verdana, Geneva, sans-serif; padding-right: 50px; padding-left: 50px; padding-top: 5px; padding-bottom: 25px;">
+                                <div style="line-height:18px;font-size:12px;color:#656671;font-family:Verdana, Geneva, sans-serif;text-align:left;">
+                                    <p style="margin: 0;line-height: 18px;text-align: center;font-size: 12px"><span style="font-size: 17px; line-height: 25px;"><span style="font-size: 14px; line-height: 21px;">We thought that you would like to know</span><br>
+                                    <span style="font-size: 14px; line-height: 21px;">what {{var sender_name}} has been eyeing</span></span></p>
+                                </div>
+                            </div><!--[if mso]></td></tr></table><![endif]-->
+                        </div>
+                        <div align="center" class="img-container center autowidth" style="padding-right: 0px; padding-left: 0px;">
+                            <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr style="line-height:0px;line-height:0px;"><td style="padding-right: 0px; padding-left: 0px;" align="center"><![endif]-->
+                            <img align="center" alt="{{var product_name}}" border="0" class="center autowidth" src="{{var product_image}}" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: 0;height: auto;float: none;width: 100%;max-width: 500px" title="{{var product_name}}" width="500"><!--[if mso]></td></tr></table><![endif]-->
+                        </div>
+                        <div class="">
+                            <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px;"><![endif]-->
+                            <div style="line-height:180%;color:#4c4d55;font-family:Verdana, Geneva, sans-serif; padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px;">
+                                <div style="font-size:12px;line-height:22px;color:#4c4d55;font-family:Verdana, Geneva, sans-serif;text-align:left;">
+                                    <p style="margin: 0;font-size: 14px;line-height: 25px;text-align: center; text-transform: uppercase;">{{var product_name}}</p>
+                                </div>
+                            </div><!--[if mso]></td></tr></table><![endif]-->
+                        </div>
+                        <div align="center" class="button-container center" style="padding-right: 10px; padding-left: 10px; padding-top:5px; padding-bottom:35px;">
+                            <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top:5px; padding-bottom:35px;" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{{var product_url}}" style="height:48pt; v-text-anchor:middle; width:178pt;" arcsize="2%" strokecolor="#000C7C" fillcolor="transparent"><w:anchorlock/><v:textbox inset="0,0,0,0"><center style="color:#000c7c; font-family:Verdana, Geneva, sans-serif; font-size:16px;"><![endif]-->
+                            <a href="{{var product_url}}" style="display: block;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #000c7c;background-color: transparent;border-radius: 1px;-webkit-border-radius: 1px;-moz-border-radius: 1px;max-width: 560px;width: 40%;border-top: 1px solid #000C7C;border-right: 1px solid #000C7C;border-bottom: 1px solid #000C7C;border-left: 1px solid #000C7C;padding-top: 15px;padding-right: 20px;padding-bottom: 15px;padding-left: 20px;font-family: Verdana, Geneva, sans-serif;mso-border-alt: none" target="_blank"><span style="font-size:16px;line-height:32px;"><span data-mce-style="font-size: 15px;" style="font-size: 15px; line-height: 30px;">SHOP NOW</span></span></a> <!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->
+                        </div>
+                        <div align="center" class="img-container center autowidth" style="padding-right: 0px; padding-left: 0px;">
+                            <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr style="line-height:0px;line-height:0px;"><td style="padding-right: 0px; padding-left: 0px;" align="center"><![endif]-->
+
+                            <div style="line-height:60px;font-size:1px">
+
+                            </div><!--[if mso]></td></tr></table><![endif]-->
+                        </div>
+                    </div><!--<![endif]-->
+                </div>
+            </div><!--[if (mso)|(IE)]></td></tr></table></td></tr></table><![endif]-->
+        </div>
+    </div>
+</div>
+
+{{template config_path="design/email/footer_template"}}

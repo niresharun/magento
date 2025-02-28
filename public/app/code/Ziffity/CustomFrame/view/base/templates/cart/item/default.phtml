@@ -1,0 +1,148 @@
+<?php
+/** @var $block \Magento\Checkout\Block\Cart\Item\Renderer */
+
+$_item = $block->getItem();
+$product = $_item->getProduct();
+$isVisibleProduct = $product->isVisibleInSiteVisibility();
+/** @var \Magento\Msrp\Helper\Data $helper */
+$helper = $this->helper(Magento\Msrp\Helper\Data::class);
+$selectionsHelper = $this->helper(Ziffity\ProductCustomizer\Helper\Selections::class);
+$steps = $selectionsHelper->getCompletedStepsFromOptions($_item->getAdditionalData());
+$data =  $selectionsHelper->getUnserializedData($_item->getAdditionalData());
+$selections  = $selectionsHelper->getSelections($data, $product, $steps);
+$canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinimalPriceLessMsrp($product);
+$savedDesignViewModel = $block->getData('saved_design_view_model');
+?>
+<tbody class="cart item customframe">
+<tr class="item-info">
+    <td data-th="<?= $block->escapeHtml(__('Item')) ?>" class="col item">
+        <?php if ($block->hasProductUrl()): ?>
+        <a href="<?= $block->escapeUrl($block->getProductUrl()) ?>"
+           title="<?= $block->escapeHtml($block->getProductName()) ?>"
+           tabindex="-1"
+           class="product-item-photo">
+            <?php else: ?>
+            <span class="product-item-photo">
+            <?php endif; ?>
+           <span class="product-image-container">
+                <span class="product-image-wrapper" style="padding-bottom: 100%;">
+                     <?php if($_item->getProductType() == 'customframe') {
+                         $data = $selectionsHelper->getUnserializedData($_item->getAdditionalData());
+                         if($savedDesignViewModel->checkImageExists($data['additional_data']['canvasData'] ?? '')):
+                             ?>
+                             <img src="<?=$savedDesignViewModel->getImagePath($data['additional_data']['canvasData']); ?>" class="product-image-photo"
+                                  alt="<?= $block->escapeHtml($_item->getName()) ?>" />
+                         <?php else: ?>
+                             <img src="<?=$block->getPlaceHolderImage();?>" class="product-image-photo"
+                                  alt="<?= $block->escapeHtml($_item->getName()) ?>"/>
+                         <?php endif; ?>
+                     <?php } else { ?>
+                         <?= $block->getImage($block->getProductForThumbnail(), 'cart_page_product_thumbnail')->toHtml() ?>
+                     <?php } ?>
+                </span>
+            </span>
+            <?php if ($block->hasProductUrl()): ?>
+        </a>
+    <?php else: ?>
+        </span>
+    <?php endif; ?>
+        <div class="product-item-details">
+            <strong class="product-item-name">
+                <?php if ($block->hasProductUrl()): ?>
+                    <a href="<?= $block->escapeUrl($block->getProductUrl()) ?>"><?= $block->escapeHtml($block->getProductName()) ?></a>
+                <?php else: ?>
+                    <?= $block->escapeHtml($block->getProductName()) ?>
+                <?php endif; ?>
+            </strong>
+            <?php if($_item->getProductType() == 'customframe' && $selections): ?>
+            <details>
+                <summary class="show-product-details"><?= __('Show Product Details') ?></summary>
+                <dl class="item-options">
+                    <?php foreach ($selections as $key => $selection): ?>
+                    <?php if(!isset($selection['label'])) { ?>
+                            <dt><?= $block->escapeHtml($key) ?></dt>
+                            <?php foreach ($selection as $selectionKey => $sel ) : ?>
+                                <dd><?= $block->escapeHtml($sel['label']) ?>: <?= $block->escapeHtml($sel['value']) ?></dd>
+                            <?php endforeach; ?>
+                    <?php } else {?>
+                            <dt><?= $block->escapeHtml($selection['label']) ?></dt>
+                            <dd><?= $block->escapeHtml($selection['value']) ?></dd>
+                    <?php } ?>
+                    <?php endforeach; ?>
+                </dl>
+            </details>
+            <?php endif; ?>
+            <?php if ($messages = $block->getMessages()): ?>
+                <?php foreach ($messages as $message): ?>
+                    <div class= "cart item message <?= $block->escapeHtmlAttr($message['type']) ?>">
+                        <div><?= $block->escapeHtml($message['text']) ?></div>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+            <?php $addInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
+            <?php if ($addInfoBlock): ?>
+                <?= $addInfoBlock->setItem($_item)->toHtml() ?>
+            <?php endif; ?>
+        </div>
+    </td>
+
+    <?php if ($canApplyMsrp): ?>
+        <td class="col msrp" data-th="<?= $block->escapeHtml(__('Price')) ?>">
+                <span class="pricing msrp">
+                    <span class="msrp notice"><?= $block->escapeHtml(__('See price before order confirmation.')) ?></span>
+                    <?php $helpLinkId = 'cart-msrp-help-' . $_item->getId(); ?>
+                    <a href="#" class="action help map"
+                       id="<?= ($block->escapeHtmlAttr($helpLinkId)) ?>"
+                       data-mage-init='{"addToCart":{
+                                            "origin": "info",
+                                            "helpLinkId": "#<?= $block->escapeJs($block->escapeHtml($helpLinkId)) ?>",
+                                            "productName": "<?= $block->escapeJs($block->escapeHtml($product->getName())) ?>",
+                                            "showAddToCart": false
+                                            }
+                                        }'
+                    >
+                        <span><?= $block->escapeHtml(__("What's this?")) ?></span>
+                    </a>
+                </span>
+        </td>
+    <?php else: ?>
+        <td class="col price" data-th="<?= $block->escapeHtml(__('Price')) ?>">
+            <?= $block->getUnitPriceHtml($_item) ?>
+        </td>
+    <?php endif; ?>
+    <td class="col qty" data-th="<?= $block->escapeHtml(__('Qty')) ?>">
+        <div class="field qty">
+            <div class="control qty">
+                <label for="cart-<?= $block->escapeHtmlAttr($_item->getId()) ?>-qty">
+                    <span class="label"><?= $block->escapeHtml(__('Qty')) ?></span>
+                    <input id="cart-<?= $block->escapeHtmlAttr($_item->getId()) ?>-qty"
+                           name="cart[<?= $block->escapeHtmlAttr($_item->getId()) ?>][qty]"
+                           data-cart-item-id="<?= $block->escapeHtmlAttr($_item->getSku()) ?>"
+                           value="<?= $block->escapeHtmlAttr($block->getQty()) ?>"
+                           type="number"
+                           size="4"
+                           step="any"
+                           title="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
+                           class="input-text qty"
+                           data-validate="{required:true,'validate-greater-than-zero':true}"
+                           data-item-qty="<?= $block->escapeHtmlAttr($block->getQty()) ?>"
+                           data-role="cart-item-qty"/>
+                </label>
+            </div>
+        </div>
+    </td>
+
+    <td class="col subtotal" data-th="<?= $block->escapeHtml(__('Subtotal')) ?>">
+        <?php if ($canApplyMsrp): ?>
+            <span class="cart msrp subtotal">--</span>
+        <?php else: ?>
+            <?= $block->getRowTotalHtml($_item) ?>
+        <?php endif; ?>
+    </td>
+    <td colspan="col actions">
+        <div class="actions-toolbar">
+            <?= /* @noEscape */ $block->getActions($_item) ?>
+        </div>
+    </td>
+</tr>
+</tbody>

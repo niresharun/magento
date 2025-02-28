@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <!-- add option with quote item when add to cart -->
+    <event name="checkout_cart_product_add_after">
+        <observer name="customframe_checkout_cart_product_add_after" instance="Ziffity\ProductCustomizer\Observer\CheckoutCartAddObserver" />
+    </event>
+    <event name="checkout_cart_product_add_before">
+        <observer name="customframe_checkout_cart_product_add_before"
+                  instance="Ziffity\ProductCustomizer\Observer\CheckoutCartAddBefore" />
+    </event>
+    <event name="checkout_cart_update_item_complete">
+        <observer name="customframe_checkout_cart_product_update_after" instance="Ziffity\ProductCustomizer\Observer\CheckoutCartAddObserver" />
+    </event>
+</config>

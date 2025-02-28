@@ -1,0 +1,256 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="mage/gallery/gallery.css"/>
+    </head>
+    <body>
+        <attribute name="class" value="page-product-customframe"/>
+        <referenceContainer name="content">
+            <block class="Ziffity\ProductCustomizer\Block\Product\View" name="customizer.view" template="Ziffity_ProductCustomizer::product/view.phtml" before="-">
+                <arguments>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="types" xsi:type="array">
+                            <item name="form.input" xsi:type="array">
+                                <item name="component" xsi:type="string">Magento_Ui/js/form/element/abstract</item>
+                                <item name="config" xsi:type="array">
+                                    <item name="provider" xsi:type="string">customizerProvider</item>
+                                    <item name="deps" xsi:type="array">
+                                        <item name="0" xsi:type="string">customizerProvider</item>
+                                    </item>
+                                    <item name="template" xsi:type="string">ui/form/field</item>
+                                    <item name="elementTmpl" xsi:type="string">ui/form/element/input</item>
+                                </item>
+                            </item>
+                        </item>
+                        <item name="components" xsi:type="array">
+                            <item name="customizer" xsi:type="array">
+                                <item name="component" xsi:type="string">Ziffity_ProductCustomizer/js/view/customizer</item>
+                                <item name="config" xsi:type="array">
+                                    <item name="deps" xsi:type="array">
+                                        <item name="0" xsi:type="string">customizerProvider</item>
+                                    </item>
+                                    <item name="template" xsi:type="string">Ziffity_ProductCustomizer/customizer</item>
+                                </item>
+                                <item name="children" xsi:type="array">
+                                    <item name="errors" xsi:type="array">
+                                        <item name="component" xsi:type="string">Magento_Ui/js/view/messages</item>
+                                        <item name="displayArea" xsi:type="string">messages</item>
+                                    </item>
+                                    <item name="progress-bar" xsi:type="array">
+                                        <item name="component" xsi:type="string">Ziffity_ProductCustomizer/js/view/progress-bar</item>
+                                        <item name="sortOrder" xsi:type="string">0</item>
+                                        <item name="displayArea" xsi:type="string">top-bar</item>
+                                        <item name="config" xsi:type="array">
+                                            <item name="template" xsi:type="string">Ziffity_ProductCustomizer/progress-bar</item>
+                                        </item>
+                                        <item name="deps" xsi:type="array">
+                                            <item name="0" xsi:type="string">customizerProvider</item>
+                                        </item>
+                                    </item>
+                                    <item name="option-group-list" xsi:type="array">
+                                        <item name="component" xsi:type="string">Ziffity_ProductCustomizer/js/view/option-group-list</item>
+                                        <item name="sortOrder" xsi:type="string">1</item>
+                                        <item name="displayArea" xsi:type="string">top-bar</item>
+                                        <item name="config" xsi:type="array">
+                                            <item name="template" xsi:type="string">Ziffity_ProductCustomizer/option-group-list</item>
+                                            <item name="deps" xsi:type="array">
+                                                <item name="0" xsi:type="string">customizerProvider</item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                    <item name="tour" xsi:type="array">
+                                        <item name="component" xsi:type="string">Ziffity_ProductCustomizer/js/view/tour</item>
+                                        <item name="sortOrder" xsi:type="string">2</item>
+                                        <item name="displayArea" xsi:type="string">left-section-top</item>
+                                        <item name="config" xsi:type="array">
+                                            <item name="template" xsi:type="string">Ziffity_ProductCustomizer/tour</item>
+                                            <item name="deps" xsi:type="array">
+                                                <item name="0" xsi:type="string">customizerProvider</item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                    <item name="save-design" xsi:type="array">
+                                        <item name="component" xsi:type="string">Ziffity_ProductCustomizer/js/view/save-design</item>
+                                        <item name="sortOrder" xsi:type="string">3</item>
+                                        <item name="displayArea" xsi:type="string">left-section-top</item>
+                                        <item name="config" xsi:type="array">
+                                            <item name="template" xsi:type="string">Ziffity_ProductCustomizer/save-design</item>
+                                            <item name="deps" xsi:type="array">
+                                                <item name="0" xsi:type="string">customizerProvider</item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                    <item name="image" xsi:type="array">
+                                        <item name="component" xsi:type="string">Ziffity_ProductCustomizer/js/view/image</item>
+                                        <item name="sortOrder" xsi:type="string">4</item>
+                                        <item name="displayArea" xsi:type="string">left-section-top</item>
+                                        <item name="config" xsi:type="array">
+                                            <item name="template" xsi:type="string">Ziffity_ProductCustomizer/image</item>
+                                            <item name="deps" xsi:type="array">
+                                                <item name="0" xsi:type="string">customizerProvider</item>
+                                                <item name="1" xsi:type="string">customizer.controls</item>
+                                                <item name="2" xsi:type="string">customizer.option-renderer</item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                    <item name="image-gallery" xsi:type="array">
+                                        <item name="component" xsi:type="string">Ziffity_ProductCustomizer/js/view/image-gallery</item>
+                                        <item name="sortOrder" xsi:type="string">5</item>
+                                        <item name="displayArea" xsi:type="string">left-section-top</item>
+                                        <item name="config" xsi:type="array">
+                                            <item name="template" xsi:type="string">Ziffity_ProductCustomizer/image-gallery</item>
+                                            <item name="deps" xsi:type="array">
+                                                <item name="0" xsi:type="string">customizerProvider</item>
+                                                <item name="1" xsi:type="string">customizer.controls</item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                    <item name="actions" xsi:type="array">
+                                        <item name="component" xsi:type="string">Ziffity_ProductCustomizer/js/view/actions</item>
+                                        <item name="sortOrder" xsi:type="string">6</item>
+                                        <item name="displayArea" xsi:type="string">left-section-bottom</item>
+                                        <item name="config" xsi:type="array">
+                                            <item name="template" xsi:type="string">Ziffity_ProductCustomizer/actions</item>
+                                            <item name="deps" xsi:type="array">
+                                                <item name="0" xsi:type="string">customizerProvider</item>
+                                                <item name="1" xsi:type="string">customizer.option-renderer</item>
+                                            </item>
+                                        </item>
+                                        <item name="children" xsi:type="array">
+                                            <item name="wall-colour" xsi:type="array">
+                                                <item name="component" xsi:type="string">Ziffity_ProductCustomizer/js/view/wall-colour</item>
+                                                <item name="config" xsi:type="array">
+                                                    <item name="template" xsi:type="string">Ziffity_ProductCustomizer/wall-colour</item>
+                                                    <item name="deps" xsi:type="array">
+                                                        <item name="0" xsi:type="string">customizerProvider</item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                    <item name="info" xsi:type="array">
+                                        <item name="component" xsi:type="string">Ziffity_ProductCustomizer/js/view/info</item>
+                                        <item name="sortOrder" xsi:type="string">6</item>
+                                        <item name="displayArea" xsi:type="string">right-section-top</item>
+                                        <item name="config" xsi:type="array">
+                                            <item name="template" xsi:type="string">Ziffity_ProductCustomizer/info</item>
+                                            <item name="deps" xsi:type="array">
+                                                <item name="0" xsi:type="string">customizerProvider</item>
+                                                <item name="1" xsi:type="string">customizer.option-renderer</item>
+                                            </item>
+                                        </item>
+                                        <item name="children" xsi:type="array">
+                                            <item name="your-selection" xsi:type="array">
+                                                <item name="component" xsi:type="string">Ziffity_ProductCustomizer/js/view/your-selections</item>
+                                                <item name="config" xsi:type="array">
+                                                    <item name="template" xsi:type="string">Ziffity_ProductCustomizer/your-selections</item>
+                                                    <item name="deps" xsi:type="array">
+                                                        <item name="0" xsi:type="string">customizerProvider</item>
+                                                        <item name="1" xsi:type="string">customizer.info</item>
+                                                        <item name="2" xsi:type="string">customizer.option-renderer</item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                     <item name="selections" xsi:type="array">
+                                        <item name="component" xsi:type="string">Ziffity_ProductCustomizer/js/view/selections</item>
+                                        <item name="sortOrder" xsi:type="string">7</item>
+                                        <item name="displayArea" xsi:type="string">right-section-top</item>
+                                        <item name="config" xsi:type="array">
+                                            <item name="template" xsi:type="string">Ziffity_ProductCustomizer/selections</item>
+                                            <item name="deps" xsi:type="array">
+                                                <item name="0" xsi:type="string">customizerProvider</item>
+                                                <item name="1" xsi:type="string">customizer.info.your-selection</item>
+                                                <item name="2" xsi:type="string">customizer.option-renderer</item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                    <item name="option-renderer" xsi:type="array">
+                                        <item name="component" xsi:type="string">Ziffity_ProductCustomizer/js/view/option-renderer</item>
+                                        <item name="sortOrder" xsi:type="string">7</item>
+                                        <item name="displayArea" xsi:type="string">right-section-top</item>
+                                        <item name="config" xsi:type="array">
+                                            <item name="template" xsi:type="string">Ziffity_ProductCustomizer/option-renderer</item>
+                                            <item name="deps" xsi:type="array">
+                                                <item name="0" xsi:type="string">customizerProvider</item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                    <item name="controls" xsi:type="array">
+                                        <item name="component" xsi:type="string">Ziffity_ProductCustomizer/js/view/controls</item>
+                                        <item name="sortOrder" xsi:type="string">8</item>
+                                        <item name="displayArea" xsi:type="string">right-section-bottom</item>
+                                        <item name="config" xsi:type="array">
+                                            <item name="template" xsi:type="string">Ziffity_ProductCustomizer/controls</item>
+                                            <item name="deps" xsi:type="array">
+                                                <item name="0" xsi:type="string">customizerProvider</item>
+                                            </item>
+                                        </item>
+                                        <item name="children" xsi:type="array">
+<!--                                            <item name="price" xsi:type="array">-->
+<!--                                                <item name="component" xsi:type="string">Ziffity_ProductCustomizer/js/view/price</item>-->
+<!--                                                <item name="sortOrder" xsi:type="string">10</item>-->
+<!--                                                <item name="config" xsi:type="array">-->
+<!--                                                    <item name="template" xsi:type="string">Ziffity_ProductCustomizer/price</item>-->
+<!--                                                    <item name="deps" xsi:type="array">-->
+<!--                                                        <item name="0" xsi:type="string">customizerProvider</item>-->
+<!--                                                        <item name="1" xsi:type="string">customizer.option-renderer</item>-->
+<!--                                                    </item>-->
+<!--                                                </item>-->
+<!--                                            </item>-->
+                                            <item name="price-summary" xsi:type="array">
+                                                <item name="component" xsi:type="string">Ziffity_ProductCustomizer/js/view/price-summary</item>
+                                                <item name="sortOrder" xsi:type="string">20</item>
+                                                <item name="config" xsi:type="array">
+                                                    <item name="template" xsi:type="string">Ziffity_ProductCustomizer/price-summary</item>
+                                                    <item name="deps" xsi:type="array">
+                                                        <item name="0" xsi:type="string">customizerProvider</item>
+                                                        <item name="1" xsi:type="string">customizer.option-renderer</item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                            <item name="buttons" xsi:type="array">
+                                                <item name="component" xsi:type="string">Ziffity_ProductCustomizer/js/view/buttons</item>
+                                                <item name="sortOrder" xsi:type="string">30</item>
+                                                <item name="config" xsi:type="array">
+                                                    <item name="template" xsi:type="string">Ziffity_ProductCustomizer/buttons</item>
+                                                    <item name="deps" xsi:type="array">
+                                                        <item name="0" xsi:type="string">customizerProvider</item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                    <item name="customizer-slidein" xsi:type="array">
+                                        <item name="component" xsi:type="string">Ziffity_ProductCustomizer/js/view/customizer-slidein</item>
+                                        <item name="sortOrder" xsi:type="string">9</item>
+                                        <item name="displayArea" xsi:type="string">customizer-slidein</item>
+                                        <item name="config" xsi:type="array">
+                                            <item name="deps" xsi:type="array">
+                                                <item name="0" xsi:type="string">customizerProvider</item>
+                                            </item>
+                                            <item name="template" xsi:type="string">Ziffity_ProductCustomizer/customizer-slidein</item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                            <item name="customizerProvider" xsi:type="array">
+                                <item name="component" xsi:type="string">uiComponent</item>
+                            </item>
+                        </item>
+                    </argument>
+                </arguments>
+            </block>
+            <referenceContainer name="product.info.main" remove="true" />
+            <referenceContainer name="product.info.media" remove="true" />
+            <referenceBlock name="reviews.tab" remove="true" />
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,15 @@
+<?php
+/**
+ * @var $block \Ziffity\Netterms\Block\Info\Netterms
+ */
+$paymentTitle = $block->getMethod()->getConfigData('title', $block->getInfo()->getOrder()->getStoreId());
+?>
+<div class="order-payment-method-name"><?= $block->escapeHtml($paymentTitle) ?></div>
+<table class="data-table admin__table-secondary">
+    <tr>
+        <th><?= $block->escapeHtml(__('Customer approved for Net Terms')) ?>:</th>
+        <?php $isApproved = $block->getInfo()->getAdditionalInformation('is_customer_approved') ?>
+        <?php $isApprovedValue = ($isApproved) ? "Yes" : "No"; ?>
+        <td><?= $block->escapeHtml(__($isApprovedValue)) ?></td>
+    </tr>
+</table>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="checkout_cart_item_renderers"/>
+    <body>
+        <referenceBlock name="checkout.cart.item.renderers">
+            <block class="Ziffity\CustomFrame\Block\Checkout\Cart\Item\Renderer" name="checkout.cart.item.renderers.customframe" as="customframe" template="Ziffity_CustomFrame::cart/item/default.phtml">
+                <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions" name="checkout.cart.item.renderers.customframe.actions" as="actions">
+                    <block class="Ziffity\RequestQuote\Block\Cart\Item\Renderer\Actions\Edit" name="checkout.cart.item.renderers.customframe.actions.edit" template="Magento_Checkout::cart/item/renderer/actions/edit.phtml"/>
+                    <block class="Amasty\RequestQuote\Block\Cart\Item\Renderer\Actions\Remove" name="checkout.cart.item.renderers.customframe.actions.remove" template="Magento_Checkout::cart/item/renderer/actions/remove.phtml"/>
+                </block>
+                <arguments>
+                    <argument name="saved_design_view_model" xsi:type="object">Ziffity\SavedDesigns\ViewModel\ProcessSaveDesigns</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

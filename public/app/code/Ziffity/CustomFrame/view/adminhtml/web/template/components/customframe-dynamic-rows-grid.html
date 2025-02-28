@@ -1,0 +1,108 @@
+<div class="admin__field" visible="visible" disable="disabled" css="element.setClasses(element)">
+    <label if="element.label" class="admin__field-label" attr="for: element.uid">
+        <span translate="element.label"></span>
+    </label>
+
+
+    <div class="admin__field-control" data-role="grid-wrapper" attr="'data-index': index">
+        <div class="admin__control-table-wrapper" style="overflow-x: visible;" >
+            <div data-role="spinner"
+                 class="admin__data-grid-loading-mask"
+                 if="$data.showSpinner">
+                <div class="spinner">
+                    <span repeat="8"></span>
+                </div>
+            </div>
+
+            <table class="admin__dynamic-rows admin__control-table" data-role="grid" attr="{'data-index': index}">
+                <thead if="element.columnsHeader">
+                <tr>
+                    <th if="dndConfig.enabled"></th>
+                    <th repeat="foreach: labels, item: '$label'"
+                        css="setClasses($label())"
+                        visible="$label().visible"
+                        disable="$label().disabled">
+                        <span translate="$label().label"></span>
+
+                        <!--ko if:$label().extendedLabel -->
+                        <a attr="'data-tooltip-trigger': ++ko.uid" href="javascript:void()" ><div translate="'Show more'"></div></a>
+                        <div tooltip="
+                        trigger: '[data-tooltip-trigger=' + ko.uid + ']',
+                        action: 'click',
+                        closeOnScroll: false,
+                        delay: 100,
+                        step: 30,
+                        strict: true,
+                        track: true,
+                        closeButton: true,
+                        position: 'top'"    class="demo-tooltip">
+                            <h5>[overall_frame_width] - The overall width of the frame</h5>
+                            <h5>[overall_frame_height] - The overall height of the frame</h5>
+                            <h5>[overall_width] - The overall width of the design</h5>
+                            <h5>[overall_height] - The overall height of the design</h5>
+                            <h5>[back_of_moulding_width] - The width of the back moulding</h5>
+                            <h5>[size] - The size of the frame</h5>
+                            <h5>[price] - The price of the frame</h5>
+                            <h5>[number_of_stoppers] - The number of stoppers used for the frame</h5>
+                            <h5>[inner_frame_width] - The width of the inner frame</h5>
+                            <h5>[inner_frame_height] - The height of the inner frame</h5>
+                            <h5>[shelves_qty] - The qty of the shelves of the frame</h5>
+                            <h5>[shelves_width] - The shelves width of the frame</h5>
+                            <h5>[shelves_depth] - The shelves depth of the frame</h5>
+                            <h5>[total_size_of_label_text_items] - The total size of the label text items</h5>
+                            <h5>[total_size_of_label_image_items] - The size of the label image items</h5>
+                            <h5>[total_size_of_header_text_items] - The size of the header text items</h5>
+                            <h5>[total_size_of_header_image_items] - The size of the header image items</h5>
+                            <h5>[hinge_generic_price] - The price of the hinge generic</h5>
+                        </div>
+                        <!-- /ko -->
+                    </th>
+                </tr>
+                </thead>
+
+                <tbody afterRender="onPageSizeChange">
+                <tr class="data-row" repeat="foreach: elems, item: '$record'">
+                    <td if="dndConfig.enabled"
+                        class="col-draggable"
+                        template="name: dndConfig.template, data: dnd"></td>
+
+                    <!-- ko foreach: { data: $record().elems(), as: 'elem'}  -->
+                    <td if="elem.template"
+                        css="$parent.setClasses(elem)"
+                        visible="elem.visible() && elem.formElement !== 'hidden'"
+                        disable="elem.disabled"
+                        template="elem.template"></td>
+                    <!-- /ko -->
+                </tr>
+                </tbody>
+
+                <tfoot visible="element.addButton || (!!element.getRecordCount())">
+                <tr>
+                    <td attr="{'colspan': element.getColumnsCount()}"
+                        visible="element.addButton || (!!element.getRecordCount())">
+                        <button if="element.addButton"
+                                attr="{disabled: disabled, 'data-action': 'add_new_row'}"
+                                type="button"
+                                click="processingAddChild.bind($data, false, false, false)">
+                            <span translate="addButtonLabel"></span>
+                        </button>
+
+                        <div class="admin__data-grid-pager-wrap">
+                            <scope args="sizes" render=""></scope>
+
+                            <div class="admin__control-table-pagination" visible="!!element.getRecordCount() && pages() > 1">
+                                <div class="admin__data-grid-pager">
+                                    <button class="action-previous" type="button" data-bind="attr: {title: $t('Previous Page')}, click: previousPage, disable: isFirst()"></button>
+                                    <input class="admin__control-text" type="number" data-bind="attr: {id: ++ko.uid}, value: currentPage">
+                                    <label class="admin__control-support-text" data-bind="attr: {for: ko.uid}, text: 'of ' + pages()"></label>
+                                    <button class="action-next" type="button" data-bind="attr: {title: $t('Next Page')}, click: nextPage, disable: isLast()"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>

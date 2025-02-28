@@ -1,0 +1,52 @@
+{
+    "shipping_profile": {
+        "column": {
+            "profile_id": true,
+            "profile_name": true,
+            "created_at": true,
+            "modified_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "shipping_profile_charge": {
+        "column": {
+            "charge_id": true,
+            "profile_id": true,
+            "product_cost_min": true,
+            "product_cost_max": true,
+            "shipping_charge_type": true,
+            "shipping_charge": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "SHIPPING_PROFILE_CHARGE_PROFILE_ID_SHIPPING_PROFILE_PROFILE_ID": true
+        }
+    },
+    "oversize_profile": {
+        "column": {
+            "profile_id": true,
+            "profile_name": true,
+            "created_at": true,
+            "modified_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "oversize_profile_charge": {
+        "column": {
+            "charge_id": true,
+            "profile_id": true,
+            "united_inch_min": true,
+            "united_inch_max": true,
+            "shipping_charge_type": true,
+            "shipping_charge": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "OVERSIZE_PROFILE_CHARGE_PROFILE_ID_OVERSIZE_PROFILE_PROFILE_ID": true
+        }
+    }
+}

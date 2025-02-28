@@ -1,0 +1,134 @@
+<?php
+
+/** @var $block \Ziffity\SavedDesigns\Block\SavedDesigns */
+//TODO: Move all this logic to knockout HTML template later.
+$saveDesignLimit = $block->getCustomerLimit();
+if ($saveDesignLimit) :
+?>
+    <div class="save design limit alert alert-info my-5">
+        <strong>You can save up to <?php echo $saveDesignLimit ?> custom designs.</strong>
+    </div>
+<?php endif; ?>
+<?php
+$designCollections = $block->getDesignsCollection();
+/** @var \Ziffity\SavedDesigns\ViewModel\ProcessSaveDesigns $viewModel */
+$viewModel = $block->getViewModel();
+$buttonTitle = __('Add to cart');
+if ($designCollections && $designCollections->getSize() > 0) : ?>
+    <div class="saved-design-toolbar toolbar"><?php echo $block->getPagerHtml(); ?></div>
+    <div class="sproducts-grid saveddesign" id="shareToFriend" data-bind="scope:'shareToFriendComponent'">
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <ol class="product-items">
+            <?php
+            foreach ($designCollections as $design) :
+                $product = $block->getProduct($design->getProductId());
+                $shareUrl = $viewModel->helper->findShareUrl($design->getShareCode()); ?>
+                <li data-row="product-item" class="product-item p-rel" id="item_<?= $design->getProductId() ?>">
+                    <div class="design action p-rel">
+                        <span class="action-link">...</span>
+                        <div class="action-items" style="display:none;">
+                            <ul class="action list">
+                                <li>
+                                    <a href="<?= $viewModel->helper->buildShareUrl($shareUrl, $design->getShareCode(), true); ?>" class="edit design"> <i class="dficon-edit-2"></i> <span><?= $block->escapeHtml(__('edit')) ?></span> </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" class="duplicate design" id="duplicate-design-<?= $design->getEntityId() ?>"> <i class="dficon-copy"></i> <span><?= $block->escapeHtml(__('duplicate')) ?></span> </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" class="copy-link-design" id="copy-link" data-url="<?= $viewModel->helper->buildShareUrl($shareUrl, $design->getShareCode()); ?>"><i class="dficon-link"></i> <span><?= __('Copy Link') ?></span> </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" data-bind="click:openPopup.bind({'share_code':'<?= $design->getShareCode() ?>','image':'<?= $viewModel->getImagePath($design->getImageUrl()); ?>'})" class="email-design" id="share-design"><span class="i">@</span> <span><?= __('Email') ?></span> </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" class="delete design" id="delete-design-<?= $design->getEntityId() ?>"><i class="dficon-trash-2"></i> <span><?= $block->escapeHtml(__('Delete')) ?></span> </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="product-item-info" data-container="product-grid">
+                        <div class="product image text-center mb-5 product-image-wrapper">
+                            <a href="<?= $viewModel->helper->buildShareUrl($shareUrl, $design->getShareCode()); ?>" target="_blank">
+                                <?php
+                                if ($viewModel->checkImageExists($design->getImageUrl())) :
+                                ?>
+                                    <img class="product-image-photo" src="<?= $viewModel->getImagePath($design->getImageUrl()); ?>" />
+                                <?php else : ?>
+                                    <img class="product-image-photo" src="<?= $block->getPlaceHolderImage(); ?>" alt="" />
+                                <?php endif; ?>
+                            </a>
+                        </div>
+                        <div class="detail info">
+                            <div class="product-info p-rel">
+                                <?php if ($design->getTitle()) : ?>
+                                    <span class="edit design" id="edit-label-<?= $design->getEntityId() ?>"><i class="dficon-edit-2 ico-circ"></i></span>
+                                    <div class="title-popup field-sm" id="title-popup-<?= $design->getEntityId() ?>" style="display:none;">
+                                        <span class="message"></span>
+                                        <input type="text" name="design_title" id="input-title-<?= $design->getEntityId() ?>" value="<?= $design->getTitle() ?>">
+                                        <div class="title-action " style="display:none;">
+                                            <button type="button" title="update title" class="title-update btn-sm" id="title-update-<?= $design->getEntityId() ?>"><i class="dficon-check"></i> </button>
+                                            <button type="button" title="cancel title" class="title-cancel btn-sm" id="title-cancel-<?= $design->getEntityId() ?>"><i class="dficon-x"></i> </button>
+                                        </div>
+                                    </div>
+                                    <p class="design label pr-5"><?= $block->escapeHtml($design->getTitle()) ?></p>
+                                <?php endif; ?>
+                            </div>
+                            <p><strong><?= $block->getFormatedPrice($viewModel->helper->getProductPrice($design)); ?></strong></p>
+                            <div class="design primary-action d-lg-flex txt-md-nowrap justify-content-between" id="saved-design" data-bind="scope:'saved-design'">
+                                <div><a href="javascript:void(0)" data-bind="click:addToQuoteAction" data-design-id="<?= $design->getId() ?>" data-product-id="<?= $design->getProductId() ?>" data-addurl=<?= $block->getAddToQuotetUrl($product)  ?> class="action action-secondary">
+                                        <span class="txt-xs"> <?= $block->escapeHtml('Request Quote') ?></span></a></div>
+                                <div>
+                                    <button data-bind="click:addToCartAction" data-design-id="<?= $design->getId() ?>" data-product-id="<?= $design->getProductId() ?>" data-addurl=<?= $block->getAddToCartUrl($product) ?> title="<?= $buttonTitle ?>" class="action primary" id="product-add-design">
+                                        <span class="txt-xs"><?= $buttonTitle ?></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            <?php
+            endforeach;
+            ?>
+        </ol>
+        <script type="text/x-magento-init">
+            {
+                "#shareToFriend": {
+                    "Magento_Ui/js/core/app": {
+                        "components": {
+                            "shareToFriendComponent": {
+                                "component": "Ziffity_SavedDesigns/js/shareToFriend"
+                            }
+                        }
+                    }
+                }
+            }
+        </script>
+        <script type="text/x-magento-init">
+            {
+                "#saved-design": {
+                    "Magento_Ui/js/core/app": {
+                        "components": {
+                            "saved-design": {
+                                "component": "Ziffity_SavedDesigns/js/saved-designs"
+                            }
+                        }
+                    }
+                }
+            }
+        </script>
+    </div>
+    <div class="saved-design-toolbar toolbar bottom mt-5"><?php echo $block->getPagerHtml(); ?></div>
+    <script type="text/x-magento-init">
+        {
+            ".saveddesign": {
+                "Ziffity_SavedDesigns/js/save-design-events": {}
+            }
+        }
+    </script>
+<?php else : ?>
+    <div class="message notice">
+        <div>
+            <?= $block->escapeHtml(__('Your have no items in your saved design list.')) ?>
+        </div>
+    </div>
+<?php endif; ?>

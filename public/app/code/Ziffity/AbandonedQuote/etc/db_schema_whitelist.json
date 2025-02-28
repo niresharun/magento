@@ -1,0 +1,12 @@
+{
+    "abandoned_quote_schedule": {
+        "column": {
+            "id": true,
+            "scheduled_interval": true,
+            "last_run": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

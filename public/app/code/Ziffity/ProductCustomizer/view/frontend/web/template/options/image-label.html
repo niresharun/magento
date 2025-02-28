@@ -1,0 +1,34 @@
+<!--ko if:isActive -->
+<ul class="text-alt txt-xs list-pl mb-4">
+    <li><span data-bind="i18n: 'Maximum file size is 2Mb. Maximum image side size is 1900Px.:'"></span></li>
+</ul>
+<div class="mb-4">
+    <button class="action primary" type="button" title="button" data-bind="click:addImageLabel,text: 'Add New Image Label'"></button>
+</div>
+<div id="image-label" class="mw-500"
+     data-bind="foreach: imageDataArray,afterRender: renderAccordion,afterAdd: renderAccordion">
+
+    <div data-role="collapsible">
+        <div data-role="trigger" class="header-edit">
+            <h5 class="acc-head">
+                <span data-bind="text: 'Image Label' + ($index() + 1)"></span>
+                <a class="text-danger small" href="javascript:void(0)"
+                   data-bind="click: $parent.deleteImageLabel.bind($parent, $data)"
+                   title="Remove image">Remove</a>
+            </h5>
+        </div>
+    </div>
+        <div data-role="content" class="acc-content">
+            <span class="file-upload mr-3">
+            <input type="file"
+                   data-bind="event: {change : $parent.uploadImage.bind($parent, event, $data)},attr:{id: imageLabelName}"
+                   name="opening_image" accept="image/*">
+                <label data-bind="attr: {for: imageLabelName }">
+                <img data-bind="attr: { src: require.toUrl('images/upload.svg') }" height="16" width="16" alt="uimg" />
+                <span data-bind="i18n: 'Upload Image'"></span></label>
+            </span>
+            <a id="preview-link" class="d-none" data-bind="attr:{href:fileData,target:'_blank'},text:fileName"></a>
+            </a>
+        </div>
+    </div>
+<!-- /ko -->

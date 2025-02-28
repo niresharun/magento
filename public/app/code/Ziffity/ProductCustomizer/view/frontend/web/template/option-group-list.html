@@ -1,0 +1,21 @@
+<span data-bind="text:editmode" class="d-none"></span>
+<!-- ko if:editmode -->
+<div class="option-group-tab border-btm">
+    <!-- TODO : Ui css work-->
+    <button class="arrows prev" data-bind="enable:canScrollLeft, click:scrollBarLeft"> <i class="dficon-chevron-left"></i> </button>
+        <div class="options">
+            <!-- ko foreach:{data:steps, as:'step'} -->
+            <div >
+                <button class="tablinks" data-bind="click: $parent.navigate.bind($parent),  css: { active: step.isActive(), done:  step.isCompleted()}, enable: !step.isActive()">
+                    <span data-bind="i18n: step.title"></span>
+                    <!-- ko if:step.info -->
+                        <a href="javascript:void(0)" class="ml-1 dficon-info txt-link" data-bind="click:$parent.loadInfoSlide, clickBubble: false" style="text-decoration: none"></a>
+                    <!-- /ko -->
+                </button>
+            </div>
+            <!-- /ko -->
+        </div>
+    <button class="arrows next" data-bind="click:scrollBarRight, enable:canScrollRight"> <i class="dficon-chevron-right"></i> </button>
+    <a class="reset-default dficon-x" title="close" data-bind="click:exitCustomization"><u></u></a>
+</div>
+<!-- /ko -->

@@ -1,0 +1,14 @@
+<div class="image customizer product-image-gallery" id="image-customizer-container" data-bind="visible:editmode()">
+    <div class="customizer-zoom">
+        <label class="ico-circ zoom-lock" for="image-zoom" title="zoom" data-bind="css:{'bg-primary text-white':imagezoom}">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1">
+                <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                <line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line>
+            </svg>
+            <input type="checkbox" id="image-zoom" data-bind="checked:imagezoom" title="Click here to zoom" class="vis-hidden" />
+        </label>
+    </div>
+    <div class="mx-auto" data-bind="css: {'product-img-box': shadowBox}">
+        <canvas class="image customizer" id="image-customizer"></canvas>
+    </div>
+</div>

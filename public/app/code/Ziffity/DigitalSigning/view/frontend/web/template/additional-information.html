@@ -1,0 +1,14 @@
+<div data-bind="visible: isFieldVisible()">
+    <div class="step-title">Optional Information</div>
+
+    <div>
+        <div class="mb-4">
+            <label class="txt-xs"><strong>PO Number</strong></label><br>
+            <input type="text" data-bind="value: purchase" placeholder="Po Number"></input>
+        </div>
+        <div>
+            <label class="txt-xs"><strong>Additional Details</strong></label><br>
+            <textarea data-bind="value: order" placeholder="Order Notes" rows="5"></textarea><br>
+        </div>
+    </div>
+</div>

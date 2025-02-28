@@ -1,0 +1,41 @@
+<!-- ko if: isActive() -->
+<div class="text-alt mb-4">Choose up to 6 glass shelves for your display case in either 1/4" or 3/8" thickness.</div>
+<div>
+
+    <div>
+        <div>Number Of Shelves <a href="javascript:void(0)" class="txt-link"
+                data-bind="click: shelvesQtyDetails">Details</a></div>
+
+    </div>
+    <div>
+        <div class="mb-2">
+            <img data-bind="attr:{src:shelvesQtyImage}"  class="mb-3">
+            <select name="shelves_qty" data-bind="options: getShelvesQty(),optionsText: 'label',
+                optionsValue: 'value',value:selectedShelfQty">
+            </select>
+        </div>
+        <div class="d-md-flex mb-4">
+            <div><strong>Actual Shell Size:</strong></div>
+            <div>
+                <span data-bind="text: frameWidth"></span>
+                <span>Wide </span>x
+                <span>deep </span>
+                <span data-bind="text: shelfThickness"></span>
+            </div>
+        </div>
+    </div>
+
+
+    <div>
+        <div>Thickness <a href="javascript:void(0)" class="txt-link" data-bind="click: thicknessDetails">Details</a>
+        </div>
+
+    </div>
+    <div>
+        <select name="shelves_qty" data-bind="options: getShelvesThickness(),optionsText: 'label',
+        optionsValue: 'value',value:selectedShelfThickness">
+        </select>
+    </div>
+</div>
+
+<!-- /ko -->

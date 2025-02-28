@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="ziffity" translate="label" sortOrder="400">
+            <label>Ziffity</label>
+        </tab>
+        <section id="contact_us" translate="label" type="text" sortOrder="300" showInDefault="1" showInWebsite="0" showInStore="1">
+            <class>separator-top</class>
+            <label>Contact Us</label>
+            <tab>ziffity</tab>
+            <resource>Ziffity_ContactUs::inquires</resource>
+            <group id="inquires" translate="label" type="text" sortOrder="140" showInDefault="1" showInWebsite="0" showInStore="1">
+                <label>Manage Inquires</label>
+                <field id="inquires_list" translate="label" showInDefault="1" showInWebsite="0" showInStore="1" sortOrder="10">
+                    <label>Inquires List: </label>
+                    <frontend_model>Ziffity\ContactUs\Model\Inquires\Frontend\DynamicRows</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

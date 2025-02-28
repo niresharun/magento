@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="contactForm" remove="true"/>
+        <referenceContainer name="content">
+            <block class="Ziffity\ContactUs\Block\ContactForm" name="customContactForm" template="Ziffity_ContactUs::form.phtml" >
+                <arguments>
+                    <argument name="contact_view_model" xsi:type="object">Ziffity\ContactUs\ViewModel\ContactViewModel</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

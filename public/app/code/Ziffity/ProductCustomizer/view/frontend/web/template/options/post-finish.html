@@ -1,0 +1,27 @@
+<!-- ko if: isActive() -->
+<h6>
+    <a data-bind="click: callPopup"><span translate="'What is Post Finish ?'"></span></a>
+</h6>
+<div class="list-set">
+    <fastForEach args="data: productList, as: 'product'">
+        <div class="list-style">
+            <input type="radio" name="post-finish"
+                   data-bind="attr:{id:product.id}, checked:$parent.productSelection, checkedValue: product," />
+            <a href="javascript:void(0)" class="fmore-info bg-success">
+                <i class="dficon-check"></i>
+            </a>
+            <div class="image">
+                <img data-bind="attr:{src:product.img_thumb}">
+            </div>
+
+            <div>
+                <div class="fr-name mb-3" data-bind="text: product.name"></div>
+                <div><small class="text-alt mb-3" data-bind="html: product.description"></small></div>
+                <div class="price">
+                    <span data-bind="text: $parent.convertPrice(product.price)"></span>
+                </div>
+            </div>
+        </div>
+    </fastForEach>
+</div>
+<!-- /ko -->

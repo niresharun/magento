@@ -1,0 +1,44 @@
+<!-- phpcs:ignoreFile because quote_attributes variable added dynamically -->
+<!--@subject {{trans "Email for quote sharing"}} @-->
+<!--@vars
+{
+"var viewUrl":"Url for view quote",
+"var customerName":"Customer Name",
+"var quote.increment_id":"Quote Increment ID",
+"layout handle=\"amasty_quote_share_pdf\" quote_id=$quote.getEntityId() area=\"frontend\"":"Quote Items Grid",
+"var store.getFrontendName()":"Store Name",
+"var quote.created_at":"Quote Created Date",
+"var quote.submitted_date":"Quote Submitted Date",
+"var remarks|escape|nl2br":"Customer Remarks",
+"var quote":"Quote object",
+"var quote.getEntityId()":"Quote ID"
+}
+@-->
+{{template config_path="design/email/header_template"}}
+
+<table>
+    <tr class="email-intro">
+        <td>
+            <p class="greeting">{{trans "Hello %customer_name," customer_name=$customerName}}</p>
+            <h1>{{trans 'Your Quote #<span class="no-link">#%increment_id</span>' increment_id=$quote.increment_id |raw}}</h1>
+        </td>
+    </tr>
+    <tr class="email-summary">
+        <td>            
+            <p>{{trans 'Submitted date <span class="no-link">%submitted_date</span>' submitted_date=$submitted_date |raw}}</p>
+        </td>
+    </tr>
+    <tr class="email-information">
+        <td>
+            {{depend quote_attributes}}
+            <div class="amquote-table-list">
+                {{var quote_attributes|raw}}
+            </div>
+            {{/depend}}
+
+            {{layout handle="amasty_quote_share_pdf" quote_id=$quote.getEntityId() area="frontend"}}
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

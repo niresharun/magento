@@ -1,0 +1,51 @@
+<div id="dryerase-board-details" class="popup-content">
+    <div class="pc-img-holder pc-valign-center">
+        <img src="<%- response.thumb_img %>">
+    </div>
+    <div class="pc-content mb-4">
+        <div class="pc-desc">
+            <h5>Dry Erase Board Description</h5>
+            <div>
+                <%= response.description %>
+            </div>
+        </div>
+        <div class="pc-id">
+            <strong>Dry Erase Board ID: </strong>
+            <span><%- response.code %></span>
+        </div>
+        <div class="table-wrapper table-selected">
+            <table>
+                <thead>
+                <tr>
+                    <th>Features</th>
+                    <th class="bl">Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th>Dry Erase Board</th>
+                    <td><%- response.name %></td>
+                </tr>
+                <% if(response.dry_erase_board_material !==null) { %>
+                <tr>
+                    <th>Dry Erase Board Material</th>
+                    <td><%- response.dry_erase_board_material%></td>
+                </tr>
+                <% } %>
+                <% if(response.board_color !==null) { %>
+                <tr>
+                    <th>Dry Erase Board Color</th>
+                    <td><%- response.board_color%></td>
+                </tr>
+                <% } %>
+                <% if(response.price !==null) { %>
+                <tr>
+                    <th>Dry Erase Board Price</th>
+                    <td><%- response.price%></td>
+                </tr>
+                <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

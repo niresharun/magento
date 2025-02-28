@@ -1,0 +1,26 @@
+{
+    "amasty_quote": {
+        "column": {
+            "archive": true,
+            "quote_name": true
+        }
+    },
+    "amasty_quote_comment": {
+        "column": {
+            "id": true,
+            "quote_id": true,
+            "comment": true,
+            "quote_status": true,
+            "author": true,
+            "customer_notified": true,
+            "is_customer_notified": true,
+            "is_visible_on_frontend": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "AMASTY_QUOTE_COMMENT_QUOTE_ID_AMASTY_QUOTE_QUOTE_ID": true
+        }
+    }
+}

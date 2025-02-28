@@ -1,0 +1,16 @@
+<?php
+/**
+ * @var $block \Ziffity\Netterms\Block\Adminhtml\Customer\Edit\NettermsCreditBalance
+ */
+?>
+<div class="admin__field-label">
+    <label for="netterms-credit-outstanding">
+        <span><?= __('Netterms Credit Outstanding') ?></span>
+    </label>
+</div>
+<div class="admin__field-control" id="netterms-credit-outstanding">
+    <?= $block->getCustomerCreditBalance() ?>
+    <div class="admin__field-note">
+        <span><?= __('Amount customer needs to settle.') ?></span>
+    </div>
+</div>

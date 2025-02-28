@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="amasty_quote">
+        <column xsi:type="smallint" name="archive" nullable="true" default="0" comment="Quote Archive Status"/>
+        <column xsi:type="varchar" name="quote_name"  comment="Quote Name"/>
+    </table>
+    <table name="amasty_quote_comment">
+        <column xsi:type="int" name="id" identity="true" unsigned="true" nullable="false" comment="id"/>
+        <column xsi:type="int" name="quote_id" padding="11" unsigned="true" nullable="false" comment="Quote ID"/>
+        <column xsi:type="text" name="comment" comment="Comment"/>
+        <column xsi:type="int" name="quote_status" comment="QuoteStatus"/>
+        <column xsi:type="varchar" name="author" comment="User(Customer/Admin)"/>
+        <column xsi:type="int" name="customer_notified" default="0" comment="CustomerNotified(default -> 0 / admin ->1)"/>
+        <column xsi:type="int" name="is_customer_notified" comment="Is Customer Notified"/>
+        <column xsi:type="int" name="is_visible_on_frontend" comment="Is Visible On Frontend"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="foreignkey" table="amasty_quote_comment" column="quote_id" referenceTable="amasty_quote" referenceColumn="quote_id"/>
+    </table>
+</schema>

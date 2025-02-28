@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Amasty\RequestQuote\Model\Pdf\HtmlGenerator" type="Ziffity\RequestQuote\Model\Pdf\HtmlGenerator" />
+    <preference for="Amasty\RequestQuote\Controller\Quote\Pdf" type="Ziffity\RequestQuote\Controller\Quote\Pdf" />
+    <preference for="Amasty\RequestQuote\Block\Adminhtml\Quote\View" type="Ziffity\RequestQuote\Block\Adminhtml\Quote\View" />
+    <type name="Amasty\RequestQuote\Block\Account\Quote\History">
+        <plugin name="archive_quote" type="Ziffity\RequestQuote\Plugin\Account\Quote\History" sortOrder="10" />
+    </type>
+    <preference for="Amasty\RequestQuote\Model\Quote" type="Ziffity\RequestQuote\Model\Quote" />
+    <preference for="Amasty\RequestQuote\Model\ResourceModel\Quote" type="Ziffity\RequestQuote\Model\ResourceModel\Quote" />
+    <preference for="Amasty\RequestQuote\Model\ResourceModel\Quote\Collection" type="Ziffity\RequestQuote\Model\ResourceModel\Quote\Collection" />
+    <type name="Amasty\RequestQuote\Controller\Account\View">
+        <plugin name="archive_quote_view" type="Ziffity\RequestQuote\Plugin\Account\View" sortOrder="10" />
+    </type>
+    <preference for="Amasty\RequestQuote\Model\Source\Status" type="Ziffity\RequestQuote\Model\Source\AdditionalStatus"/>
+</config>

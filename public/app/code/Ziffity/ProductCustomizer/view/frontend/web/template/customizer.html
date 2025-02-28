@@ -1,0 +1,40 @@
+<div id="customizer" class="customizer-stage">
+    <div class="customizer-header">
+
+            <!-- ko foreach: getRegion('top-bar') -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            <!-- /ko -->
+
+    </div>
+    <div class="customizer-body product-info-media">
+        <div class="col-lg-6 product-media">
+            <div class="product-media-top" data-bind="style:{'background-color': wallcolor()}">
+                <!-- ko foreach: getRegion('left-section-top') -->
+                   <!-- ko template: getTemplate() --><!-- /ko -->
+                <!-- /ko -->
+            </div>
+            <div class="product-media-bottom">
+                <!-- ko foreach: getRegion('left-section-bottom') -->
+                    <!-- ko template: getTemplate() --><!-- /ko -->
+                <!-- /ko -->
+            </div>
+        </div>
+        <div class="col-lg-6 product-info bg-secondary">
+            <div class="product-info-top">
+            <!-- ko foreach: getRegion('right-section-top') -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            <!-- /ko -->
+            </div>
+            <div class="product-info-bottom d-flex flex-bw-center">
+                <!-- ko foreach: getRegion('right-section-bottom') -->
+                    <!-- ko template: getTemplate() --><!-- /ko -->
+                <!-- /ko -->
+            </div>
+        </div>
+    </div>
+    <div class="popup-modal">
+        <!-- ko foreach: getRegion('customizer-slidein') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+    </div>
+</div>

@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <co_products>
+            <unit_pricing>
+                <plunge_lock>35</plunge_lock>
+            </unit_pricing>
+        </co_products>
+        <custom_frame>
+            <component_price>
+                <addon_plunge_price>35</addon_plunge_price>
+                <shelves_1_4_price>0.3056</shelves_1_4_price>
+                <shelves_3_8_price>0.6112</shelves_3_8_price>
+                <header_text_price>0.30</header_text_price>
+                <header_image_price>0.30</header_image_price>
+                <lable_text_price>0.30</lable_text_price>
+                <lable_image_price>0.30</lable_image_price>
+                <power_supply>50</power_supply>
+                <power_connection>8.82</power_connection>
+                <power_connection_hardwired>24.72</power_connection_hardwired>
+                <power_connection_plug>32.45</power_connection_plug>
+            </component_price>
+        </custom_frame>
+        <header>
+            <header_configuration>
+                <header_text_color>
+<![CDATA[black
+White
+red
+blue
+green
+#ffc000
+#800000
+#551a8b
+#FFA500
+#FFD700
+#000080
+#ff80ff
+#666666]]>
+                </header_text_color>
+                <header_bg_color>
+<![CDATA[black
+White
+red
+blue
+green
+#ffc000
+#800000
+#551a8b
+#FFA500
+#FFD700
+#000080
+#ff80ff
+#666666]]>
+                </header_bg_color>
+                <header_fonts>
+                        Alegreya SC,Alfa Slab One,Cantata One,Cinzel,Farsan,Fira Sans Condensed,
+                        Hammersmith One,Josefin Slab,Julius Sans One,Lora
+                </header_fonts>
+            </header_configuration>
+        </header>
+        <label>
+            <label_configuration>
+                <label_text_color>
+<![CDATA[black
+White
+red
+blue
+green
+#ffc000
+#800000
+#551a8b
+#FFA500
+#FFD700
+#000080
+#ff80ff
+#666666]]>
+                </label_text_color>
+                <label_fonts>
+                    Alegreya SC,Alfa Slab One,Cantata One,Cinzel,Farsan,Fira Sans Condensed,
+                    Hammersmith One,Josefin Slab,Julius Sans One,Lora
+                </label_fonts>
+            </label_configuration>
+        </label>
+    </default>
+</config>

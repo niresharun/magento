@@ -1,0 +1,109 @@
+<?php
+
+/** @var \Ziffity\SavedDesigns\ViewModel\ProvidePdfData $viewModel */
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Magento\Framework\Escaper $escaper */
+$viewModel = $block->getViewModel();
+$additionalData = $viewModel->getAdditionalData();
+$subtotal = isset($additionalData['subtotal']) ? $additionalData['subtotal'] : null;
+?>
+
+<style>
+    .pdf-doc .table-alternate tbody tr:nth-child(odd) {
+        background-color: #ddd;
+    }
+</style>
+<div class="pdf-doc">
+    <div style="padding: 20px;">
+    <div class="logo" style="margin-bottom: 20px">
+        <img class="site-logo" src="<?= /* @noEscape */ $viewModel->getLogo(false) ?>" width="170" alt="<?= $escaper->escapeHtml(__('PDF Logo')) ?>" />
+    </div>
+    <div class="product-title">
+        <h2> {{var product_name|raw}} </h2>
+    </div>
+    <div style="text-align: center;margin-bottom:20px">
+        <img src="{{var product_image|raw}}">
+    </div>
+    <div class="product-link" style="text-align: center;margin-bottom:10px">
+        <a href="{{var product_url|raw}}"><?= $escaper->escapeHtml('Click to view the product in the browser') ?></a>
+    </div>
+    </div>
+    <table style="width: 100%" cellpadding="20">
+        <tbody>
+            <tr>
+                <td>
+                    <div class="price-summary">
+                        <table border="1" cellspacing="0" cellpadding="8" class="table-alternate" style="border-collapse:collapse">
+                            <thead>
+                                <tr>
+                                    <th colspan="2">
+                                        <h3><?= __('Price Summary'); ?></h3>
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                if (isset($additionalData['price_summary'])):
+                                foreach ($additionalData['price_summary'] as $key => $value) : ?>
+                                    <tr>
+                                        <td><?= __($value['label']) ?></td>
+                                        <td><?= __($value['value']) ?></td>
+                                    </tr>
+                                <?php
+                                endforeach;
+                                endif;
+                                ?>
+                            </tbody>
+                            <?php if ($subtotal) : ?>
+                                <tfoot>
+                                    <tr>
+                                        <td><?= __('Total Price'); ?></td>
+                                        <td><?= $escaper->escapeHtml(__($subtotal)); ?></td>
+                                    </tr>
+                                </tfoot>
+                            <?php endif; ?>
+                        </table>
+                    </div>
+                </td>
+                <td>
+                    <div class="your-selection">
+                        <table border="1" cellspacing="0" cellpadding="8" class="table-alternate" style="border-collapse:collapse">
+                            <thead>
+                                <tr>
+                                    <th colspan="2">
+                                        <h3><?= __('Your Selection'); ?></h3>
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                if (isset($additionalData['your_selections'])):
+                                    $selections = $additionalData['your_selections'];
+                                    foreach ($selections as $key => $selection): ?>
+                                    <tr>
+                                        <?php if(!isset($selection['label'])) { ?>
+                                            <td><?= $block->escapeHtml($key) ?></td>
+                                            <td>
+                                            <?php foreach ($selection as $selectionKey => $sel ) : ?>
+                                                <?= $block->escapeHtml($sel['label']) ?>: <?= $block->escapeHtml($sel['value']) ?><br/>
+                                            <?php endforeach; ?>
+                                            </td>
+                                        <?php } else {?>
+                                            <td><?= $block->escapeHtml($selection['label']) ?></td>
+                                            <td><?= $block->escapeHtml($selection['value']) ?></td>
+                                        <?php } ?>
+                                    </tr>
+                                <?php
+                                endforeach;
+                                endif;
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="saved_designs">
+        <settings>
+            <collapsible>false</collapsible>
+            <label translate="true">Saved Designs</label>
+            <componentType>fieldset</componentType>
+            <additionalClasses>
+                <class name="customer-saved-designs">true</class>
+            </additionalClasses>
+        </settings>
+        <insertListing name="customer_saved_design_listing" component="Magento_Customer/js/form/components/insert-listing">
+            <settings>
+                <dataLinks>
+                    <exports>true</exports>
+                    <imports>true</imports>
+                </dataLinks>
+                <externalProvider>customer_saved_designs_listing.customer_saved_designs_listing_data_source</externalProvider>
+                <selectionsProvider>customer_saved_designs_listing.customer_saved_designs_listing.customer_saved_designs_columns.ids</selectionsProvider>
+                <autoRender>true</autoRender>
+                <dataScope>customer_saved_designs_listing</dataScope>
+                <ns>customer_saved_designs_listing</ns>
+                <exports>
+                    <link name="parent_id">${ $.externalProvider }:params.parent_id</link>
+                </exports>
+                <imports>
+                    <link name="parent_id">${ $.provider }:data.customer.entity_id</link>
+                </imports>
+            </settings>
+        </insertListing>
+    </fieldset>
+</form>

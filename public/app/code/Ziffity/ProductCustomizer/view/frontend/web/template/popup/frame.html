@@ -1,0 +1,73 @@
+<div id="frame-details" class="popup-content">
+    <div class="pc-cols">
+        <div class="pc-col">
+            <div class="pc-img-holder mb-4">
+                <img src="<%- response.img_popup_preview_1 %>">
+            </div>
+            <div class="pc-content">
+                <h5>Frame Description</h5>
+                <div>
+                    <%= response.description %>
+                </div>
+                <p>
+                    <strong>Frame ID: </strong>
+                    <span><%- response.code %></span>
+                </p>
+            </div>
+        </div>
+        <div class="pc-col">
+            <div class="pc-img-holder mb-4">
+                <div>
+
+                    <p><strong>Frame Height:</strong><%- response.height %></p>
+                    <p><strong>Frame Width:</strong><%- response.width %></p>
+
+                </div>
+                <img src="<%- response.img_popup_preview_2 %>">
+            </div>
+            <div class="pc-content mb-4">
+                <div class="table-wrapper table-selected">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Features</th>
+                                <th class="bl">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Frame</th>
+
+                                <td><%- response.name %></td>
+                            </tr>
+                                <% if(response.frame_material !==null) { %>
+                                <tr>
+                                    <th>Material</th>
+                                    <td><%- response.frame_material%></td>
+                                </tr>
+                                <% } %>
+                                <% if(response.frame_style !==null) { %>
+                                    <tr>
+                                        <th>Frame Style</th>
+                                        <td><%- response.frame_style%></td>
+                                    </tr>
+                                <% } %>
+                                <% if(response.frame_color !==null) { %>
+                                    <tr>
+                                        <th>Frame Color</th>
+                                        <td><%- response.frame_color%></td>
+                                    </tr>
+                                <% } %>
+                                <% if(response.price !==null) { %>
+                                    <tr>
+                                        <th>Frame Price</th>
+                                        <td><%- response.price%></td>
+                                    </tr>
+                                <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,5 @@
+<config
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="amasty_request_quote_sharepdf_share_pdf_template" label="Share PDF Email Template" file="share_pdf.html" type="html" module="Ziffity_RequestQuote" area="frontend"/>
+    <template id="email_comment_template" label="Replying customer through mail" file="email_comment_template.html" type="html" module="Ziffity_RequestQuote" area="frontend"/>
+</config>

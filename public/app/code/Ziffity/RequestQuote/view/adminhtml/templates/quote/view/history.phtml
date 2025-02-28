@@ -1,0 +1,91 @@
+<?php
+$data = $block->getQuoteId();
+$collection = $block->getFullHistory();
+$history = $collection->getData();
+$viewModel = $block->getData('view_model');
+?>
+<div id="order_history_block" class="edit-order-comments">
+<?php if ($block->getNotes()): ?>
+    <ul class="note-list">
+        <?php if ($block->getNotes()->getCustomerNote()): ?>
+            <li class="note-list-item">
+                <strong><?= $escaper->escapeHtml(__('Customer Remarks'))?></strong>
+                <div class="note-list-comment"><?= /* @noEscape */ nl2br($escaper->escapeHtml($block->getNotes()->getCustomerNote(), ['b', 'br', 'strong', 'i', 'u', 'a'])) ?></div>
+            </li>
+        <?php endif; ?>
+        <?php if ($block->getNotes()->getAdminNoteRemark()): ?>
+            <li class="note-list-item">
+                <strong><?= $escaper->escapeHtml(__('Admin Remarks'))?></strong>
+                <div class="note-list-comment"><?= /* @noEscape */ nl2br($escaper->escapeHtml($block->getNotes()->getAdminNoteRemark(), ['b', 'br', 'strong', 'i', 'u', 'a'])) ?></div>
+            </li>
+        <?php endif; ?>
+        <?php if ($block->getNotes()->getAdminNote()): ?>
+            <li class="note-list-item">
+                <strong><?= $escaper->escapeHtml(__('Admin Discount'))?></strong>
+                <div class="note-list-comment"><?= /* @noEscape */ nl2br($escaper->escapeHtml($block->getNotes()->getAdminNote(), ['b', 'br', 'strong', 'i', 'u', 'a'])) ?></div>
+            </li>
+        <?php endif; ?>
+    </ul>
+    <?php endif; ?>
+    <div class="admin_textarea_comments">
+    <span class="title" style="font-size: 1.8rem;font-weight: 700;">Notes for this Order</span>
+    </div><br>
+        <div class="admin_field">
+        <label for="history_status" class="admin__field-label">
+        <?= $block->escapeHtml(__('Status')) ?>
+        </label><br><br>
+        <select name="history[status]" id="history_status" class="admin__control-select">
+            <option value="9" selected="selected">Awaiting Customer Response</option>
+            <option value="1">Pending</option>
+        </select>
+        </div><br>
+        <div class="admin_field">
+        <label for="history_comment" class="admin__field-label">
+        <?= $block->escapeHtml(__('Comment')) ?>
+        </label><br><br>
+        <textarea name="history[comment]" style="width:400px;height:100px;padding:0.6rem 1rem 0.6rem" id="history_comment"></textarea>
+        </div>
+        <div class="admin__field admin__field-option">
+        <input name="history[is_customer_notified]" type="checkbox" id="history_notify" class="admin__control-checkbox" value="1" checked>
+        <label class="admin__field-label" for="history_notify">
+        <?= $block->escapeHtml(__('Notify Customer by Email')) ?>
+        </label>
+        </div>
+        <div class="admin__field admin__field-option">
+        <input name="history[is_visible_on_front]" type="checkbox" id="history_visible" class="admin__control-checkbox" value="1" checked>
+            <label class="admin__field-label" for="history_visible">
+            <?= $block->escapeHtml(__('Visible on Storefront')) ?>
+            </label>
+        </div>
+        <div class="order-history-comments-actions">
+            <?= $block->getChildHtml('submit_button') ?>
+        </div>
+    <br>
+    <div>
+    <ul class="note-list">
+        <?php foreach ($collection as $item): ?>
+
+            <li class="note-list-item">
+            <div>
+                <span class="note-list-date">
+                    <?= /* @noEscape */ $block->formatDate($item['created_at'], \IntlDateFormatter::MEDIUM) ?>
+                </span>
+                <span class="note-list-time">
+                    <?= /* @noEscape */ $block->formatTime($item['created_at'], \IntlDateFormatter::MEDIUM) ?>
+                </span>
+                <?php if ($status = $viewModel->getLabel($item['quote_status'])->getText()):?>
+                <span class="note-list-status"><strong><?= /* @noEscape */ $status ?></strong></span>
+                <?php endif;?>
+                |
+                <span class="note-list-user"><?= /* @noEscape */ $item['author'] ?></span>
+                <?php if ($item['author']=="Admin"):?>
+                <span class="note-list-customer-notified"><?= $block->escapeHtml(__('Notified')) ?></span>
+                <?php endif;?>
+            </div>
+                <p><span class="note-list-comment"><?= /* @noEscape */ $item['comment'] ?></span>
+                </p>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<div style="width: 620px;padding: 20px;background-color:#000080;color:white;text-align:center;font-size:25px">Did you forget something in quote?</div>
+<?php
+$items = $block->getItems();
+?>
+<hr/>
+<?php foreach ($items as $value):?>
+    <div>
+    <h2><strong><?= $value['name'] ?></strong></h2>
+    <img src=<?= $value['image'] ?> height="200" width="200" /><br />
+    <h3><strong>Price:</strong>  <?= $value['price'] ?></h3>
+    <h3><strong>Qty:</strong>  <?= $value['qty'] ?></h3>
+    <div>
+<?php endforeach; ?>
+<hr />
+<h2><strong> Total:</strong><?= $items[0]['total']?></h2>
+<a id="quote_complete" href=<?= $block->getUrl("request_quote/cart/")?> >Complete Quote</a>
+<style>
+    #quote_complete{
+        padding: 15px;
+        background-color:#000080;
+        color:white !important;
+        text-align:center;
+        float:right;
+        font-size:20px;
+        text-decoration: none !important;
+    }
+</style>

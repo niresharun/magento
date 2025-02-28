@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Catalog:etc/product_types.xsd">
+    <type name="coproduct" label="Coproduct" modelInstance="Ziffity\Coproduct\Model\Product\Type\Coproduct"
+          indexPriority="50" sortOrder="50" isQty="true">
+    </type>
+</config>

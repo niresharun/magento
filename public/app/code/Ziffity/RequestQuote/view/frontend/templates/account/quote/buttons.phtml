@@ -1,0 +1,82 @@
+<?php
+    $quote = $block->getQuote();
+    $viewModel = $block->getViewModel();
+?>
+<div class="actions">
+    <div id="pdf-modal-content" style="display:none;">
+        <button type="button" data-post='<?= /* @noEscape */ $block->getPostData($block->getDownloadPdfUrl($quote).'?header=1') ?>' id="with-header">PDF With Header</button>
+        <button type="button" data-post='<?= /* @noEscape */ $block->getPostData($block->getDownloadPdfUrl($quote).'?header=0') ?>'id="without-header">PDF Without Header</button>
+    </div>
+    <div id="archive-modal" style="display:none;">
+        <button type="button" id="archive-confirm">Yes</button>
+        <button type="button" id="archive-cancel">No</button>
+    </div>
+    <div id="cancel-modal" style="display:none;">
+        <button type="button" data-post='<?= /* @noEscape */ $block->getPostData($block->getCancelUrl($quote)) ?>' id="cancel-confirm">Yes</button>
+        <button type="button" id="quote-cancel">No</button>
+    </div>
+    <div id="share-pdf-modal" style="display:none;">
+        <form action="<?php  echo $block->getUrl('requestquote/share/sharepdf') ;?>" method="post" id="pdf-generate-form" autocomplete="off" data-mage-init='{"validation":{}}' data-hasrequired="<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>">
+            <?php echo $this->getBlockHtml('formkey'); ?>
+            <fieldset class="fieldset">
+                <div class="field">
+                    <label class="label"><?= $escaper->escapeHtml(__('Enter Recepient Email ')) ?></label>
+                    <div class="field">
+                        <input type="hidden" name="quote_id" value="<?= $quote->getId() ?>"/>
+                        <input type="email" name="email" id="email_address" value="" title="<?php echo __('Email') ?>" class="input-text"
+                         placeholder="Enter Email Address" data-validate="{required:true, 'validate-email':true}">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="field">
+                        <input type="radio" name="share-pdf" value="1" id="withheader" class="input-radio" data-validate="{required:true}">
+                        <label class="label" for="withheader"><?= $escaper->escapeHtml(__('Share PDF with header ')) ?></label>
+                        <input type="radio" name="share-pdf" value="0" id="withoutheader" class="input-input-radio" data-validate="{required:true}">
+                        <label class="label" for="withoutheader"><?= $escaper->escapeHtml(__('Share PDF without header ')) ?></label>
+
+                    </div>
+                </div>
+                <div class="primary">
+                    <button type="submit" class="action submit primary"><span>Submit</span></button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="quote-action" id="quote-action"><button type="button">Action</button> </div>
+    <ul class="action-listing" id="action-listing" style="display:none;">
+
+        <?php if ($block->isAllowedPdf()): ?>
+            <li> <a href="javascript:void(0)" id="modal-pdf"  class="action order">
+                <span><?= $escaper->escapeHtml(__('Download PDF')) ?></span>
+            </a></li>
+            <li> <a href="javascript:void(0)" id="generate-pdf"  class="action order">
+                <span><?= $escaper->escapeHtml(__('Share & Generate PDF')) ?></span>
+            </a></li>
+        <?php endif; ?>
+        <?php if ($block->isDeleteShow($quote)): ?>
+        <li><a href="javascript:void(0)" data-post='<?= /* @noEscape */ $block->getPostData($block->getDeleteUrl($quote)) ?>'
+           class="action order">
+            <span><?= $escaper->escapeHtml(__('Delete')) ?></span>
+        </a></li>
+        <?php endif; ?>
+        <?php if ($block->isCancelShowed($quote)): ?>
+            <li><a href="javascript:void(0)" id="cancel-pdf" class="action order">
+            <span><?= $escaper->escapeHtml(__('Cancel')) ?></span>
+            </a></li>
+        <?php endif; ?>
+        <?php if (!$viewModel->getArchiveStatus($quote->getId())): ?>
+            <li><a href="javascript:void(0)" class="action order archive-quote txt-link">
+                <input type="hidden" name="archive-quote" value='<?= /* @noEscape */ $block->getPostData($block->getUrl('requestquote/archive/index')."/?quoteid=".$quote->getId()) ?>'>
+                <span><?= $escaper->escapeHtml(__('Archive Quote')) ?></span>
+            </a></li>
+        <?php endif; ?>
+    </ul>
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Ziffity_RequestQuote/js/quote-action": {}
+        }
+    }
+
+</script>

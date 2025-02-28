@@ -1,0 +1,118 @@
+<!--ko if:isActive -->
+<button type="button" class="action primary" data-bind="click:addTextLabel,attr:{title:'Add New Text Label'}">Add New Text Label</button>
+<div id="text-label" class="mt-5  mw-500 text-header-style"
+     data-bind="foreach: textLabelArray,afterRender: renderAccordion,afterAdd: renderAccordion">
+    <div data-role="collapsible">
+        <div data-role="trigger" class="header-edit">
+            <h5 class="acc-head">
+                <span data-bind="text: 'Text Label ' + ($index() + 1)"></span>
+                <a class="text-danger small"
+               data-bind="click: $parent.deleteTextLabel.bind($parent, $data)"
+               title="Remove Label">Remove</a>
+            </h5>
+        </div>
+    </div>
+    <div data-role="content" class="acc-content">
+        <div class="mb-3">
+            <h6 data-bind="i18n: 'Label Sizes:'"></h6>
+            <span class="txt-xs" data-bind="text:sizeObservable"></span>
+        </div>
+        <div class="mb-3">
+            <h6 data-bind="i18n: 'Input Text for Label:'"></h6>
+            <textarea
+            data-bind="textInput: inputText" placeholder="Start Typing..."
+            rows="4" cols="50" maxlength="50"></textarea>
+        </div>
+        <div class="mb-3 font-style">
+            <h6 data-bind="i18n: 'Font Style & Size:'"></h6>
+            <select class="mb-3"
+                data-bind="options: labelFonts,optionsText: 'name',optionsValue: 'name',value: selectedFont,optionsAfterRender: $parent.setOptionStyle">
+            </select>
+        <span class="text-size mr-3"><strong>Size</strong>
+            <button type="button" data-bind="click: $parent.reduceSize" title="-">-</button>
+            <button type="button" data-bind="click: $parent.increaseSize" title="+">+</button>
+        </span>
+        <span class="text-style mr-3">
+            <button type="button" name="B"
+                    data-bind="click: $parent.updateBold,style:{'background-color': bold() ? 'red' : 'initial'}" title="B">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23">
+                        <path
+                            d="M15.3 10.3c0.3-0.4 0.5-0.8 0.5-1.3 0-0.5-0.1-0.9-0.4-1.3s-0.6-0.7-1.1-0.9c-0.5-0.2-1.3-0.3-2.4-0.3H7.1v0.3c0.5 0 0.8 0 0.9 0.1 0.2 0.1 0.3 0.2 0.3 0.3S8.5 7.7 8.5 8.3v6.4c0 0.5 0 0.9-0.1 1s-0.2 0.2-0.3 0.3 -0.5 0.1-0.9 0.1v0.3h5c1.4 0 2.5-0.3 3.2-0.9 0.6-0.5 0.9-1.1 0.9-1.9 0-0.7-0.3-1.3-0.8-1.7 -0.4-0.3-1-0.6-2-0.8C14.4 11 15 10.7 15.3 10.3zM10.8 7.1c0.7 0 1.2 0.1 1.6 0.2s0.6 0.4 0.7 0.6c0.2 0.3 0.3 0.6 0.3 1.1 0 0.4-0.1 0.8-0.3 1.1s-0.4 0.5-0.8 0.7c-0.3 0.2-0.8 0.2-1.5 0.2V7.1zM12.5 11.8c0.4 0.1 0.7 0.4 0.9 0.8 0.2 0.4 0.3 0.8 0.3 1.2 0 0.4-0.1 0.8-0.3 1.1 -0.2 0.3-0.4 0.6-0.8 0.8 -0.3 0.2-0.7 0.3-1.1 0.3 -0.3 0-0.5-0.1-0.6-0.2 -0.1-0.1-0.2-0.3-0.2-0.6l0-0.4v-3.2C11.6 11.5 12.1 11.6 12.5 11.8z">
+                        </path>
+                    </svg>
+            </button>
+            <button type="button" name="I"
+                    data-bind="click: $parent.updateItalic,style:{'background-color': italic() ? 'red' : 'initial'}" title="I">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23">
+                        <path
+                            d="M11.2 15.6c-0.1 0-0.2-0.1-0.3-0.2s-0.1-0.2-0.1-0.3c0-0.2 0.1-0.5 0.2-1.1l1.7-6c0.2-0.6 0.3-1 0.4-1.2s0.3-0.3 0.5-0.4c0.2-0.1 0.4-0.1 0.7-0.1l0.1-0.3h-3.8l-0.1 0.3c0.4 0 0.6 0 0.8 0.1 0.1 0 0.2 0.1 0.3 0.2 0.1 0.1 0.1 0.2 0.1 0.3 0 0.3-0.1 0.6-0.2 1.1l-1.7 6c-0.2 0.6-0.3 1-0.5 1.2 -0.1 0.1-0.3 0.3-0.5 0.3 -0.1 0.1-0.4 0.1-0.8 0.1L7.9 16h4.1l0.1-0.3C11.7 15.7 11.4 15.7 11.2 15.6z">
+                        </path>
+                    </svg>
+            </button>
+            <button type="button" name="U"
+                data-bind="click: $parent.updateUnderline,style:{'background-color': underline() ? 'red' : 'initial'}" title="U">
+                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23">
+                        <path
+                            d="M14 5.3c0.4 0 0.7 0.1 0.9 0.3 0.1 0.2 0.2 0.5 0.2 1.2v4c0 1.1-0.1 1.8-0.3 2.2 -0.2 0.4-0.5 0.8-1.1 1.1s-1.1 0.4-1.7 0.4c-0.5 0-0.9-0.1-1.3-0.3 -0.3-0.2-0.6-0.4-0.8-0.7 -0.2-0.3-0.3-0.7-0.4-1.2s-0.1-0.9-0.1-1.3V6.8c0-0.6 0.1-0.9 0.2-1.1 0.2-0.3 0.5-0.4 0.9-0.4h0.4V5H6.5v0.3h0.4c0.4 0 0.6 0.1 0.8 0.3s0.3 0.6 0.3 1.2v3.9c0 1.2 0.1 2 0.2 2.4 0.2 0.6 0.6 1.1 1.2 1.5 0.6 0.4 1.4 0.6 2.5 0.6 1 0 1.8-0.2 2.4-0.6 0.6-0.4 1-0.9 1.2-1.4 0.2-0.5 0.3-1.3 0.3-2.3V6.8c0-0.6 0.1-0.9 0.2-1.1 0.2-0.3 0.5-0.5 0.9-0.5h0.4V5h-3.5v0.3H14z">
+                        </path>
+                        <path d="M6.5 18.4v-0.7h10.8v0.7H6.5z"></path>
+                    </svg>
+            </button>
+        </span>
+        <span class="text-alignment">
+            <span class="aligner-left">
+                <input type="radio" value="left"
+                   data-bind="attr:{name:textAlignIndex,
+                   id:$parents[0].returnUniqueName('text-align-left')},
+                   checked: selectedAlignment" title="Text Align Left">
+                    <label data-bind="attr:{for:$parents[0].returnUniqueName('text-align-left')}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23">
+                        <rect x="4.5" y="17.2" width="15.6" height="1.4"></rect>
+                        <rect x="11.6" y="14.3" width="8.5" height="1.4"></rect>
+                        <rect x="5.9" y="11.5" width="14.2" height="1.4"></rect>
+                        <rect x="3.1" y="8.7" width="17" height="1.4"></rect>
+                        <rect x="8.8" y="5.8" width="11.3" height="1.4"></rect>
+                        </svg>
+                    </label>
+        </span>
+        <span>
+            <input type="radio" value="center"
+                   data-bind="attr:{name:textAlignIndex,
+                   id:$parents[0].returnUniqueName('text-align-center')},
+                   checked: selectedAlignment" title="Text Align Center">
+            <label data-bind="attr:{for:$parents[0].returnUniqueName('text-align-center')}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23">
+                            <rect x="3.6" y="6.2" width="16" height="1.3"></rect>
+                            <rect x="3.6" y="16.9" width="16" height="1.3"></rect>
+                            <rect x="7.6" y="8.9" width="8" height="1.3"></rect>
+                            <rect x="7.6" y="14.2" width="8" height="1.3"></rect>
+                            <rect x="4.9" y="11.5" width="13.3" height="1.3"></rect>
+                        </svg>
+            </label>
+        </span>
+        <span>
+            <input type="radio" value="right"
+                   data-bind="attr:{name:textAlignIndex,
+                   id:$parents[0].returnUniqueName('text-align-right')},
+                   checked: selectedAlignment" title="Text Align Right">
+            <label data-bind="attr:{for:$parents[0].returnUniqueName('text-align-right')}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23"><rect x="4.5" y="17.2" width="15.6" height="1.4"></rect><rect x="11.6" y="14.3" width="8.5" height="1.4"></rect><rect x="5.9" y="11.5" width="14.2" height="1.4"></rect><rect x="3.1" y="8.7" width="17" height="1.4"></rect><rect x="8.8" y="5.8" width="11.3" height="1.4"></rect></svg>
+            </label>
+        </span>
+        </span>
+        </div>
+        <div class="mb-3">
+            <h6 data-bind="i18n: 'Font Color:'"></h6>
+            <div class="color-chooser" data-bind="foreach: { data: fontColors, as: 'color' }">
+                <div class="color-item">
+                    <input type="radio"
+                       data-bind="attr:{value:color,id:$parents[1].returnUniqueColorId(color),
+                       name:$parent.fontColorIndex},checked:$parent.selectedColor"/>
+                    <label data-bind="style: {backgroundColor: color},attr:{for:$parents[1].returnUniqueColorId(color)}"></label>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- /ko -->

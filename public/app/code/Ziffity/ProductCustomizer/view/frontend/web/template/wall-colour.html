@@ -1,0 +1,12 @@
+<div>
+    <label  class="wall-color fs" class="customframe-color-picker">
+        <span>Wall Colors</span>
+    <input type="color" id="myColor" title="Wall texture will be available inside the customizer" data-bind="value:currentColor, event:{input: wallColors}" />
+    </label>
+    <!--<div data-bind="style:{color:colorPicker}">Color Picker</div>-->
+    <!-- ko if:currentColor -->
+<a href="javascript:void(0)" class="ml-1 dficon-x text-danger" title="Remove Wall Color" data-bind="visible: colorChanged, click:resetColor, clickBubble: false" ></a>
+<!-- /ko -->
+</div>
+
+<!--<input type="text" maxlength="6" size="6" id="colorSelector" value="00ff00"/>-->

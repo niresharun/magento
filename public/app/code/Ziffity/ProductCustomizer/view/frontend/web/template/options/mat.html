@@ -1,0 +1,57 @@
+<!-- ko if: isActive() -->
+   <div class="d-md-flex txt-xs mb-3">
+        <div class="mb-2 mb-md-3 mr-md-3">
+            <strong data-bind="i18n:'Graphic Size :'"></strong>
+            <span class="text-alt"><span data-bind='text:graphicWidth'></span>
+            <span data-bind="i18n:'Wide '"></span>x
+            <span data-bind='text:graphicHeight'></span>
+            <span data-bind="i18n:'High'"></span></span>
+        </div>
+        <div>
+            <strong data-bind="i18n:'Viewable Area :'"></strong>
+            <span class="text-alt"> <span data-bind='text:viewableWidth'></span>
+            <span data-bind="i18n:'Wide '"></span>x
+            <span data-bind='text:viewableHeight'></span>
+            <span data-bind="i18n:'High'"></span></span>
+        </div>
+   </div>
+    <div class="d-flex mat-field align-items-center field-sm mb-3">
+    <strong   data-bind="i18n:'Matboard Top'" class="txt-xs mr-md-3"></strong>
+        <!-- ko if: matSizeLock -->
+        <div><span data-bind="i18n:'Wide'"></span>:&nbsp;<span data-bind="text:matWideSelected"></span>"</div>
+        &nbsp;<div><span data-bind="i18n:'High'"></span>:&nbsp;<span data-bind="text:matHighSelected"></span>"</div>
+        <span></span>
+        <!-- /ko -->
+        <!-- ko ifnot: matSizeLock -->
+            <select class=" mr-md-3" data-bind="options: matWide,
+            optionsText: 'label',
+            optionsValue: 'value',
+            value: matWideSelected"></select>
+            <select data-bind="options: matHigh,
+            optionsText: 'label',
+            optionsValue: 'value',
+            value: matHighSelected"></select>
+        <!-- /ko -->
+<!--        <span data-bind="text:matWideSelected()"></span>-->
+<!--        <span data-bind="text:matHighSelected()"></span>-->
+</div>
+   <!-- ko if:showReveal -->
+<div class="mb-3 mw-500" >
+    <strong class="mb-2" data-bind="i18n:'Matboard Reveal'"></strong>
+   <select data-bind="options: reveals,
+    optionsText: 'label',
+    optionsValue: 'value',
+    value: revealSelected" class="field-sm"></select>
+</div>
+   <!-- /ko-->
+<div class="kind-buttons my-4">
+    <!-- ko foreach:{data:mats, as:'matType'} -->
+        <button data-bind="text: matType.title, enable: !matType.isActive(),  click: function(d,e){ $parent.updateCurrentMatType(d,e)}"></button>
+    <!-- /ko -->
+    </div>
+<div>
+    <!-- ko foreach: {data:elems(), as:'elem'} -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    <!-- /ko -->
+</div>
+<!-- /ko -->

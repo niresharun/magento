@@ -1,0 +1,30 @@
+<!--ko if:isActive -->
+<div id=" product-options">
+
+    <!-- ko ifnot:productList().length -->
+    <span> No Matching Products </span>
+    <!-- /ko -->
+    <!-- ko if:productList().length -->
+    <div class="list-set">
+        <!-- ko foreach:{data:productList, as:'product'} -->
+        <div class="list-style">
+            <input type="radio" name="backingBoard"
+                   data-bind="attr:{text:product.name, id:product.id}, checked:$parent.productSelection, checkedValue: product" />
+            <a href="javascript:void(0)" class="fmore-info bg-success">
+                <i class="dficon-check"></i>
+            </a>
+            <div class="image">
+                <img data-bind="attr:{src:product.img_thumb}">
+            </div>
+
+            <div>
+                <div data-bind="text: product.name" class="fr-name mb-3"></div>
+                <div class="mb-3"><small data-bind="html: product.description"></small></div>
+                <div class="price"><span data-bind="i18n:'Your Price: '"></span><span data-bind="text:$parent.convertPrice(product.price)"></span></div>
+            </div>
+        </div>
+        <!-- /ko -->
+    </div>
+    <!-- /ko -->
+</div>
+<!-- /ko -->

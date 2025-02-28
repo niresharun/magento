@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="abandoned_quote_schedule">
+        <column xsi:type="int" name="id" identity="true" unsigned="true" nullable="false" comment="id"/>
+        <column xsi:type="int" name="scheduled_interval" nullable="false" comment="ScheduledInterval"/>
+        <column xsi:type="timestamp" name="last_run" nullable="false" comment="Lastrun"/>
+          <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+</schema>

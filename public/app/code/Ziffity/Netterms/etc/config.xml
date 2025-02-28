@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <payment>
+            <netterms>
+                <active>1</active>
+                <model>Ziffity\Netterms\Model\Netterms</model>
+                <order_status>pending</order_status>
+                <title>Purchase Order</title>
+                <allowspecific>0</allowspecific>
+                <display_limit_exceed_error_message>0</display_limit_exceed_error_message>
+                <limit_exceed_message>Sorry, your order total has surpassed your PO limit.</limit_exceed_message>
+                <email_template>payment_us_netterms_email_template</email_template>
+                <is_offline>1</is_offline>
+            </netterms>
+        </payment>
+    </default>
+</config>

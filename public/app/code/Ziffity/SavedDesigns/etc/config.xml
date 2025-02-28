@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <saved_design>
+            <general>
+                <max_save_limit>20</max_save_limit>
+                <module_status>1</module_status>
+                <design_imagepath>savedesign/</design_imagepath>
+                <design_pageination>8,12,16,20</design_pageination>
+            </general>
+        </saved_design>
+    </default>
+</config>

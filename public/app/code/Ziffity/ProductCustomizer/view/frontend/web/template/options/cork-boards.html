@@ -1,0 +1,45 @@
+<!--ko if:isActive -->
+<!-- ko if: productLoaded -->
+<div id=" product-options">
+    <!--This Div is for the filter selections as in layered navigation for the child items in the frame options-->
+    <div id="toggle" class="featured-selections" style="display: none">
+        <div data-bind="with: $data">
+            <div data-bind="template: 'Ziffity_ProductCustomizer/selectionsFilter'"></div>
+        </div>
+    </div>
+    <!--This div is used for the search field to filter the items based on the product name-->
+    <div data-bind="with: $data">
+        <div data-bind="template: 'Ziffity_ProductCustomizer/searchField'"  class="customizer-search"></div>
+    </div>
+
+    <!-- ko ifnot:productList().length -->
+    <span> No Matching Products </span>
+    <!-- /ko -->
+    <!-- ko if:productList().length -->
+    <div class="frame-sets">
+    <!-- ko foreach:{data:productList, as:'product'} -->
+    <div class="frame-style">
+        <a href="javascript:void(0)" class="fmore-info" data-bind="click:$parent.showDetails.bind($data), clickBubble: false" style="text-decoration: none">i</a>
+        <div class="image">
+            <img data-bind="attr:{src:product.img_thumb}">
+        </div>
+        <div>
+            <input type="radio" name="cork_board" data-bind="attr:{text:product.name, id:product.id}, checked: $parent.productSelection, checkedValue:product" />
+        </div>
+        <div>
+            <span data-bind="text: product.name" class="frame-name"></span>
+        </div>
+        <div class="price">
+            <span data-bind="text: $parent.convertPrice(product.price)"></span>
+        </div>
+    </div>
+    <!-- /ko -->
+    </div>
+    <!--This Div is used for showing the pagination that works with the search and selections filter-->
+    <div data-bind="with: $data">
+        <div data-bind="template: 'Ziffity_ProductCustomizer/pager'"></div>
+    </div>
+    <!-- /ko -->
+</div>
+<!-- /ko -->
+<!-- /ko -->

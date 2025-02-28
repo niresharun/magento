@@ -1,0 +1,46 @@
+<!--@subject {{trans "ACTION NEEDED: DisplayFrames.com Net Terms Application"}} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<table>
+    <tr class="email-intro">
+        <td>
+            <p class="greeting">{{trans "Dear %customer_name," customer_name=$customer_name}}</p>
+            <p>
+                {{trans
+                    'Recently you placed order #%increment_id on <a href="%store_url">DisplayFrames.com</a> with Net Terms selected.'
+                    store_url="$this.getUrl($store, '',[_nosid:1])"
+                    increment_id="$increment_id"
+                |raw}}
+                {{trans
+                    'Please complete the attached Net Terms <a href="%application_url">Application</a> (our W9 is attached for your convenience) and send back via email or fax.'
+                    application_url="$application_url"
+                |raw}}
+            </p>
+            <p>
+                {{trans 'Once approved, a formal Purchase Order must be sent to our customer service team.'}}
+            </p>
+            <p>
+                {{trans 'Please complete this in a timely manner to avoid any delays in your order being processed.'}}
+            </p>
+            <p>
+                {{trans 'Any questions, feel free to contact the DisplayFrames Team.'}}
+            </p>
+        </td>
+    </tr>
+    <tr class="email-summary">
+        <td style="background:#EAEAEA; text-align:center;">
+            <p style="margin:0;">
+                {{trans
+                    'Access <a href="%store_url">Display Group</a> Inc.
+                    <br>
+                    Tel: 800-289-1539
+                    Fax: 877-842-5126'
+                    store_url="$this.getUrl($store, '',[_nosid:1])"
+                |raw}}
+            </p>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

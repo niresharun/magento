@@ -1,0 +1,17 @@
+<!-- ko if:editmode -->
+<!--<div class='meter-container'>
+    <meter data-bind="value:currentStep().index+1, attr:{max:steps().length}" min="1" style="width:100%">
+        <div class='meter-overlay-text'>
+            <span data-bind="text:currentStep().index"></span>/<span data-bind="text:steps().length"></span>
+        </div>
+    </meter>
+</div>-->
+<div class="fstep-progress" id="fstep-progress">
+    <span class="f-progress" data-bind="style: { width: ((currentStep().index+1) / steps().length) * 100+'%'  }" >
+        <span class="step-indicat">
+            <span data-bind="text:currentStep().index+1"></span>/<span data-bind="text:steps().length"></span>
+        </span>
+    </span>
+</div>
+
+<!-- /ko -->

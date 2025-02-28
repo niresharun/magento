@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <amasty_request_quote>
+            <quote_abandoned>
+                <status>1</status>
+                <quote_lifetime>0</quote_lifetime>
+                <email_template>
+                <item1>
+                    <send_after>2</send_after>
+                    <email>amasty_request_quote_quote_abandoned_email</email>
+                </item1>
+                <item2>
+                    <send_after>8</send_after>
+                    <email>amasty_request_quote_quote_abandoned_email</email>
+                </item2>
+            </email_template>
+            <scheduled_cron>*/15 * * * *</scheduled_cron>
+            </quote_abandoned>
+        </amasty_request_quote>
+    </default>
+</config>

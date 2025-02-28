@@ -1,0 +1,16 @@
+<div class="px-5 pt-5" id="digital-signing-box" data-bind="visible: isVisible()">
+    <div class="field choice">
+        <input type="checkbox" name="agree" id="TermCond" data-bind="checked: agree" />
+        <label for="TermCond" class="text-alt">I have read agree to <u class="txt-link"><a href="#"
+                    data-bind="attr: { href: getCustomUrl() }">Terms And Conditions</a></u></label>
+    </div>
+    <div id="checkboxError" data-bind="visible: errors.agree" class="mage-error">This is required field</div>
+    <br>
+    <p><strong>Signature</strong></p>
+    <canvas id="canvas" name="canvas" width="400" height="100"
+        afterRender="initCanvas"></canvas><br>
+    <div id="canvasError" data-bind="visible: errors.canvas" class="mage-error">This Sign Field is required</div>
+    <div class="text-right">
+        <button type="button" class="btn-sm" id="clearCanvas">Clear</button>
+    </div>
+</div>

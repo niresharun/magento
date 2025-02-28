@@ -1,0 +1,14 @@
+<!-- ko if: isActive() -->
+<h5 class="mb-3">Label option</h3>
+<div class="kind-buttons mb-4">
+<!-- ko foreach:{data:labels, as:'labelType'} -->
+<button data-bind="text: labelType.code, enable: !labelType.isActive(),
+click: function(d,e){ $parent.updateCurrentLabelType(d,e)}" class="mr-2"></button>
+<!-- /ko -->
+</div>
+<div>
+    <!-- ko foreach: {data:elems(), as:'elem'} -->
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <!-- /ko -->
+</div>
+<!-- /ko -->

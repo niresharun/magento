@@ -1,0 +1,51 @@
+<div id="fabric-details" class="popup-content">
+    <div class="pc-img-holder pc-valign-center">
+        <img src="<%- response.thumb_img %>">
+    </div>
+    <div class="pc-content mb-4">
+        <div class="pc-desc">
+            <h5>Fabric Description</h5>
+            <div>
+                <%= response.description %>
+            </div>
+        </div>
+        <div class="pc-id">
+            <strong>Fabric ID: </strong>
+            <span><%- response.code %></span>
+        </div>
+        <div class="table-wrapper table-selected">
+            <table>
+                <thead>
+                <tr>
+                    <th>Features</th>
+                    <th class="bl">Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th>Fabric</th>
+                    <td><%- response.name %></td>
+                </tr>
+                <% if(response.fabric_style !==null) { %>
+                <tr>
+                    <th>Fabric Decor Style</th>
+                    <td><%- response.fabric_style%></td>
+                </tr>
+                <% } %>
+                <% if(response.fabric_color !==null) { %>
+                <tr>
+                    <th>Fabric Color</th>
+                    <td><%- response.fabric_color%></td>
+                </tr>
+                <% } %>
+                <% if(response.price !==null) { %>
+                <tr>
+                    <th>Fabric Price</th>
+                    <td><%- response.price%></td>
+                </tr>
+                <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

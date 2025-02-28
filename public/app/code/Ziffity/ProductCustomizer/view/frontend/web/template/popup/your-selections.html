@@ -1,0 +1,31 @@
+<div class="table-wrapper table-selected">
+    <table class="table">
+        <% if(response) { %>
+        <tbody>
+        <div class="slidein-content">
+        <% _.each(response, function(res, key) { %>
+        <tr>
+                <% if(_.isArray(res)) { %>
+               <th><%- _.unescape(key) %></th>
+                <td>
+                    <% _.each(res, function(val) { %>
+                       <div>
+                            <span><%- _.unescape(val.label) %></span>:
+                            <span><%- _.unescape(val.value) %></span>
+                       </div>
+                        <br>
+                    <% }); %>
+                </td>
+                <% } else { %>
+               <th><%- res.label %></th>
+                <td><%- _.unescape(res.value) %></td>
+                <% }; %>
+            </tr>
+            <% }); %>
+        </div>
+        </tbody>
+        <% } else { %>
+        <span>Your selections will be updated when you move to next tab</span>
+        <% }%>
+    </table>
+</div>

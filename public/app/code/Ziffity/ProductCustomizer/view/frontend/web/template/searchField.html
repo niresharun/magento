@@ -1,0 +1,24 @@
+<div class="search-bar">
+<input type="search"
+       data-bind="
+                i18n: placeholder,
+                attr: {
+                    id: 'frame_search',
+                    placeholder: $t(placeholder),
+                    'aria-label': $t(placeholder),
+                    value:''
+                },
+                disable: searchFocused,
+                textInput: searchQuery,
+                keyboard: {
+                    13: $parent.filterUtils.applySearch.bind($data, false)
+                }">
+<button class="option-search" type="submit" data-bind="click:$parent.filterUtils.applySearch.bind($data, false)">
+    <i class="dficon-search"></i>
+</button>
+    <button class="option-clear" type="submit" data-bind="visible:searchValue, click:clearSearch">
+        <i class="dficon-x"></i>
+    </button>
+</div>
+<button type="button" data-bind="attr:{title:'Filter',value:'Filter'},click:filterButton"  class="action primary btn-sm">
+    <i class="dficon-filter"></i>&nbsp;&nbsp;Filter</button>

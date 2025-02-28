@@ -1,0 +1,24 @@
+
+<?php $inquireId = $this->getData('inquireId');
+$helper = $this->helper(\Ziffity\ContactUs\Helper\Data::class);
+?>
+<?php if (isset($inquireId)) : ?>
+    <?php $inquireOptions = $block->getInquireListOptions($inquireId); ?>
+    <?php foreach ($inquireOptions as $key => $value) : ?>
+        <li class="form-list-fields">
+            <div class="form-field form-input-field">
+                <label class="form-field-label" for="<?php echo $helper->getNameFromTitle($value[$inquireId]['value']) ?>">
+                    <?php echo __($value[$inquireId]['value']); ?></label>
+                <div class="form-input-box">
+                    <input type="text" id="<?php echo $helper->getNameFromTitle($value[$inquireId]['value']) ?>"
+                           name="inquire_options[<?php echo $inquireId; ?>][<?php echo $helper->getNameFromTitle($value[$inquireId]['value']) ?>][value]"
+                           class="input-text"/>
+                    <input type="hidden"
+                           name="inquire_options[<?php echo $inquireId; ?>][<?php echo $helper->getNameFromTitle($value[$inquireId]['value'])?>][label]"
+                           value="<?php echo $value[$inquireId]['value'] ?>"/>
+                </div>
+            </div>
+        </li>
+    <?php endforeach; ?>
+<?php endif; ?>
+

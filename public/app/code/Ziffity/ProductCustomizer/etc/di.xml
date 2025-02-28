@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Ziffity\ProductCustomizer\Model\CompositeConfigProvider">
+        <arguments>
+            <argument name="configProviders" xsi:type="array">
+                <item name="ProductCustomizer_image_config_provider" xsi:type="object">Ziffity\ProductCustomizer\Model\ImageConfigProvider</item>
+                <item name="ProductCustomizer_header_label_config_provider" xsi:type="object">Ziffity\ProductCustomizer\Model\ProviderHeaderLabel</item>
+                <item name="ProductCustomizer_default_config_provider" xsi:type="object">Ziffity\ProductCustomizer\Model\DefaultConfigProvider</item>
+                <item name="ProductCustomizer_size_option_config_provider" xsi:type="object">Ziffity\ProductCustomizer\Model\SizeOptionConfigProvider</item>
+                <item name="ProductCustomizer_frame_option_config_provider" xsi:type="object">Ziffity\ProductCustomizer\Model\FrameOptionConfigProvider</item>
+                <item name="ProductCustomizer_mat_option_config_provider" xsi:type="object">Ziffity\ProductCustomizer\Model\MatOptionConfigProvider</item>
+                <item name="ProductCustomizer_laminate_option_config_provider" xsi:type="object">Ziffity\ProductCustomizer\Model\LaminateOptionConfigProvider</item>
+                <item name="ProductCustomizer_accessories_option_config_provider" xsi:type="object">Ziffity\ProductCustomizer\Model\AccessoriesConfigProvider</item>
+                <item name="ProductCustomizer_letterboard_option_config_provider" xsi:type="object">Ziffity\ProductCustomizer\Model\LetterBoardConfigProvider</item>
+                <item name="ProductCustomizer_dryeraseboard_option_config_provider" xsi:type="object">Ziffity\ProductCustomizer\Model\DryeraseBoardConfigProvider</item>
+                <item name="ProductCustomizer_chalkboard_option_config_provider" xsi:type="object">Ziffity\ProductCustomizer\Model\ChalkBoardConfigProvider</item>
+                <item name="ProductCustomizer_corkboard_option_config_provider" xsi:type="object">Ziffity\ProductCustomizer\Model\CorkBoardConfigProvider</item>
+                <item name="ProductCustomizer_backingboard_option_config_provider" xsi:type="object">Ziffity\ProductCustomizer\Model\BackingBoardConfigProvider</item>
+                <item name="ProductCustomizer_fabric_option_config_provider" xsi:type="object">Ziffity\ProductCustomizer\Model\FabricOptionConfigProvider</item>
+                <item name="ProductCustomizer_glass_option_config_provider" xsi:type="object">Ziffity\ProductCustomizer\Model\GlassOptionConfigProvider</item>
+                <item name="ProductCustomizer_post_finish_option_config_provider" xsi:type="object">Ziffity\ProductCustomizer\Model\PostFinishOptionConfigProvider</item>
+                <item name="ProductCustomizer_shelves_option_config_provider" xsi:type="object">Ziffity\ProductCustomizer\Model\ShelvesConfigProvider</item>
+                <item name="ProductCustomizer_addons_config_provider" xsi:type="object">Ziffity\ProductCustomizer\Model\AddonsConfigProvider</item>
+                <item name="ProductCustomizer_lighting_config_provider" xsi:type="object">Ziffity\ProductCustomizer\Model\LightingConfigProvider</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Ziffity\ProductCustomizer\Block\Product\View">
+        <arguments>
+            <argument name="layoutProcessors" xsi:type="array">
+                <item name="addressFormAttributes" xsi:type="object">Ziffity\ProductCustomizer\Block\Product\LayoutProcessor\ProductCustomizer</item>
+            </argument>
+            <argument name="serializer" xsi:type="object">Magento\Framework\Serialize\Serializer\JsonHexTag</argument>
+        </arguments>
+    </type>
+    <type name="Ziffity\ProductCustomizer\Controller\Option\GetValues">
+        <arguments>
+            <argument name="configProvider" xsi:type="array">
+                <item name="frame" xsi:type="object">Ziffity\ProductCustomizer\Model\FrameOptionConfigProvider</item>
+                <item name="mat" xsi:type="object">Ziffity\ProductCustomizer\Model\MatOptionConfigProvider</item>
+                <item name="accessories" xsi:type="object">Ziffity\ProductCustomizer\Model\AccessoriesConfigProvider</item>
+                <item name="letterboard" xsi:type="object">Ziffity\ProductCustomizer\Model\LetterBoardConfigProvider</item>
+                <item name="dryeraseboard" xsi:type="object">Ziffity\ProductCustomizer\Model\DryeraseBoardConfigProvider</item>
+                <item name="chalkboards" xsi:type="object">Ziffity\ProductCustomizer\Model\ChalkBoardConfigProvider</item>
+                <item name="corkboards" xsi:type="object">Ziffity\ProductCustomizer\Model\CorkBoardConfigProvider</item>
+                <item name="backingboard" xsi:type="object">Ziffity\ProductCustomizer\Model\BackingBoardConfigProvider</item>
+                <item name="fabric" xsi:type="object">Ziffity\ProductCustomizer\Model\FabricOptionConfigProvider</item>
+                <item name="glass" xsi:type="object">Ziffity\ProductCustomizer\Model\GlassOptionConfigProvider</item>
+                <item name="laminate" xsi:type="object">Ziffity\ProductCustomizer\Model\LaminateOptionConfigProvider</item>
+                <item name="post-finish" xsi:type="object">Ziffity\ProductCustomizer\Model\PostFinishOptionConfigProvider</item>
+                <item name="shelves" xsi:type="object">Ziffity\ProductCustomizer\Model\ShelvesConfigProvider</item>
+                <item name="lighting" xsi:type="object">Ziffity\ProductCustomizer\Model\LightingConfigProvider</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Quote\Model\Quote\Item">
+        <plugin name="seperateLineItemPlugin" type="Ziffity\ProductCustomizer\Plugin\AddItemPlugin"/>
+    </type>
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="productVideosToGallery" xsi:type="object">Ziffity\ProductCustomizer\Console\ProductVideosToGallery</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Quote\Model\Quote\Item\ToOrderItem">
+        <plugin name="customizer_details_covert_to_order" type="Ziffity\ProductCustomizer\Plugin\Quote\CustomizerDetailsToOrderItem"/>
+    </type>
+</config>

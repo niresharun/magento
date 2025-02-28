@@ -1,0 +1,89 @@
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common =true) {
+    a.action.action-secondary {
+        display: inline-block;
+        border: 1px solid #d2d2d7;
+
+        border-radius: 5px;
+    }
+
+
+    .title-action button {
+        width: 32px;
+        height: 28px;
+    }
+
+
+    .sproducts-grid.saveddesign {
+        .product-item {
+            border: 1px solid #d2d2d7;
+            padding: 20px;
+
+        }
+
+        .product-image-wrapper {
+            padding-bottom: 94%;
+        }
+
+        .product-items {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 15px;
+
+            @media(min-width: 1220px) {
+                gap: 30px;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+
+            @media(max-width: 480px) {
+                grid-template-columns: repeat(1, minmax(0, 1fr));
+            }
+        }
+
+        .primary-action {
+
+
+            .action {
+                height: 50px;
+                width: 100%;
+                line-height: 1;
+                text-align: center;
+                padding: 17px 8px;
+
+                &.primary {
+                    margin-top: 10px;
+                }
+
+                &:hover {
+                    background: #144469;
+                    border: 1px solid #144469;
+                }
+            }
+
+            >div {
+                @media(min-width: 992px) {
+                    width: 48%;
+
+                    .action.primary {
+                        margin-top: 0;
+                    }
+                }
+            }
+
+        }
+
+
+
+
+        .ico-circ {
+            margin: 0;
+            right: 0;
+            left: auto;
+            top: 0;
+        }
+    }
+
+}

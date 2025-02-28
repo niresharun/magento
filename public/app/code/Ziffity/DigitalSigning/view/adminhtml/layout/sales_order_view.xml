@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="order_additional_info">
+            <block class="Ziffity\DigitalSigning\Block\Adminhtml\DigitalSign" name="custom_info" template="Ziffity_DigitalSigning::order/view/custom.phtml"></block>
+            <block class="Ziffity\DigitalSigning\Block\Adminhtml\AdditionalInfo" name="custom_purchase_order" template="Ziffity_DigitalSigning::order/view/additionalInformtion.phtml"></block>
+        </referenceBlock>
+    </body>
+</page>

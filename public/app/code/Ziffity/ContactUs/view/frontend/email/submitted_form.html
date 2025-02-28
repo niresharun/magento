@@ -1,0 +1,22 @@
+<!--@subject Contact Form@-->
+<!--@vars
+{"var data.name":"Sender Name",
+"var data.email":"Sender Email",
+"var data.telephone":"Sender Telephone",
+"var data.comment":"Comment"}
+@-->
+{{if data.firstname}}<strong>Name: </strong> {{var data.firstname}} {{var data.lastname }}<br>{{/if}}
+<strong>E-mail: </strong> {{var data.email}}<br>
+<strong>Telephone: </strong>{{var data.telephone}}<br>
+{{if data.comment}}<strong>Comments: </strong> {{var data.comment}}<br>{{/if}}
+{{if data.inquiry}}<strong>Inquire: </strong> {{var data.inquiry}}<br>{{/if}}
+{{if data.inquire_options}}<strong>Inquire Options:</strong>{{foreach data.inquire_options in inquiries}}
+        <li>{{ var 1}}</li>
+        <ul>
+            <!-- Inner loop for items in each category -->
+<!--            {{foreach item in inquries.value}}-->
+<!--            <li>{{var item.label}}</li>-->
+<!--            {{/foreach}}-->
+        </ul>
+    {{/foreach}}
+{{/if}}

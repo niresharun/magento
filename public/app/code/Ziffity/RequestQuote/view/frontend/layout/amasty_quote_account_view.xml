@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="page.main.title">
+            <referenceBlock name="quote.order.info.buttons" template="Ziffity_RequestQuote::account/quote/buttons.phtml">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Ziffity\RequestQuote\ViewModel\Archive</argument>
+                </arguments>
+            </referenceBlock>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Ziffity\RequestQuote\Block\UserComments" name="quote.comments.reused" template="Ziffity_RequestQuote::account/quote/user-comments.phtml">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Ziffity\RequestQuote\ViewModel\StatusLabel</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

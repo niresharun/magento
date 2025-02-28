@@ -1,0 +1,9 @@
+<?php 
+$data = $block->getOrder();
+?>
+<?php 
+if($data->getData('digital_signature')):
+?>
+<h3>Digital Sign</h3><hr>
+<img src="<?= $data->getData('digital_signature')?>" alt="image">
+<?php endif; ?>

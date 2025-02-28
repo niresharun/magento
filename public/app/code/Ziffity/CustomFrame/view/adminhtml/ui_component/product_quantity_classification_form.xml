@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">product_quantity_classification_form.product_quantity_classification_form_data_source</item>
+            <item name="deps" xsi:type="string">product_quantity_classification_form.product_quantity_classification_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Backend List</item>
+        <item name="layout" xsi:type="array">
+            <item name="type" xsi:type="string">tabs</item>
+        </item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="string">Ziffity\CustomFrame\Block\Adminhtml\QuantityClassification\Edit\BackButton</item>
+            <item name="delete" xsi:type="string">Ziffity\CustomFrame\Block\Adminhtml\QuantityClassification\Edit\DeleteButton</item>
+            <item name="save" xsi:type="string">Ziffity\CustomFrame\Block\Adminhtml\QuantityClassification\Edit\SaveButton</item>
+        </item>
+    </argument>
+    <dataSource name="product_quantity_classification_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+                <item name="submit_url" xsi:type="url" path="*/*/save"/>
+            </item>
+        </argument>
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Ziffity\CustomFrame\Model\QuantityClassification\DataProvider</argument>
+            <argument name="name" xsi:type="string">product_quantity_classification_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+        </argument>
+    </dataSource>
+    <fieldset name="quantity_classification">
+        <settings>
+            <label>Product Quantity Classification</label>
+        </settings>
+        <field name="list_name">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="label" xsi:type="string" translate="true">List Name</item>
+                        <item name="formElement" xsi:type="string">input</item>
+                        <item name="source" xsi:type="string">list_name</item>
+                        <item name="dataScope" xsi:type="string">list_name</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                </argument>
+        </field>
+        <field name="identifier">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Identifier</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">identifier</item>
+                    <item name="dataScope" xsi:type="string">identifier</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <dynamicRows name="dynamic_rows">
+            <settings>
+                <addButtonLabel translate="true">Add Record</addButtonLabel>
+                <defaultRecord>true</defaultRecord>
+                <additionalClasses>
+                    <class name="admin__field-wide">true</class>
+                </additionalClasses>
+                <componentType>dynamicRows</componentType>
+            </settings>
+            <container name="record" component="Magento_Ui/js/dynamic-rows/record">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="isTemplate" xsi:type="boolean">true</item>
+                        <item name="is_collection" xsi:type="boolean">true</item>
+                        <item name="componentType" xsi:type="string">container</item>
+                    </item>
+                </argument>
+                <field name="size_from" formElement="input">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="fit" xsi:type="boolean">false</item>
+                        </item>
+                    </argument>
+                    <settings>
+                        <validation>
+                            <rule name="required-entry" xsi:type="boolean">true</rule>
+                        </validation>
+                        <dataType>text</dataType>
+                        <label>Size From</label>
+                    </settings>
+                </field>
+                <field name="size_to" formElement="input">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="fit" xsi:type="boolean">false</item>
+                        </item>
+                    </argument>
+                    <settings>
+                        <validation>
+                            <rule name="required-entry" xsi:type="boolean">true</rule>
+                        </validation>
+                        <dataType>text</dataType>
+                        <label>Size To</label>
+                    </settings>
+                </field>
+                <field name="qty" formElement="input">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="fit" xsi:type="boolean">false</item>
+                        </item>
+                    </argument>
+                    <settings>
+                        <validation>
+                            <rule name="required-entry" xsi:type="boolean">true</rule>
+                        </validation>
+                        <dataType>text</dataType>
+                        <label>Quantity</label>
+                    </settings>
+                </field>
+                <actionDelete template="Magento_Backend/dynamic-rows/cells/action-delete">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="fit" xsi:type="boolean">true</item>
+                        </item>
+                    </argument>
+                    <settings>
+                        <componentType>actionDelete</componentType>
+                        <dataType>text</dataType>
+                        <label>Actions</label>
+                        <additionalClasses>
+                            <class name="data-grid-actions-cell">true</class>
+                        </additionalClasses>
+                    </settings>
+                </actionDelete>
+            </container>
+        </dynamicRows>
+   </fieldset>
+</form>

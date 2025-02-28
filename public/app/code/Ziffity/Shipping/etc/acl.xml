@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Sales::sales">
+                        <resource id="Ziffity_Shipping::shipping_configuration" title="Shipping Configuration"
+                              translate="Shipping Configuration" sortOrder="10">
+                                <resource id="Ziffity_Shipping::shipping_profiles"
+                                      title="Shipping Profiles"
+                                      translate="Shipping Profiles"
+                                      sortOrder="10"/>
+                                <resource id="Ziffity_Shipping::oversize_profile"
+                                      title="Oversize Profiles"
+                                      translate="Oversize Profiles"
+                                      sortOrder="10"/>
+                        </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="checkout_submit_all_after">
+        <observer name="b2c_netterms_customer_update_credit" instance="Ziffity\Netterms\Observer\UpdateNettermsCredit" />
+        <observer name="b2c_netterms_unapproved_customer_notify" instance="Ziffity\Netterms\Observer\NotifyNettermsUnapproved" />
+    </event>
+</config>

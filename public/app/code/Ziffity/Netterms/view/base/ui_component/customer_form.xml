@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="customer">
+        <field name="po_limit" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">customer</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="validate-zero-or-greater" xsi:type="boolean">true</rule>
+                    <rule name="validate-number" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+            </settings>
+        </field>
+        <field name="po_credit" formElement="input">
+            <settings>
+                <visible>false</visible>
+            </settings>
+        </field>
+        <htmlContent name="customer_content">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="additionalClasses" xsi:type="string" translate="true">admin__field netterms-credit-balance</item>
+                </item>
+            </argument>
+            <block class="Ziffity\Netterms\Block\Adminhtml\Customer\Edit\NettermsCreditBalance" name="customer_netterms_credit_balance" template="Ziffity_Netterms::customer/edit/netterms_credit_balance.phtml" />
+        </htmlContent>
+        <modal name="netterms_reimburse_modal" component="Ziffity_Netterms/js/reimburse-form-modal">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="reimburseNetterms" xsi:type="string">${ $.parentName}.netterms_reimburse_modal.reimburse_netterms</item>
+                    <item name="url" xsi:type="url" path="customer/netterms/reimburse"/>
+                </item>
+            </argument>
+            <settings>
+                <options>
+                    <option name="buttons" xsi:type="array">
+                        <item name="0" xsi:type="array">
+                            <item name="text" xsi:type="string">Cancel</item>
+                            <item name="class" xsi:type="string">action-secondary</item>
+                            <item name="actions" xsi:type="array">
+                                <item name="0" xsi:type="string">actionCancel</item>
+                            </item>
+                        </item>
+                        <item name="1" xsi:type="array">
+                            <item name="text" xsi:type="string">Save</item>
+                            <item name="class" xsi:type="string">action-primary reimburse-button</item>
+                            <item name="actions" xsi:type="array">
+                                <item name="0" xsi:type="string">sendAjax</item>
+                            </item>
+                        </item>
+                    </option>
+                    <option name="modalClass" xsi:type="string">netterms-reimburse-modal</option>
+                    <option name="title" xsi:type="string">Reimburse Netterms</option>
+                    <option name="type" xsi:type="string">popup</option>
+                </options>
+            </settings>
+            <fieldset name="reimburse_netterms">
+                <settings>
+                    <label/>
+                    <dataScope>reimburse_netterms</dataScope>
+                </settings>
+                <field name="amount" formElement="input">
+                    <settings>
+                        <dataType>text</dataType>
+                        <label translate="true">Amount</label>
+                        <notice translate="true">Amount settled by the customer (e.g. 2000)</notice>
+                        <validation>
+                            <rule name="required-entry" xsi:type="boolean">true</rule>
+                            <rule name="validate-number" xsi:type="boolean">true</rule>
+                            <rule name="validate-greater-than-zero" xsi:type="boolean">true</rule>
+                        </validation>
+                        <visible>true</visible>
+                        <disabled>true</disabled>
+                    </settings>
+                </field>
+            </fieldset>
+        </modal>
+
+        <button name="netterms_reimburse_modal_button"  component="Ziffity_Netterms/js/reimburse-button">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="buttonClasses" xsi:type="string">reimburse-netterms-button</item>
+                    <item name="title" xsi:type="string" translate="true">Reimburse Netterms</item>
+                    <item name="actions" xsi:type="array">
+                        <item name="0" xsi:type="array">
+                            <item name="targetName" xsi:type="string">${ $.parentName}.netterms_reimburse_modal</item>
+                            <item name="actionName" xsi:type="string">openModal</item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <imports>
+                    <link name="customerId">${ $.provider }:data.customer_id</link>
+                </imports>
+            </settings>
+        </button>
+    </fieldset>
+</form>
